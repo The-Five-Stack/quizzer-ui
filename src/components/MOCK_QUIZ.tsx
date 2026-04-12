@@ -3,7 +3,7 @@ import type { Quiz } from '../types/quiz';
 export const MOCK_QUIZ: Quiz = {
   id: 1,
   name: "The Scrum Framework (Mock Data)",
-  description: "Dữ liệu mẫu để làm UI",
+  description: "Mock data for UI display",
   courseCode: "SOF005AS3AE",
   published: true,
   questions: [
