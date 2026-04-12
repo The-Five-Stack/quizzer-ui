@@ -3,8 +3,9 @@ import { Box, Button, Chip, Container, Divider, Stack, Typography } from '@mui/m
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import type { Quiz } from '../types/quiz';
-import { MOCK_QUIZ } from '../components/MOCK_QUIZ';
+import { MOCK_QUIZ } from '../mocks/MOCK_QUIZ';
 import QuestionCard from '../components/QuestionCard';
+import { useNavigate } from "react-router";
 
 function QuizDetailPage() {
     const [quiz, setQuiz] = useState<Quiz>(MOCK_QUIZ);
@@ -19,10 +20,15 @@ function QuizDetailPage() {
             questions: quiz.questions.filter((question) => question.id !== questionId),
         });
     };
+  const navigate = useNavigate();
 
     return (
         <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
-            <Button startIcon={<ArrowBackIcon />} sx={{ mb: 2 }}>
+            <Button 
+            startIcon={<ArrowBackIcon />} 
+            sx={{ mb: 2 }}
+            onClick={() => navigate("/")}
+            >
                 Back to Quizzes
             </Button>
 
