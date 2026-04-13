@@ -1,15 +1,21 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import './App.css';
-import QuizDetailPage from './pages/QuizDetailPage';
+import "./App.css";
+import QuizDetailPage from "./pages/QuizDetailPage";
+import Container from "@mui/material/Container";
+import { BrowserRouter, Routes, Route } from "react-router";
+import QuizList from "./pages/QuizList";
+import CssBaseline from "@mui/material/CssBaseline";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/quizzes/:id" element={<QuizDetailPage />} />
-        <Route path="/" element={<Navigate to="/quizzes/1" replace />} />
-      </Routes>
-    </BrowserRouter>
+    <Container>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<QuizList />} />
+          <Route path="/quizzes/:id" element={<QuizDetailPage />} />
+        </Routes>
+      </BrowserRouter>
+      <CssBaseline />
+    </Container>
   );
 }
 
