@@ -26,7 +26,7 @@ export default function QuizCard(props: QuizCardProps) {
               props.published === true ? "qc-badge pub" : "qc-badge draft"
             }
           >
-            {props.published}
+            {props.published === true ? "Published" : "Draft"}
           </span>
         </div>
 
