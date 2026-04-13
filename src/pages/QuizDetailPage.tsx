@@ -3,7 +3,7 @@ import { Box, Button, Chip, Container, Divider, Stack, Typography } from '@mui/m
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import type { Quiz } from '../types/quiz';
-import { MOCK_QUIZ } from '../components/MOCK_QUIZ';
+import { MOCK_QUIZ } from '../mocks/MOCK_QUIZ';
 import QuestionCard from '../components/QuestionCard';
 
 function QuizDetailPage() {
