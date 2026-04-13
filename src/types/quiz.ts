@@ -32,7 +32,7 @@ export interface QuizInfo {
   id: number;
   name: string;
   description: string;
-  code: string;
-  category: string;
+  courseCode: string;
+  // category: string;
   published: boolean;
 }

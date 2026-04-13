@@ -3,8 +3,8 @@ import "./QuizCard.css";
 interface QuizCardProps {
   name: string;
   description: string;
-  code: string;
-  category: string;
+  courseCode: string;
+  //category: string;
   published: boolean ;
   onManage: () => void;
   onToggleStatus: () => void;
@@ -32,11 +32,11 @@ export default function QuizCard(props: QuizCardProps) {
 
 
         <p>
-          <b>Code:</b> {props.code}
+          <b>Code:</b> {props.courseCode}
         </p>
-        <p>
+        {/* <p>
           <b>Category:</b> {props.category}
-        </p>
+        </p> */}
 
         <div className="qc-foot">
           <button className="qc-btn" onClick={props.onManage}>
