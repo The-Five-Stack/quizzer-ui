@@ -3,7 +3,7 @@ import "./QuizList.css";
 import "../components/QuizCard.css";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import AddIcon from "@mui/icons-material/Add";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import QuizCard from "../components/QuizCard";
 import type { QuizInfo } from "../types/quiz";
 // import { useEffect, useState } from "react";
