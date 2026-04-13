@@ -28,6 +28,7 @@ interface QuestionCardProps {
 }
 
 const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
+    const answers = question.answers || [];
     const [selectedAnswerId, setSelectedAnswerId] = React.useState<number | null>(null);
 
     // color for Difficulty Badge
@@ -75,11 +76,11 @@ const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
             {/* Answer Options Section */}
             <Box>
                 <Typography variant="subtitle2" color="text.secondary" gutterBottom sx={{ fontWeight: 'bold' }}>
-                    Answer Options ({question.answers.length})
+                    Answer Options ({question.answers?.length || 0})
                 </Typography>
 
                 <List>
-                    {question.answers.map((answer) => {
+                    {answers.map((answer) => {
                         // Kiểm tra xem đáp án này có đang được chọn không
                         const isSelected = selectedAnswerId === answer.id;
 

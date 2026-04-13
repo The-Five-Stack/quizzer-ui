@@ -1,13 +1,21 @@
-import { useState } from 'react';
-import { Box, Button, Chip, Container, Divider, Stack, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Alert, Box, Button, Chip, Container, Divider, Stack, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import type { Quiz } from '../types/quiz';
-import { MOCK_QUIZ } from '../mocks/MOCK_QUIZ';
+/* import { MOCK_QUIZ } from '../mocks/MOCK_QUIZ'; */
 import QuestionCard from '../components/QuestionCard';
+import { fetchWithAuth } from '../api';
+import { useParams } from "react-router-dom";
+import { normalizeQuiz } from '../mappers/quizNormalizer';
+
 
 function QuizDetailPage() {
-    const [quiz, setQuiz] = useState<Quiz>(MOCK_QUIZ);
+    // replace mock quiz to null so i can try to fetch
+    const [quiz, setQuiz] = useState<Quiz | null>(null);
+    const [error, setError] = useState(false);
+
+    const { id } = useParams();
 
     const handleDeleteQuestion = (questionId: number) => {
         if (!quiz) {
@@ -20,6 +28,23 @@ function QuizDetailPage() {
         });
     };
 
+    useEffect(() => {
+        fetchWithAuth(`/api/quizzes/${id}`)
+            .then(data => {
+                setQuiz(normalizeQuiz(data));
+                setError(false);
+            })
+            .catch(() => setError(true));
+    }, [id]);
+
+    if (error) {
+        return (
+            <Container maxWidth="sm" sx={{ mt: 6 }}>
+                <Alert severity="error">Cannot load quiz details.</Alert>
+            </Container>
+        );
+    }
+
     return (
         <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
             <Button startIcon={<ArrowBackIcon />} sx={{ mb: 2 }}>
@@ -29,17 +54,17 @@ function QuizDetailPage() {
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
                 <Box>
                     <Typography variant="h3" gutterBottom sx={{ fontWeight: 700 }}>
-                        {quiz.name}
+                        {quiz?.name}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary">
-                        {quiz.description}
+                        {quiz?.description}
                     </Typography>
 
                     <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
-                        <Chip label={quiz.courseCode} variant="outlined" />
+                        <Chip label={quiz?.courseCode} variant="outlined" />
                         <Chip
-                            label={quiz.published ? 'Published' : 'Draft'}
-                            color={quiz.published ? 'success' : 'default'}
+                            label={quiz?.published ? 'Published' : 'Draft'}
+                            color={quiz?.published ? 'success' : 'default'}
                         />
                     </Stack>
                 </Box>
@@ -60,12 +85,12 @@ function QuizDetailPage() {
                 </Button>
             </Box>
 
-            {quiz.questions.length === 0 ? (
+            {quiz?.questions.length === 0 ? (
                 <Typography variant="body1" color="text.secondary" sx={{ fontStyle: 'italic' }}>
                     No questions found. Please add some.
                 </Typography>
             ) : (
-                quiz.questions.map((question, index) => (
+                quiz?.questions.map((question, index) => (
                     <QuestionCard
                         key={question.id}
                         question={question}
