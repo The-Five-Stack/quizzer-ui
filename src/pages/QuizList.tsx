@@ -50,7 +50,7 @@ export default function QuizList() {
           <QuizCard
             key={i}
             {...q}
-            onManage={() => console.log("manage")}
+            onManage={() => window.location.assign('/quizzes/1')}
             onToggleStatus={() => console.log("toggle")}
             onDelete={() => console.log("delete")}
           />

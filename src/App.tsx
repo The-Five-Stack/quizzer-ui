@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<QuizList />} />
-          <Route path="/quiz-details" element={<QuizDetailPage />} />
+          <Route path="/quizzes/:id" element={<QuizDetailPage />} />
         </Routes>
       </BrowserRouter>
       <CssBaseline />
