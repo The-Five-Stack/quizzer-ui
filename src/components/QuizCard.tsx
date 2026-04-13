@@ -1,7 +1,7 @@
 import "./QuizCard.css";
 
 interface QuizCardProps {
-  title: string;
+  name: string;
   description: string;
   code: string;
   category: string;
@@ -17,7 +17,7 @@ export default function QuizCard(props: QuizCardProps) {
       <div className="qc-body">
         <div className="qc-head">
           <div className="qc-quiz">
-            <div className="qc-title">{props.title}</div>
+            <div className="qc-title">{props.name}</div>
         <p className="qc-desc">{props.description}</p>
 
           </div>
