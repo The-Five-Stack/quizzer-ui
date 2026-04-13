@@ -6,22 +6,22 @@ import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router";
 import QuizCard from "../components/QuizCard";
 import type { QuizInfo } from "../types/quiz";
-// import { useEffect, useState } from "react";
-// import { fetchQuiz } from "../api";
+import { useEffect, useState } from "react";
+import { fetchQuizzesWithAuth } from "../api";
 
 export default function QuizList() {
   const navigate = useNavigate();
-  // const [quizzes, setQuizzes] = useState<QuizInfo[]>([]);
+  const [quizzes, setQuizzes] = useState<QuizInfo[]>([]);
 
-  // useEffect(() => {
-  //   fetchQuiz()
-  //     .then((data) => {
-  //       setQuizzes(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Failed to fetch quizzes:", error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    fetchQuizzesWithAuth()
+      .then((data) => {
+        setQuizzes(data);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch quizzes:", error);
+      });
+  }, []);
 
   return (
     <>
@@ -60,53 +60,53 @@ export default function QuizList() {
   );
 }
 
-const quizzes: QuizInfo[] = [
-  {
-    id: 1,
-    title: "The Scrum Framework",
-    description: "Learn Scrum basics",
-    code: "SOF005",
-    category: "Agile",
-    published: true,
-  },
-  {
-    id: 2,
-    title: "React Basics",
-    description: "Intro to React",
-    code: "SOF010",
-    category: "Web",
-    published: false,
-  },
-  {
-    id: 3,
-    title: "Programming 1",
-    description: "Intro to Java",
-    code: "SOF019",
-    category: "Programming",
-    published: false,
-  },
-  {
-    id: 4,
-    title: "Programming 2",
-    description: "High level of Java",
-    code: "SOF020",
-    category: "Programming",
-    published: true,
-  },
-  {
-    id: 5,
-    title: "Professional Communication ",
-    description: "Communicates responsibly orally and in writing",
-    code: "COM001",
-    category: "Skill",
-    published: true,
-  },
-  {
-    id: 6,
-    title: "ICT Competencies",
-    description: "Powerpoint, Word, Excel",
-    code: "ICB001",
-    category: "ICT",
-    published: false,
-  },
-];
+// const quizzes: QuizInfo[] = [
+//   {
+//     id: 1,
+//     title: "The Scrum Framework",
+//     description: "Learn Scrum basics",
+//     code: "SOF005",
+//     category: "Agile",
+//     published: true,
+//   },
+//   {
+//     id: 2,
+//     title: "React Basics",
+//     description: "Intro to React",
+//     code: "SOF010",
+//     category: "Web",
+//     published: false,
+//   },
+//   {
+//     id: 3,
+//     title: "Programming 1",
+//     description: "Intro to Java",
+//     code: "SOF019",
+//     category: "Programming",
+//     published: false,
+//   },
+//   {
+//     id: 4,
+//     title: "Programming 2",
+//     description: "High level of Java",
+//     code: "SOF020",
+//     category: "Programming",
+//     published: true,
+//   },
+//   {
+//     id: 5,
+//     title: "Professional Communication ",
+//     description: "Communicates responsibly orally and in writing",
+//     code: "COM001",
+//     category: "Skill",
+//     published: true,
+//   },
+//   {
+//     id: 6,
+//     title: "ICT Competencies",
+//     description: "Powerpoint, Word, Excel",
+//     code: "ICB001",
+//     category: "ICT",
+//     published: false,
+//   },
+// ];

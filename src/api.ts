@@ -28,7 +28,7 @@
 
 
 
-export const fetchQuizzWithAuth = async (options: RequestInit = {}) => {
+export const fetchQuizzesWithAuth = async (options: RequestInit = {}) => {
   const defaultHeaders = {
     'Authorization': 'Basic dGVhY2hlcjp0ZWFjaGVyMTIz', // Tài khoản: teacher / Mật khẩu: teacher123
     'Content-Type': 'application/json',
