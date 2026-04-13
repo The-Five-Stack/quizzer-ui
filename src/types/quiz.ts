@@ -27,3 +27,12 @@ export interface Quiz {
   published: boolean;
   questions: Question[];
 }
+
+export interface QuizInfo {
+  id: number;
+  title: string;
+  description: string;
+  code: string;
+  category: string;
+  published: boolean;
+}
