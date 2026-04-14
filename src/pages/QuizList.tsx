@@ -17,7 +17,6 @@ export default function QuizList() {
     fetchQuizzesWithAuth()
       .then((data) => {
         setQuizzes(data);
-        console.log("quizzes", data)
       })
       .catch((error) => {
         console.error("Failed to fetch quizzes:", error);
@@ -51,7 +50,7 @@ export default function QuizList() {
           <QuizCard
             key={i}
             {...q}
-            onManage={() => window.location.assign(`/quizzes/${q.id}`)}
+            onManage={() => navigate(`/quizzes/${q.id}`)}
             onToggleStatus={() => console.log("toggle")}
             onDelete={() => console.log("delete")}
           />
