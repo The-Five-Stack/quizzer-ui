@@ -2,8 +2,8 @@ export type Difficulty = 'EASY' | 'NORMAL' | 'HARD';
 
 export interface Answer {
   id: number;
-  answerContent: string;
-  isCorrect: boolean;
+  content: string;
+  correct: boolean;
 }
 
 export interface Question {

@@ -40,8 +40,8 @@ export function normalizeQuiz(payload: unknown): Quiz {
           answers: Array.isArray(question.answers)
             ? question.answers.map((answer) => ({
                 id: answer.id,
-                answerContent: answer.content,
-                isCorrect: answer.correct,
+                content: answer.content,
+                correct: answer.correct,
               }))
             : [],
         }))
