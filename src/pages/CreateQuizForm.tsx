@@ -6,9 +6,9 @@ import './CreateQuizForm.css';
 
 /**
  * Regex pattern for course code validation.
- * Expected format: SOF001AS1AE (3 uppercase letters, 3 digits, 2 uppercase letters, 1 digit, 2 uppercase letters)
+ * Expected format: SOF001 (3 uppercase letters, 3 digits)
  */
-const COURSE_CODE_PATTERN = /^[A-Z]{3}\d{3}[A-Z]{2}\d[A-Z]{2}$/;
+const COURSE_CODE_PATTERN = /^[A-Z]{3}\d{3}$/;
 
 /**
  * CreateQuizForm component for creating new quizzes.
@@ -40,7 +40,7 @@ function CreateQuizForm() {
 
         // Validate course code format
         if (!COURSE_CODE_PATTERN.test(normalizedCourseCode)) {
-            setErrorMessage('Course code must follow format like SOF001AS1AE');
+            setErrorMessage('Course code must follow format like SOF001');
             return;
         }
 
