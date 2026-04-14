@@ -1,4 +1,5 @@
 import type { Quiz } from '../types/quiz';
+import type { Difficulty } from '../types/quiz';
 
 type RawAnswer = {
   id: number;
@@ -9,7 +10,7 @@ type RawAnswer = {
 type RawQuestion = {
   id: number;
   questionContent: string;
-  difficulty: 'NORMAL' | 'EASY' | 'HARD';
+  difficulty: Difficulty;
   answers: RawAnswer[] | null;
 };
 
