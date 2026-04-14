@@ -68,7 +68,7 @@ function CreateQuizForm() {
                 Back to Dashboard
             </Button>
 
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h5" className="create-quiz-title">
                 Create Quiz
             </Typography>
 
@@ -80,6 +80,7 @@ function CreateQuizForm() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
+                    fullWidth
                 />
 
                 <TextField
@@ -88,6 +89,7 @@ function CreateQuizForm() {
                     onChange={(e) => setDescription(e.target.value)}
                     multiline
                     rows={3}
+                    fullWidth
                 />
 
                 <TextField
@@ -95,6 +97,7 @@ function CreateQuizForm() {
                     value={courseCode}
                     onChange={(e) => setCourseCode(e.target.value)}
                     required
+                    fullWidth
                 />
 
                 <FormControlLabel
@@ -107,7 +110,7 @@ function CreateQuizForm() {
                     label="Published"
                 />
 
-                <Button variant="contained" onClick={handleSubmit}>
+                <Button variant="contained" onClick={handleSubmit} fullWidth>
                     Create Quiz
                 </Button>
             </Box>

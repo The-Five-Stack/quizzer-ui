@@ -3,7 +3,12 @@
 }
 
 .create-quiz-back-btn {
-  margin-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.create-quiz-title {
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 
 .create-quiz-error {
