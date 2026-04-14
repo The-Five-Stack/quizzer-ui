@@ -26,21 +26,21 @@ export function normalizeQuiz(payload: unknown): Quiz {
   const data = payload as RawQuiz;
 
   return {
-    id: data.id ?? 0,
-    name: data.name ?? '',
-    description: data.description ?? '',
-    courseCode: data.courseCode ?? '',
-    published: data.published ?? false,
+    id: data.id,
+    name: data.name,
+    description: data.description ,
+    courseCode: data.courseCode,
+    published: data.published,
     questions: Array.isArray(data.questions)
       ? data.questions.map((question) => ({
-          id: question.id ?? 0,
-          questionContent: question.questionContent ?? '',
-          difficulty: question.difficulty ?? 'NORMAL',
+          id: question.id,
+          questionContent: question.questionContent,
+          difficulty: question.difficulty,
           answers: Array.isArray(question.answers)
-            ? question.answers.map((answer, index) => ({
-                id: answer.id ?? index + 1,
-                answerContent: answer.content ?? '',
-                isCorrect: answer.correct ?? false,
+            ? question.answers.map((answer) => ({
+                id: answer.id,
+                answerContent: answer.content,
+                isCorrect: answer.correct,
               }))
             : [],
         }))
