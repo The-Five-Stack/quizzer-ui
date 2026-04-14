@@ -30,9 +30,9 @@ export interface Quiz {
 
 export interface QuizInfo {
   id: number;
-  title: string;
+  name: string;
   description: string;
-  code: string;
-  category: string;
+  courseCode: string;
+  // category: string;
   published: boolean;
 }
