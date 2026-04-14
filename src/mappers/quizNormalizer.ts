@@ -1,5 +1,4 @@
-import type { Quiz } from '../types/quiz';
-import type { Difficulty } from '../types/quiz';
+import type { Quiz, Difficulty } from '../types/quiz';
 
 type RawAnswer = {
   id: number;

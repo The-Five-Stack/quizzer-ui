@@ -18,16 +18,19 @@ import "./QuestionCard.css";
 interface QuestionCardProps {
   question: Question;
   index: number;
-  onDelete?: (id: number) => void;
+  onDelete: (id: number) => void;
 }
 
+/**
+ * Renders a quiz question with its answers.
+ * Displays question content, difficulty level, answer options, and delete functionality.
+ */
 const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
-  const answers = question.answers ;
-//   const [selectedAnswerId, setSelectedAnswerId] = React.useState<number | null>(
-//     null,
-//   );
+  const answers = question.answers;
 
-  // Difficulty color mapping
+  /**
+   * Maps difficulty level to MUI color variant.
+   */
   const getDifficultyColor = (
     difficulty: string,
   ): "success" | "primary" | "error" | "default" => {
@@ -67,14 +70,14 @@ const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
         </IconButton>
       </Box>
 
-      {/* Question Content */}
+      {/* Question text */}
       <Typography variant="h6" className="question-card__content">
         {question.questionContent}
       </Typography>
 
       <Divider className="question-card__divider" />
 
-      {/* Answer Options Section */}
+      {/* Answer options section */}
       <Box>
         <Typography
           variant="subtitle2"
@@ -82,7 +85,7 @@ const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
           gutterBottom
           className="question-card__answers-title"
         >
-          Answer Options ({question.answers?.length || 0})
+          Answer Options ({question.answers.length})
         </Typography>
 
         <List>
@@ -95,7 +98,7 @@ const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
         </List>
       </Box>
 
-      {/* Add Answer Button  */}
+      {/* Add answer button */}
       <Box className="question-card__actions">
         <Button
           startIcon={<AddIcon />}

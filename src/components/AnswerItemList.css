@@ -1,0 +1,47 @@
+/* Answer item list item styling */
+.answer-item {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.answer-item--correct {
+  background-color: rgba(46, 125, 50, 0.08);
+}
+
+.answer-item--wrong {
+  background-color: rgba(211, 47, 47, 0.08);
+}
+
+.answer-item__icon {
+  min-width: 40px;
+}
+
+.answer-item__icon--correct {
+  color: rgb(76, 175, 80);
+}
+
+.answer-item__icon--wrong {
+  color: rgb(244, 67, 54);
+}
+
+.answer-item__content {
+  flex: 1;
+}
+
+.answer-item__content--correct {
+  color: rgb(76, 175, 80);
+}
+
+.answer-item__content--wrong {
+  color: rgb(244, 67, 54);
+}
+
+.answer-item__delete-btn {
+  background-color: #fee2e2;
+}
+
+.answer-item__delete-btn:hover {
+  background-color: #fecaca;
+}

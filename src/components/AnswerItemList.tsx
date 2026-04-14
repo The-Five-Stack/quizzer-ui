@@ -3,63 +3,53 @@ import {
   ListItemIcon,
   ListItemText,
   IconButton,
-  Box,
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import type { Answer } from "../types/quiz";
 import CancelIcon from "@mui/icons-material/Cancel";
 import DeleteIcon from "@mui/icons-material/Delete";
+import "./AnswerItemList.css";
 
 interface AnswerItemProps {
   answer: Answer;
   onDelete?: (id: number) => void;
 }
 
+/**
+ * Renders a single answer item with correct/wrong indication.
+ * Used by QuestionCard to display answer options.
+ */
 export default function AnswerItemList(props: AnswerItemProps) {
   const isCorrect = props.answer.correct;
 
   return (
     <ListItem
-      sx={{
-        mb: 1,
-        borderRadius: 1,
-        backgroundColor: isCorrect
-          ? "rgba(46, 125, 50, 0.08)"
-          : "rgba(211, 47, 47, 0.08)",
-        display: "flex",
-        alignItems: "center",
-      }}
+      className={`answer-item ${isCorrect ? "answer-item--correct" : "answer-item--wrong"}`}
     >
-      {/* Left icon */}
-      <ListItemIcon sx={{ minWidth: 40 }}>
+      {/* Icon indicating if answer is correct */}
+      <ListItemIcon className="answer-item__icon">
         {isCorrect ? (
-          <CheckCircleIcon sx={{ color: "success.main" }} />
+          <CheckCircleIcon className="answer-item__icon--correct" />
         ) : (
-          <CancelIcon sx={{ color: "error.main" }} />
+          <CancelIcon className="answer-item__icon--wrong" />
         )}
       </ListItemIcon>
 
-      {/* Content */}
+      {/* Answer text content */}
       <ListItemText
         primary={props.answer.content}
-        sx={{
-          color: isCorrect ? "success.main" : "error.main",
-        }}
+        className={`answer-item__content ${isCorrect ? "answer-item__content--correct" : "answer-item__content--wrong"}`}
       />
 
-      <Box>
-        <IconButton
-          edge="end"
-          color="error"
-          onClick={() => props.onDelete?.(props.answer.id)}
-          sx={{
-            backgroundColor: "#fee2e2",
-            "&:hover": { backgroundColor: "#fecaca" },
-          }}
-        >   
-          <DeleteIcon fontSize="small" />
-        </IconButton>
-      </Box>
+      {/* Delete button */}
+      <IconButton
+        edge="end"
+        color="error"
+        onClick={() => props.onDelete?.(props.answer.id)}
+        className="answer-item__delete-btn"
+      >
+        <DeleteIcon fontSize="small" />
+      </IconButton>
     </ListItem>
   );
 }

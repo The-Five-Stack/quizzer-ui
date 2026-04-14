@@ -1,4 +1,3 @@
-import './App.css'
 import QuizDetailPage from './pages/QuizDetailPage'
 import CreateQuizForm from './pages/CreateQuizForm'
 import Container from "@mui/material/Container";
@@ -6,21 +5,27 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import QuizList from './pages/QuizList'
 import CssBaseline from "@mui/material/CssBaseline";
 
-
+/**
+ * Root App component that sets up the SPA routing structure.
+ * Routes:
+ * - / : Quiz list page
+ * - /create-quiz : Create new quiz form
+ * - /quizzes/:id : Quiz detail page
+ * - /quiz-details : Legacy route for quiz details (fallback)
+ */
 function App() {
   return (
-<Container>
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<QuizList/>}/>
-      <Route path="/quiz-details" element={<QuizDetailPage />}/>
-      <Route path="/quizzes/:id" element={<QuizDetailPage />} />
-      <Route path="/create-quiz" element={<CreateQuizForm />} />
-    </Routes>
-  </BrowserRouter>
+    <Container>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<QuizList/>}/>
+          <Route path="/quiz-details" element={<QuizDetailPage />}/>
+          <Route path="/quizzes/:id" element={<QuizDetailPage />} />
+          <Route path="/create-quiz" element={<CreateQuizForm />} />
+        </Routes>
+      </BrowserRouter>
       <CssBaseline />
-</Container>
-
+    </Container>
   )
 }
 

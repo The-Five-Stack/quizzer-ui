@@ -4,9 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { createQuizWithAuth } from '../api';
 import './CreateQuizForm.css';
 
+/**
+ * Regex pattern for course code validation.
+ * Expected format: SOF001AS1AE (3 uppercase letters, 3 digits, 2 uppercase letters, 1 digit, 2 uppercase letters)
+ */
 const COURSE_CODE_PATTERN = /^[A-Z]{3}\d{3}[A-Z]{2}\d[A-Z]{2}$/;
 
-function CreateQuizPage() {
+/**
+ * CreateQuizForm component for creating new quizzes.
+ * Provides form fields for name, description, course code, and published status.
+ */
+function CreateQuizForm() {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [courseCode, setCourseCode] = useState('');
@@ -15,16 +23,22 @@ function CreateQuizPage() {
 
     const navigate = useNavigate();
 
+    /**
+     * Handle form submission with validation.
+     * Validates required fields and course code format before sending to backend.
+     */
     const handleSubmit = async () => {
         const normalizedName = name.trim();
         const normalizedDescription = description.trim();
         const normalizedCourseCode = courseCode.trim();
 
+        // Validate required fields
         if (!normalizedName || !normalizedCourseCode) {
             setErrorMessage('Name and Course Code are required');
             return;
         }
 
+        // Validate course code format
         if (!COURSE_CODE_PATTERN.test(normalizedCourseCode)) {
             setErrorMessage('Course code must follow format like SOF001AS1AE');
             return;
@@ -33,6 +47,7 @@ function CreateQuizPage() {
         try {
             setErrorMessage(null);
 
+            // Create quiz via API
             await createQuizWithAuth({
                 name: normalizedName,
                 description: normalizedDescription,
@@ -100,4 +115,4 @@ function CreateQuizPage() {
     );
 }
 
-export default CreateQuizPage;
+export default CreateQuizForm;
