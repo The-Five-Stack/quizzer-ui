@@ -13,6 +13,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import type { Question } from "../types/quiz";
 import AnswerItemList from "./AnswerItemList";
+import "./QuestionCard.css";
 
 interface QuestionCardProps {
   question: Question;
@@ -26,7 +27,7 @@ const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
 //     null,
 //   );
 
-  // color for Difficulty Badge
+  // Difficulty color mapping
   const getDifficultyColor = (
     difficulty: string,
   ): "success" | "primary" | "error" | "default" => {
@@ -43,52 +44,35 @@ const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
   };
 
   return (
-    <Paper
-      elevation={2}
-      sx={{ p: 3, mb: 3, borderRadius: 2, position: "relative" }}
-    >
-      {/* Header: Q number, Badge & Delete */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          mb: 2,
-        }}
-      >
-        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+    <Paper elevation={2} className="question-card">
+      <Box className="question-card__header">
+        <Stack direction="row" spacing={1} className="question-card__title-row">
+          <Typography variant="h6" className="question-card__index">
             Q{index + 1}.
           </Typography>
           <Chip
             label={question.difficulty}
             size="small"
             color={getDifficultyColor(question.difficulty)}
-            sx={{ fontWeight: "bold", textTransform: "capitalize" }}
+            className="question-card__difficulty"
           />
         </Stack>
         <IconButton
           aria-label="delete"
           color="error"
           onClick={() => onDelete?.(question.id)}
-          sx={{
-            backgroundColor: "#fee2e2",
-            "&:hover": { backgroundColor: "#fecaca" },
-          }}
+          className="question-card__delete"
         >
           <DeleteIcon />
         </IconButton>
       </Box>
 
       {/* Question Content */}
-      <Typography
-        variant="h6"
-        sx={{ my: 3, fontWeight: 400, textAlign: "center" }}
-      >
+      <Typography variant="h6" className="question-card__content">
         {question.questionContent}
       </Typography>
 
-      <Divider sx={{ mb: 2 }} />
+      <Divider className="question-card__divider" />
 
       {/* Answer Options Section */}
       <Box>
@@ -96,7 +80,7 @@ const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
           variant="subtitle2"
           color="text.secondary"
           gutterBottom
-          sx={{ fontWeight: "bold" }}
+          className="question-card__answers-title"
         >
           Answer Options ({question.answers?.length || 0})
         </Typography>
@@ -112,12 +96,12 @@ const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
       </Box>
 
       {/* Add Answer Button  */}
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 1 }}>
+      <Box className="question-card__actions">
         <Button
           startIcon={<AddIcon />}
           variant="outlined"
           size="small"
-          sx={{ textTransform: "none" }}
+          className="question-card__add-answer"
         >
           Add Answer
         </Button>

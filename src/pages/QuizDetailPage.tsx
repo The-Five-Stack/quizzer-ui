@@ -7,6 +7,7 @@ import type { Quiz } from '../types/quiz';
 import QuestionCard from '../components/QuestionCard';
 import { fetchWithAuth } from '../api';
 import { normalizeQuiz } from '../mappers/quizNormalizer';
+import './QuizDetailPage.css';
 
 function QuizDetailPage() {
     const [quiz, setQuiz] = useState<Quiz | null>(null);
@@ -30,35 +31,34 @@ function QuizDetailPage() {
             .then((data) => {
                 setQuiz(normalizeQuiz(data));
                 setError(false);
-                console.log(normalizeQuiz(data))
             })
             .catch(() => setError(true));
     }, [id]);
 
     if (error) {
         return (
-            <Container maxWidth="sm" sx={{ mt: 6 }}>
+            <Container maxWidth="sm" className="quiz-detail-error-wrap">
                 <Alert severity="error">Cannot load quiz details.</Alert>
             </Container>
         );
     }
 
     return (
-        <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
-            <Button startIcon={<ArrowBackIcon />} sx={{ mb: 2 }} onClick={() => navigate('/')}>
+        <Container maxWidth="md" className="quiz-detail-page">
+            <Button startIcon={<ArrowBackIcon />} className="quiz-detail-back-btn" onClick={() => navigate('/')}>
                 Back to Quizzes
             </Button>
 
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
+            <Box className="quiz-detail-header">
                 <Box>
-                    <Typography variant="h3" gutterBottom sx={{ fontWeight: 700 }}>
+                    <Typography variant="h3" gutterBottom className="quiz-detail-title">
                         {quiz?.name}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary">
                         {quiz?.description}
                     </Typography>
 
-                    <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
+                    <Stack direction="row" spacing={1} className="quiz-detail-meta">
                         <Chip label={quiz?.courseCode} variant="outlined" />
                         <Chip
                             label={quiz?.published ? 'Published' : 'Draft'}
@@ -72,10 +72,10 @@ function QuizDetailPage() {
                 </Button>
             </Box>
 
-            <Divider sx={{ my: 4 }} />
+            <Divider className="quiz-detail-divider" />
 
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-                <Typography variant="h5" sx={{ fontWeight: 500 }}>
+            <Box className="quiz-detail-questions-head">
+                <Typography variant="h5" className="quiz-detail-questions-title">
                     Questions
                 </Typography>
                 <Button variant="contained" color="primary">
@@ -84,7 +84,7 @@ function QuizDetailPage() {
             </Box>
 
             {quiz?.questions.length === 0 ? (
-                <Typography variant="body1" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+                <Typography variant="body1" color="text.secondary" className="quiz-detail-empty">
                     No questions found. Please add some.
                 </Typography>
             ) : (

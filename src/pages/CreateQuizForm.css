@@ -1,0 +1,17 @@
+.create-quiz-page {
+  margin-top: 32px;
+}
+
+.create-quiz-back-btn {
+  margin-bottom: 16px;
+}
+
+.create-quiz-error {
+  margin-bottom: 16px;
+}
+
+.create-quiz-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
