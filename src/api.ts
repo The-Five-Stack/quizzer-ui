@@ -1,6 +1,6 @@
 
 async function requestJson(endpoint: string, options: RequestInit = {}) {
-  const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}${endpoint}`, options);
+  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}${endpoint}`, options);
 
   if (!res.ok) {
     throw new Error("API error");
@@ -31,7 +31,7 @@ export const fetchQuizzesWithAuth = async (options: RequestInit = {}) => {
   };
 
   const response = await fetch(
-    `${import.meta.env.VITE_API_BASE_URL}/api/quizzes`,
+    `${import.meta.env.VITE_BACKEND_URL}/api/quizzes`,
     {
       ...options,
       headers: { ...defaultHeaders, ...options.headers },
