@@ -1,27 +1,25 @@
 import type { Quiz } from '../types/quiz';
 
 type RawAnswer = {
-  id?: number;
-  answerContent?: string;
-  isCorrect?: boolean;
-  content?: string;
-  correct?: boolean;
+  id: number;
+  content: string;
+  correct: boolean;
 };
 
 type RawQuestion = {
-  id?: number;
-  questionContent?: string;
-  difficulty?: Quiz['questions'][number]['difficulty'];
-  answers?: RawAnswer[] | null;
+  id: number;
+  questionContent: string;
+  difficulty: 'NORMAL' | 'EASY' | 'HARD';
+  answers: RawAnswer[] | null;
 };
 
 type RawQuiz = {
-  id?: number;
-  name?: string;
-  description?: string;
-  courseCode?: string;
-  published?: boolean;
-  questions?: RawQuestion[] | null;
+  id: number;
+  name: string;
+  description: string;
+  courseCode: string;
+  published: boolean;
+  questions: RawQuestion[] | null;
 };
 
 export function normalizeQuiz(payload: unknown): Quiz {
@@ -41,8 +39,8 @@ export function normalizeQuiz(payload: unknown): Quiz {
           answers: Array.isArray(question.answers)
             ? question.answers.map((answer, index) => ({
                 id: answer.id ?? index + 1,
-                answerContent: answer.answerContent ?? answer.content ?? '',
-                isCorrect: answer.isCorrect ?? answer.correct ?? false,
+                answerContent: answer.content ?? '',
+                isCorrect: answer.correct ?? false,
               }))
             : [],
         }))
