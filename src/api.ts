@@ -1,9 +1,38 @@
 
+type CreateQuizPayload = {
+  name: string;
+  description: string;
+  courseCode: string;
+  published: boolean;
+};
+
 async function requestJson(endpoint: string, options: RequestInit = {}) {
-  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}${endpoint}`, options);
+  const baseUrl = import.meta.env.VITE_BACKEND_URL;
+
+  if (!baseUrl) {
+    throw new Error("Missing VITE_BACKEND_URL in .env");
+  }
+
+  const res = await fetch(`${baseUrl}${endpoint}`, options);
 
   if (!res.ok) {
-    throw new Error("API error");
+    const raw = await res.text();
+    let message = `API error: ${res.status}`;
+
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw) as { message?: string; error?: string; path?: string };
+        message = parsed.message ?? parsed.error ?? raw;
+      } catch {
+        message = raw;
+      }
+    }
+
+    throw new Error(`${message} (${endpoint})`);
+  }
+
+  if (res.status === 204) {
+    return null;
   }
 
   return res.json();
@@ -42,4 +71,11 @@ export const fetchQuizzesWithAuth = async (options: RequestInit = {}) => {
   });
 
   return response;
+};
+
+export const createQuizWithAuth = async (payload: CreateQuizPayload) => {
+  return fetchWithAuth('/api/quizzes/create', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
 };

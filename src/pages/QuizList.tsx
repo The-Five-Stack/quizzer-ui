@@ -38,8 +38,8 @@ export default function QuizList() {
             <FolderOpenIcon />
             <div>Manage Categories</div>
           </Button>
-          <Button className="addquiz-btn">
-            <AddIcon />
+          <Button className="addquiz-btn" onClick={() => navigate("/create-quiz")}>
+            <AddIcon  />
             <div>Add Quiz</div>
           </Button>
         </div>

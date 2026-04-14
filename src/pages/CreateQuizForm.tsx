@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Box, Button, Container, TextField, Typography, Checkbox, FormControlLabel, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { fetchWithAuth } from '../api';
+import { createQuizWithAuth } from '../api';
 import './CreateQuizForm.css';
+
+const COURSE_CODE_PATTERN = /^[A-Z]{3}\d{3}[A-Z]{2}\d[A-Z]{2}$/;
 
 function CreateQuizPage() {
     const [name, setName] = useState('');
@@ -14,28 +16,34 @@ function CreateQuizPage() {
     const navigate = useNavigate();
 
     const handleSubmit = async () => {
-        if (!name || !courseCode) {
+        const normalizedName = name.trim();
+        const normalizedDescription = description.trim();
+        const normalizedCourseCode = courseCode.trim();
+
+        if (!normalizedName || !normalizedCourseCode) {
             setErrorMessage('Name and Course Code are required');
+            return;
+        }
+
+        if (!COURSE_CODE_PATTERN.test(normalizedCourseCode)) {
+            setErrorMessage('Course code must follow format like SOF001AS1AE');
             return;
         }
 
         try {
             setErrorMessage(null);
 
-            await fetchWithAuth('/api/quizzes', {
-                method: 'POST',
-                body: JSON.stringify({
-                    name,
-                    description,
-                    courseCode,
-                    published
-                })
+            await createQuizWithAuth({
+                name: normalizedName,
+                description: normalizedDescription,
+                courseCode: normalizedCourseCode,
+                published,
             });
 
             navigate('/');
         } catch (error) {
             console.error('Failed to create quiz:', error);
-            setErrorMessage('Failed to create quiz');
+            setErrorMessage(error instanceof Error ? error.message : 'Failed to create quiz');
         }
     };
 
