@@ -30,6 +30,7 @@ function QuizDetailPage() {
             .then((data) => {
                 setQuiz(normalizeQuiz(data));
                 setError(false);
+                console.log(normalizeQuiz(data))
             })
             .catch(() => setError(true));
     }, [id]);

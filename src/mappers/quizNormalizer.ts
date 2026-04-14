@@ -1,48 +1,47 @@
 import type { Quiz } from '../types/quiz';
+import type { Difficulty } from '../types/quiz';
 
 type RawAnswer = {
-  id?: number;
-  answerContent?: string;
-  isCorrect?: boolean;
-  content?: string;
-  correct?: boolean;
+  id: number;
+  content: string;
+  correct: boolean;
 };
 
 type RawQuestion = {
-  id?: number;
-  questionContent?: string;
-  difficulty?: Quiz['questions'][number]['difficulty'];
-  answers?: RawAnswer[] | null;
+  id: number;
+  questionContent: string;
+  difficulty: Difficulty;
+  answers: RawAnswer[] | null;
 };
 
 type RawQuiz = {
-  id?: number;
-  name?: string;
-  description?: string;
-  courseCode?: string;
-  published?: boolean;
-  questions?: RawQuestion[] | null;
+  id: number;
+  name: string;
+  description: string;
+  courseCode: string;
+  published: boolean;
+  questions: RawQuestion[] | null;
 };
 
 export function normalizeQuiz(payload: unknown): Quiz {
   const data = payload as RawQuiz;
 
   return {
-    id: data.id ?? 0,
-    name: data.name ?? '',
-    description: data.description ?? '',
-    courseCode: data.courseCode ?? '',
-    published: data.published ?? false,
+    id: data.id,
+    name: data.name,
+    description: data.description ,
+    courseCode: data.courseCode,
+    published: data.published,
     questions: Array.isArray(data.questions)
       ? data.questions.map((question) => ({
-          id: question.id ?? 0,
-          questionContent: question.questionContent ?? '',
-          difficulty: question.difficulty ?? 'NORMAL',
+          id: question.id,
+          questionContent: question.questionContent,
+          difficulty: question.difficulty,
           answers: Array.isArray(question.answers)
-            ? question.answers.map((answer, index) => ({
-                id: answer.id ?? index + 1,
-                answerContent: answer.answerContent ?? answer.content ?? '',
-                isCorrect: answer.isCorrect ?? answer.correct ?? false,
+            ? question.answers.map((answer) => ({
+                id: answer.id,
+                content: answer.content,
+                correct: answer.correct,
               }))
             : [],
         }))

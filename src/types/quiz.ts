@@ -1,15 +1,9 @@
 export type Difficulty = 'EASY' | 'NORMAL' | 'HARD';
 
-export const DifficultyValues = {
-  EASY: 'EASY' as Difficulty,
-  NORMAL: 'NORMAL' as Difficulty,
-  HARD: 'HARD' as Difficulty
-};
-
 export interface Answer {
   id: number;
-  answerContent: string;
-  isCorrect: boolean;
+  content: string;
+  correct: boolean;
 }
 
 export interface Question {
