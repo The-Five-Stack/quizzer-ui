@@ -12,7 +12,6 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import type { Question } from "../types/quiz";
-import React from "react";
 import AnswerItemList from "./AnswerItemList";
 
 interface QuestionCardProps {
@@ -23,9 +22,9 @@ interface QuestionCardProps {
 
 const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
   const answers = question.answers ;
-  const [selectedAnswerId, setSelectedAnswerId] = React.useState<number | null>(
-    null,
-  );
+//   const [selectedAnswerId, setSelectedAnswerId] = React.useState<number | null>(
+//     null,
+//   );
 
   // color for Difficulty Badge
   const getDifficultyColor = (
@@ -107,8 +106,6 @@ const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
             <AnswerItemList
               key={answer.id}
               answer={answer}
-              isSelected={selectedAnswerId === answer.id}
-              onSelect={setSelectedAnswerId}
             />
           ))}
         </List>

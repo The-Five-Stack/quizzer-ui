@@ -1,51 +1,65 @@
 import {
   ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
+  IconButton,
+  Box,
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import type { Answer } from "../types/quiz";
+import CancelIcon from "@mui/icons-material/Cancel";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface AnswerItemProps {
   answer: Answer;
-  isSelected: boolean;
-  onSelect: (id: number) => void;
+  onDelete?: (id: number) => void;
 }
 
-export default function AnswerItemList(props: AnswerItemProps){
+export default function AnswerItemList(props: AnswerItemProps) {
+  const isCorrect = props.answer.correct;
+
   return (
     <ListItem
-      disablePadding
       sx={{
         mb: 1,
         borderRadius: 1,
-        backgroundColor: props.isSelected
+        backgroundColor: isCorrect
           ? "rgba(46, 125, 50, 0.08)"
-          : "transparent",
+          : "rgba(211, 47, 47, 0.08)",
+        display: "flex",
+        alignItems: "center",
       }}
     >
-      <ListItemButton
-        onClick={() => props.onSelect(props.answer.id)}
-        selected={props.isSelected}
-        sx={{ borderRadius: 1 }}
-      >
-        <ListItemIcon sx={{ minWidth: 40 }}>
-          {props.isSelected ? (
-            <CheckCircleIcon sx={{ color: "#2e7d32" }} />
-          ) : (
-            <RadioButtonUncheckedIcon sx={{ color: "action.disabled" }} />
-          )}
-        </ListItemIcon>
+      {/* Left icon */}
+      <ListItemIcon sx={{ minWidth: 40 }}>
+        {isCorrect ? (
+          <CheckCircleIcon sx={{ color: "success.main" }} />
+        ) : (
+          <CancelIcon sx={{ color: "error.main" }} />
+        )}
+      </ListItemIcon>
 
-        <ListItemText
-          primary={props.answer.content}
+      {/* Content */}
+      <ListItemText
+        primary={props.answer.content}
+        sx={{
+          color: isCorrect ? "success.main" : "error.main",
+        }}
+      />
+
+      <Box>
+        <IconButton
+          edge="end"
+          color="error"
+          onClick={() => props.onDelete?.(props.answer.id)}
           sx={{
-            color: props.isSelected ? "#2e7d32" : "inherit",
+            backgroundColor: "#fee2e2",
+            "&:hover": { backgroundColor: "#fecaca" },
           }}
-        />
-      </ListItemButton>
+        >   
+          <DeleteIcon fontSize="small" />
+        </IconButton>
+      </Box>
     </ListItem>
   );
-};
+}
