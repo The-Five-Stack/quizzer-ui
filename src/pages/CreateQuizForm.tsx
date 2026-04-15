@@ -9,6 +9,7 @@ import './CreateQuizForm.css';
  * Expected format: SOF001 (3 uppercase letters, 3 digits)
  */
 const COURSE_CODE_PATTERN = /^[A-Z]{3}\d{3}$/;
+const COURSE_CODE_SUFFIX = 'AS1AE';
 
 /**
  * CreateQuizForm component for creating new quizzes.
@@ -30,7 +31,7 @@ function CreateQuizForm() {
     const handleSubmit = async () => {
         const normalizedName = name.trim();
         const normalizedDescription = description.trim();
-        const normalizedCourseCode = courseCode.trim();
+        const normalizedCourseCode = courseCode.trim().toUpperCase();
 
         // Validate required fields
         if (!normalizedName || !normalizedCourseCode) {
@@ -51,7 +52,9 @@ function CreateQuizForm() {
             await createQuizWithAuth({
                 name: normalizedName,
                 description: normalizedDescription,
-                courseCode: normalizedCourseCode,
+                // Backend currently validates full format like SOF001AS1AE.
+                // We keep 6-char input in UI and append the required suffix.
+                courseCode: `${normalizedCourseCode}${COURSE_CODE_SUFFIX}`,
                 published,
             });
 
