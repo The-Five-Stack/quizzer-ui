@@ -1,5 +1,5 @@
 import QuizDetailPage from './pages/QuizDetailPage'
-import CreateQuizPage from './pages/CreateQuizPage'
+import CreateQuizForm from './pages/CreateQuizForm'
 import Container from "@mui/material/Container";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import QuizList from './pages/QuizList'
@@ -21,7 +21,7 @@ function App() {
           <Route path="/" element={<QuizList/>}/>
           <Route path="/quiz-details" element={<QuizDetailPage />}/>
           <Route path="/quizzes/:id" element={<QuizDetailPage />} />
-          <Route path="/create-quiz" element={<CreateQuizPage />} />
+          <Route path="/create-quiz" element={<CreateQuizForm />} />
         </Routes>
       </BrowserRouter>
       <CssBaseline />
