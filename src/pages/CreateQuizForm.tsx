@@ -6,10 +6,9 @@ import './CreateQuizForm.css';
 
 /**
  * Regex pattern for course code validation.
- * Expected format: SOF001 (3 uppercase letters, 3 digits)
+ * Expected format: SOF005AS3AE (3 uppercase letters, 3 digits, 2 uppercase letters, 1 digit, 2 uppercase letters)
  */
-const COURSE_CODE_PATTERN = /^[A-Z]{3}\d{3}$/;
-const COURSE_CODE_SUFFIX = 'AS1AE';
+const COURSE_CODE_PATTERN = /^[A-Z]{3}\d{3}[A-Z]{2}\d[A-Z]{2}$/;
 
 /**
  * CreateQuizForm component for creating new quizzes.
@@ -41,7 +40,7 @@ function CreateQuizForm() {
 
         // Validate course code format
         if (!COURSE_CODE_PATTERN.test(normalizedCourseCode)) {
-            setErrorMessage('Course code must follow format like SOF001');
+            setErrorMessage('Course code must follow format like SOF005AS3AE');
             return;
         }
 
@@ -52,9 +51,7 @@ function CreateQuizForm() {
             await createQuizWithAuth({
                 name: normalizedName,
                 description: normalizedDescription,
-                // Backend currently validates full format like SOF001AS1AE.
-                // We keep 6-char input in UI and append the required suffix.
-                courseCode: `${normalizedCourseCode}${COURSE_CODE_SUFFIX}`,
+                courseCode: normalizedCourseCode,
                 published,
             });
 

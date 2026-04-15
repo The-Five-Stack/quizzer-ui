@@ -6,8 +6,6 @@ type CreateQuizPayload = {
   published: boolean;
 };
 
-type CreateQuizPayloadBase = Omit<CreateQuizPayload, 'published'>;
-
 async function requestJson(endpoint: string, options: RequestInit = {}) {
   const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -76,29 +74,8 @@ export const fetchQuizzesWithAuth = async (options: RequestInit = {}) => {
 };
 
 export const createQuizWithAuth = async (payload: CreateQuizPayload) => {
-  const payloadWithoutPublished: CreateQuizPayloadBase = {
-    name: payload.name,
-    description: payload.description,
-    courseCode: payload.courseCode,
-  };
-
-  const attempts: Array<{ body: CreateQuizPayload | CreateQuizPayloadBase }> = [
-    { body: payload },
-    { body: payloadWithoutPublished },
-  ];
-
-  let lastError: unknown;
-
-  for (const attempt of attempts) {
-    try {
-      return await fetchWithAuth('/api/quizzes/create', {
-        method: 'POST',
-        body: JSON.stringify(attempt.body),
-      });
-    } catch (error) {
-      lastError = error;
-    }
-  }
-
-  throw lastError;
+  return fetchWithAuth('/api/quizzes/create', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
 };
