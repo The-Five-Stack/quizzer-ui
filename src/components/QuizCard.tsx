@@ -1,4 +1,5 @@
 import "./QuizCard.css";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 /**
  * Props for QuizCard component
@@ -58,7 +59,7 @@ export default function QuizCard(props: QuizCardProps) {
             </button>
             {/* Delete button */}
             <button className="qc-icon del" onClick={props.onDelete}>
-              🗑️
+              <DeleteIcon fontSize="small"/>
             </button>
           </div>
         </div>
