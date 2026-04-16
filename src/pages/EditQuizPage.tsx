@@ -60,6 +60,7 @@ function EditQuizPage() {
       });
 
       navigate('/');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setErrorMessage('Failed to update quiz');
     }
