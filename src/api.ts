@@ -1,4 +1,3 @@
-
 type CreateQuizPayload = {
   name: string;
   description: string;
@@ -21,7 +20,11 @@ async function requestJson(endpoint: string, options: RequestInit = {}) {
 
     if (raw) {
       try {
-        const parsed = JSON.parse(raw) as { message?: string; error?: string; path?: string };
+        const parsed = JSON.parse(raw) as {
+          message?: string;
+          error?: string;
+          path?: string;
+        };
         message = parsed.message ?? parsed.error ?? raw;
       } catch {
         message = raw;
@@ -74,8 +77,33 @@ export const fetchQuizzesWithAuth = async (options: RequestInit = {}) => {
 };
 
 export const createQuizWithAuth = async (payload: CreateQuizPayload) => {
-  return fetchWithAuth('/api/quizzes/create', {
-    method: 'POST',
+  return fetchWithAuth("/api/quizzes/create", {
+    method: "POST",
     body: JSON.stringify(payload),
   });
+};
+
+export const deleteQuiz = async (
+  quizId: number,
+  options: RequestInit = {},
+): Promise<void> => {
+  const defaultHeaders: HeadersInit = {
+    Authorization: "Basic dGVhY2hlcjp0ZWFjaGVyMTIz",
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_BACKEND_URL}/api/quizzes/${quizId}`,
+    {
+      method: "DELETE",
+      ...options,
+      headers: {
+        ...defaultHeaders,
+        ...(options.headers || {}),
+      },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(`Failed to delete quiz (status: ${response.status})`);
+  }
 };

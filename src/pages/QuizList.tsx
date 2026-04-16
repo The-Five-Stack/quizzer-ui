@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import QuizCard from "../components/QuizCard";
 import type { QuizInfo } from "../types/quiz";
 import { useEffect, useState } from "react";
-import { fetchQuizzesWithAuth } from "../api";
+import { fetchQuizzesWithAuth, deleteQuiz } from "../api";
+
 
 /**
  * QuizList component displays all available quizzes from the backend.
@@ -29,6 +30,33 @@ export default function QuizList() {
         console.error("Failed to fetch quizzes:", error);
       });
   }, []);
+
+  const handleDelete = async (quizId: number) =>{
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this quiz?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      await deleteQuiz(quizId);
+
+      // Refresh list after delete
+      await fetchQuizzesWithAuth()
+      .then((data) => {
+        setQuizzes(data);
+        window.alert("Quiz was successfully deleted.")
+      })
+      .catch((error) => {
+        console.error("Failed to fetch quizzes:", error);
+      });
+
+    } catch (error) {
+      console.error(error);
+      alert("Failed to delete quiz");
+    }
+  };
+  
 
   return (
     <>
@@ -62,7 +90,7 @@ export default function QuizList() {
             {...q}
             onManage={() => navigate(`/quizzes/${q.id}`)}
             onToggleStatus={() => console.log("toggle")}
-            onDelete={() => console.log("delete")}
+            onDelete={() => handleDelete(q.id)}
           />
         ))}
       </div>
