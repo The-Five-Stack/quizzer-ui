@@ -109,6 +109,7 @@ function EditQuizPage() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           fullWidth
+          required
         />
 
         <TextField
@@ -118,6 +119,7 @@ function EditQuizPage() {
           multiline
           rows={3}
           fullWidth
+          required
         />
 
         <TextField
@@ -125,6 +127,7 @@ function EditQuizPage() {
           value={courseCode}
           onChange={(e) => setCourseCode(e.target.value)}
           fullWidth
+          required
         />
 
         <FormControlLabel
