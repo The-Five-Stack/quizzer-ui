@@ -1,96 +1,115 @@
 import { useEffect, useState } from 'react';
-import { Container, Typography, Button, Alert } from '@mui/material';
+import {
+  Box, Button, Container, TextField,
+  Typography, Checkbox, FormControlLabel, Alert
+} from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
-import QuizForm, { type QuizFormValues } from '../components/QuizForm';
 import { fetchWithAuth } from '../api';
-import './EditQuizPage.css';
 
-type Quiz = {
-  id: number;
-  name: string;
-  description: string;
-  courseCode: string;
-  published: boolean;
-};
+const COURSE_CODE_PATTERN = /^[A-Z]{3}\d{3}[A-Z]{2}\d[A-Z]{2}$/;
 
 function EditQuizPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [quiz, setQuiz] = useState<Quiz | null>(null);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [courseCode, setCourseCode] = useState('');
+  const [published, setPublished] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // fetch quiz detail
+  // load quiz
   useEffect(() => {
     fetchWithAuth(`/api/quizzes/${id}`)
-      .then((res) => res.json())
       .then((data) => {
-        setQuiz(data);
-        setErrorMessage(null);
+        setName(data.name);
+        setDescription(data.description);
+        setCourseCode(data.courseCode);
+        setPublished(data.published);
       })
-      .catch(() => setErrorMessage('Cannot load quiz'));
+      .catch(() => setErrorMessage('Failed to load quiz'))
+      .finally(() => setLoading(false));
   }, [id]);
 
-  // handle update
-  const handleUpdateQuiz = async (values: QuizFormValues) => {
+  const handleSubmit = async () => {
+    const normalizedName = name.trim();
+    const normalizedCourseCode = courseCode.trim().toUpperCase();
+
+    if (!normalizedName || !normalizedCourseCode) {
+      setErrorMessage('Name and Course Code are required');
+      return;
+    }
+
+    if (!COURSE_CODE_PATTERN.test(normalizedCourseCode)) {
+      setErrorMessage('Invalid course code format');
+      return;
+    }
+
     try {
-      setIsSubmitting(true);
       setErrorMessage(null);
 
       await fetchWithAuth(`/api/quizzes/${id}`, {
         method: 'PUT',
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          name: normalizedName,
+          description,
+          courseCode: normalizedCourseCode,
+          published,
+        }),
       });
 
       navigate('/');
-    } catch (error) {
-      console.error('Failed to update quiz:', error);
+    } catch (err) {
       setErrorMessage('Failed to update quiz');
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
-  // error state
-  if (errorMessage && !quiz) {
-    return (
-      <Container>
-        <Alert severity="error">{errorMessage}</Alert>
-      </Container>
-    );
-  }
-
-  // loading state
-  if (!quiz) return null;
+  if (loading) return <div>Loading...</div>;
 
   return (
-    <Container maxWidth="sm" className="edit-quiz-page">
-      <Button
-        className="edit-quiz-back-btn"
-        onClick={() => navigate('/')}
-        disabled={isSubmitting}
-      >
-        Back
-      </Button>
+    <Container maxWidth="sm">
+      <Typography variant="h5">Edit Quiz</Typography>
 
-      <Typography variant="h5" className="edit-quiz-title">
-        Edit Quiz
-      </Typography>
+      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
 
-      {errorMessage && (
-        <Alert severity="error" className="edit-quiz-error">
-          {errorMessage}
-        </Alert>
-      )}
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <TextField
+          label="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          fullWidth
+        />
 
-      <QuizForm
-        key={quiz.id} 
-        initialValues={quiz}
-        submitLabel="Update Quiz"
-        disabled={isSubmitting}
-        onSubmit={handleUpdateQuiz}
-      />
+        <TextField
+          label="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          fullWidth
+          multiline
+        />
+
+        <TextField
+          label="Course Code"
+          value={courseCode}
+          onChange={(e) => setCourseCode(e.target.value)}
+          fullWidth
+        />
+
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={published}
+              onChange={(e) => setPublished(e.target.checked)}
+            />
+          }
+          label="Published"
+        />
+
+        <Button variant="contained" onClick={handleSubmit}>
+          Update Quiz
+        </Button>
+      </Box>
     </Container>
   );
 }
