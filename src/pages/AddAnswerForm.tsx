@@ -25,7 +25,10 @@ const navigate = useNavigate();
   });
 
   const handleSubmit = async () => {
-    console.log("questionId", questionId)
+    if(answer.content.trim() === "") {
+      alert("Answer content is required")
+      return
+    }
     await addAnswer(Number(questionId), answer);
     alert("Answer is added");
   };

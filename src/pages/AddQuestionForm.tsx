@@ -18,6 +18,10 @@ export default function AddQuestionForm() {
   });
 
   const handleSubmit = async () => {
+    if(question.questionContent.trim() === "" || question.difficulty === "") {
+      alert("Question content and difficulty are required")
+      return
+    }
     await addQuestion(Number(id), question);
     alert("Question is added");
   };
