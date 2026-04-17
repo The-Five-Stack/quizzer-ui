@@ -22,8 +22,8 @@ export default function AddQuestionForm() {
     await addQuestion(Number(id), question)
   };
   return (
-    <Container maxWidth="md" className="container">
-      <div className="header">
+    <Container maxWidth="md" className="add-question-container">
+      <div className="add-question-header">
         <Button className="back-btn" onClick={() => navigate(`/quizzes/${id}`)}>
           <ArrowBackIcon fontSize="small" />
           Back to Quizz
