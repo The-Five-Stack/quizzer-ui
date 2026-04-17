@@ -130,3 +130,10 @@ export const addQuestion = async (
     throw new Error("Failed to add question");
   }
 };
+
+export const updateQuiz = async (quizId: number, quiz: CreateQuizPayload) => {
+  return fetchWithAuth(`/api/quizzes/${quizId}`, {
+    method: "PUT",
+    body: JSON.stringify(quiz),
+  });
+};
