@@ -34,7 +34,6 @@ export default function QuizList() {
     try {
       const quiz = quizzes.find((q) => q.id === quizId);
       if (!quiz) return;
-
       await updateQuiz(quizId, {
         ...quiz,
         published: !quiz.published,
@@ -102,15 +101,17 @@ export default function QuizList() {
 
       {/* Quiz cards grid */}
       <div className="qc-wrap">
-        {quizzes.map((q, i) => (
-          <QuizCard
-            key={i}
-            {...q}
-            onManage={() => navigate(`/quizzes/${q.id}`)}
-            onToggleStatus={() => handleToggleStatus(q.id)}
-            onDelete={() => handleDelete(q.id)}
-          />
-        ))}
+        {quizzes.sort((q1, q2) => q1.id - q2.id)
+          .map((q, i) => (
+            <QuizCard
+              key={i}
+              {...q}
+              onManage={() => navigate(`/quizzes/${q.id}`)}
+              onToggleStatus={() => handleToggleStatus(q.id)}
+              onDelete={() => handleDelete(q.id)}
+            />
+          ))
+        }
       </div>
     </>
   );
