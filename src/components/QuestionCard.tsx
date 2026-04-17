@@ -14,6 +14,7 @@ import AddIcon from "@mui/icons-material/Add";
 import type { Question } from "../types/quiz";
 import AnswerItemList from "./AnswerItemList";
 import "./QuestionCard.css";
+import { useNavigate} from "react-router-dom";
 
 interface QuestionCardProps {
   question: Question;
@@ -27,7 +28,7 @@ interface QuestionCardProps {
  */
 const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
   const answers = question.answers;
-
+  const navigate = useNavigate()
   /**
    * Maps difficulty level to MUI color variant.
    */
@@ -105,6 +106,7 @@ const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
           variant="outlined"
           size="small"
           className="question-card__add-answer"
+          onClick={() => navigate(`/questions/${question.id}/answers`)}
         >
           Add Answer
         </Button>

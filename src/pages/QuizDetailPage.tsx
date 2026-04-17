@@ -83,7 +83,7 @@ function QuizDetailPage() {
                 <Typography variant="h5" className="quiz-detail-questions-title">
                     Questions
                 </Typography>
-                <Button variant="contained" color="primary">
+                <Button onClick={() => navigate(`/quizzes/${id}/questions`)} variant="contained" color="primary">
                     + Add Question
                 </Button>
             </Box>

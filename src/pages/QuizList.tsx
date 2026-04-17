@@ -7,8 +7,7 @@ import { useNavigate } from "react-router-dom";
 import QuizCard from "../components/QuizCard";
 import type { QuizInfo } from "../types/quiz";
 import { useEffect, useState } from "react";
-import { fetchQuizzesWithAuth, deleteQuiz } from "../api";
-
+import { fetchQuizzesWithAuth, deleteQuiz, updateQuiz } from "../api";
 
 /**
  * QuizList component displays all available quizzes from the backend.
@@ -31,9 +30,26 @@ export default function QuizList() {
       });
   }, []);
 
-  const handleDelete = async (quizId: number) =>{
+  const handleToggleStatus = async (quizId: number) => {
+    try {
+      const quiz = quizzes.find((q) => q.id === quizId);
+      if (!quiz) return;
+      await updateQuiz(quizId, {
+        ...quiz,
+        published: !quiz.published,
+      });
+
+      const data = await fetchQuizzesWithAuth();
+      setQuizzes(data);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to update quiz status");
+    }
+  };
+
+  const handleDelete = async (quizId: number) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this quiz?"
+      "Are you sure you want to delete this quiz?",
     );
 
     if (!confirmDelete) return;
@@ -43,20 +59,18 @@ export default function QuizList() {
 
       // Refresh list after delete
       await fetchQuizzesWithAuth()
-      .then((data) => {
-        setQuizzes(data);
-        window.alert("Quiz was successfully deleted.")
-      })
-      .catch((error) => {
-        console.error("Failed to fetch quizzes:", error);
-      });
-
+        .then((data) => {
+          setQuizzes(data);
+          window.alert("Quiz was successfully deleted.");
+        })
+        .catch((error) => {
+          console.error("Failed to fetch quizzes:", error);
+        });
     } catch (error) {
       console.error(error);
       alert("Failed to delete quiz");
     }
   };
-  
 
   return (
     <>
@@ -75,8 +89,11 @@ export default function QuizList() {
             <div>Manage Categories</div>
           </Button>
           {/* Add new quiz button */}
-          <Button className="addquiz-btn" onClick={() => navigate("/create-quiz")}>
-            <AddIcon  />
+          <Button
+            className="addquiz-btn"
+            onClick={() => navigate("/create-quiz")}
+          >
+            <AddIcon />
             <div>Add Quiz</div>
           </Button>
         </div>
@@ -84,17 +101,18 @@ export default function QuizList() {
 
       {/* Quiz cards grid */}
       <div className="qc-wrap">
-        {quizzes.map((q, i) => (
-          <QuizCard
-            key={i}
-            {...q}
-            onManage={() => navigate(`/quizzes/${q.id}`)}
-            onToggleStatus={() => console.log("toggle")}
-            onDelete={() => handleDelete(q.id)}
-          />
-        ))}
+        {quizzes.sort((q1, q2) => q1.id - q2.id)
+          .map((q, i) => (
+            <QuizCard
+              key={i}
+              {...q}
+              onManage={() => navigate(`/quizzes/${q.id}`)}
+              onToggleStatus={() => handleToggleStatus(q.id)}
+              onDelete={() => handleDelete(q.id)}
+            />
+          ))
+        }
       </div>
     </>
   );
 }
-
