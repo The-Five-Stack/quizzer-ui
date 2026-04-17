@@ -1,5 +1,7 @@
 import "./QuizCard.css";
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 /**
  * Props for QuizCard component
  */
@@ -54,11 +56,11 @@ export default function QuizCard(props: QuizCardProps) {
           <div>
             {/* Toggle publish status button */}
             <button className="qc-icon" onClick={props.onToggleStatus}>
-              {props.published === true ? "🙈" : "👁️"}
+              {props.published === true ? <VisibilityOffIcon fontSize="small"/> : <VisibilityIcon fontSize="small"/>}
             </button>
             {/* Delete button */}
             <button className="qc-icon del" onClick={props.onDelete}>
-              🗑️
+              <DeleteIcon fontSize="small"/>
             </button>
           </div>
         </div>
