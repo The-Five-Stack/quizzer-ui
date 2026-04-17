@@ -107,3 +107,26 @@ export const deleteQuiz = async (
     throw new Error(`Failed to delete quiz (status: ${response.status})`);
   }
 };
+
+export const addQuestion = async (
+  quizId: number,
+  question: {
+    questionContent: string;
+    difficulty: string;
+  },
+) => {
+  try {
+    const result = await fetchWithAuth(`/api/quizzes/${quizId}/questions`, {
+      method: "POST",
+      body: JSON.stringify(question),
+    });
+
+    return result;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    }
+
+    throw new Error("Failed to add question");
+  }
+};

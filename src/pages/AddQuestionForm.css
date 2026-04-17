@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  height: 500px;
+}
+
+.label {
+  justify-self: start;
+  margin-top: 20px;
+
+}
+
+.form {
+  height: 500px;
+}
+
+.btn {
+  margin-top: 20px;
+}
