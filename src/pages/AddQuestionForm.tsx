@@ -18,8 +18,8 @@ export default function AddQuestionForm() {
   });
 
   const handleSubmit = async () => {
-    console.log("question", question);
-    await addQuestion(Number(id), question)
+    await addQuestion(Number(id), question);
+    alert("Question is added");
   };
   return (
     <Container maxWidth="md" className="add-question-container">
@@ -35,6 +35,7 @@ export default function AddQuestionForm() {
       <Box className="form">
         <InputLabel className="label">Question</InputLabel>
         <TextField
+          className="add-question-text-field"
           label="Type content of question"
           value={question.questionContent}
           onChange={(e) =>

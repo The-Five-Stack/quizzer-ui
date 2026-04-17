@@ -15,6 +15,7 @@
 .label {
   justify-self: start;
   margin-top: 20px;
+  margin-bottom: 10px;
 
 }
 
@@ -25,3 +26,6 @@
 .btn {
   margin-top: 20px;
 }
+/* .add-question-text-field {
+  margin-top: 5px;
+} */
