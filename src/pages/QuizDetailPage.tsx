@@ -67,7 +67,12 @@ function QuizDetailPage() {
                     </Stack>
                 </Box>
 
-                <Button variant="outlined" startIcon={<EditIcon />}>
+                <Button
+                    variant="outlined"
+                    startIcon={<EditIcon />}
+                    onClick={() => id && navigate(`/quizzes/${id}/edit`)}
+                    disabled={!id}
+                >
                     Edit Quiz
                 </Button>
             </Box>
