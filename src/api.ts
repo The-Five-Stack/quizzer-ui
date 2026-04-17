@@ -5,10 +5,10 @@ type CreateQuizPayload = {
   published: boolean;
 };
 
-type Answer = {
-  content: string;
-  correct: boolean;
-};
+// type Answer = {
+//   content: string;
+//   correct: boolean;
+// };
 
 async function requestJson(endpoint: string, options: RequestInit = {}) {
   const baseUrl = import.meta.env.VITE_BACKEND_URL;
@@ -166,6 +166,6 @@ export const addAnswer = async (
   }
 };
 
-export const fetchAnswers = async (questionId: number): Promise<Answer[]> => {
-  return fetchWithAuth(`/api/questions/${questionId}/answers`);
-};
+// export const fetchAnswers = async (questionId: number): Promise<Answer[]> => {
+//   return fetchWithAuth(`/api/questions/${questionId}/answers`);
+// };

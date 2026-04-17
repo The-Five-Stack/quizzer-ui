@@ -12,11 +12,12 @@ import "./AddQuestionForm.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
-import { addAnswer, fetchAnswers } from "../api";
+import { addAnswer } from "../api";
 import { useNavigate } from "react-router-dom";
 
+
 export default function AddAnswerForm() {
-  const navigate = useNavigate();
+const navigate = useNavigate();
   const { questionId } = useParams();
   const [answer, setAnswer] = useState({
     content: "",
@@ -24,33 +25,20 @@ export default function AddAnswerForm() {
   });
 
   const handleSubmit = async () => {
-    try {
-      // check if user tries to set correct = true
-      if (answer.correct) {
-        const existingAnswers = await fetchAnswers(Number(questionId));
-
-        const alreadyHasCorrect = existingAnswers.some(
-          (a) => a.correct === true,
-        );
-
-        if (alreadyHasCorrect) {
-          alert("This question already has a correct answer!");
-          return;
-        }
-      }
-
-      await addAnswer(Number(questionId), answer);
-      alert("Answer is added");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to add answer. The question already has correct answer!");
-    }
+    console.log("questionId", questionId)
+    await addAnswer(Number(questionId), answer);
+    alert("Answer is added");
   };
+
+
 
   return (
     <Container maxWidth="md" className="add-answer-container">
       <div className="add-answer-header">
-        <Button className="back-btn" onClick={() => navigate(-1)}>
+        <Button
+          className="back-btn"
+          onClick={() => navigate(-1)}
+        >
           <ArrowBackIcon fontSize="small" />
           Back to Quizz
         </Button>
