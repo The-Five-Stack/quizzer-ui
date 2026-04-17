@@ -10,40 +10,47 @@ import {
 import { useParams } from "react-router-dom";
 import "./AddQuestionForm.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import { addAnswer, fetchAnswers } from "../api";
 import { useNavigate } from "react-router-dom";
 
-
 export default function AddAnswerForm() {
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const { questionId } = useParams();
-  const [hasCorrect, setHasCorrect] = useState(false);
   const [answer, setAnswer] = useState({
     content: "",
     correct: false,
   });
 
   const handleSubmit = async () => {
-    console.log("questionId", questionId)
-    await addAnswer(Number(questionId), answer);
-    alert("Answer is added");
-  };
+    try {
+      // check if user tries to set correct = true
+      if (answer.correct) {
+        const existingAnswers = await fetchAnswers(Number(questionId));
 
-  useEffect(() => {
-    fetchAnswers(Number(questionId)).then((answers) => {
-      setHasCorrect(answers.some((a) => a.correct));
-    });
-  }, [questionId]);
+        const alreadyHasCorrect = existingAnswers.some(
+          (a) => a.correct === true,
+        );
+
+        if (alreadyHasCorrect) {
+          alert("This question already has a correct answer!");
+          return;
+        }
+      }
+
+      await addAnswer(Number(questionId), answer);
+      alert("Answer is added");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to add answer. The question already has correct answer!");
+    }
+  };
 
   return (
     <Container maxWidth="md" className="add-answer-container">
       <div className="add-answer-header">
-        <Button
-          className="back-btn"
-          onClick={() => navigate(-1)}
-        >
+        <Button className="back-btn" onClick={() => navigate(-1)}>
           <ArrowBackIcon fontSize="small" />
           Back to Quizz
         </Button>
@@ -65,7 +72,6 @@ const navigate = useNavigate();
           control={
             <Checkbox
               checked={answer.correct}
-              disabled={hasCorrect}
               onChange={(e) =>
                 setAnswer({ ...answer, correct: e.target.checked })
               }
