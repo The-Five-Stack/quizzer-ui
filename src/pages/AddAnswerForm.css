@@ -1,0 +1,28 @@
+.add-answer-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.add-answer-container {
+  display: flex;
+  margin: 20px;
+  height: 500px;
+  flex-direction: column;
+}
+
+.label {
+  justify-self: start;
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+}
+
+.form {
+  height: 500px;
+}
+
+.btn {
+  margin-top: 20px;
+}

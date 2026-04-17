@@ -8,7 +8,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
-import "./AddQuestionForm.css";
+import "./AddAnswerForm.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
