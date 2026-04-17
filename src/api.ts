@@ -5,6 +5,11 @@ type CreateQuizPayload = {
   published: boolean;
 };
 
+type Answer = {
+  content: string;
+  correct: boolean;
+};
+
 async function requestJson(endpoint: string, options: RequestInit = {}) {
   const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -136,4 +141,31 @@ export const updateQuiz = async (quizId: number, quiz: CreateQuizPayload) => {
     method: "PUT",
     body: JSON.stringify(quiz),
   });
+};
+
+export const addAnswer = async (
+  questionId: number,
+  answer: {
+    content: string;
+    correct: boolean;
+  },
+) => {
+  try {
+    const result = await fetchWithAuth(`/api/questions/${questionId}/answers`, {
+      method: "POST",
+      body: JSON.stringify(answer),
+    });
+
+    return result;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    }
+
+    throw new Error("Failed to add answer");
+  }
+};
+
+export const fetchAnswers = async (questionId: number): Promise<Answer[]> => {
+  return fetchWithAuth(`/api/questions/${questionId}/answers`);
 };

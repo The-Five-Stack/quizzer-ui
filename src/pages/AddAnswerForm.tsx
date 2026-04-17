@@ -1,0 +1,84 @@
+import {
+  Container,
+  Button,
+  Typography,
+  Box,
+  TextField,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
+import { useParams } from "react-router-dom";
+import "./AddQuestionForm.css";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useEffect, useState } from "react";
+import InputLabel from "@mui/material/InputLabel";
+import { addAnswer, fetchAnswers } from "../api";
+import { useNavigate } from "react-router-dom";
+
+
+export default function AddAnswerForm() {
+const navigate = useNavigate();
+  const { questionId } = useParams();
+  const [hasCorrect, setHasCorrect] = useState(false);
+  const [answer, setAnswer] = useState({
+    content: "",
+    correct: false,
+  });
+
+  const handleSubmit = async () => {
+    console.log("questionId", questionId)
+    await addAnswer(Number(questionId), answer);
+    alert("Answer is added");
+  };
+
+  useEffect(() => {
+    fetchAnswers(Number(questionId)).then((answers) => {
+      setHasCorrect(answers.some((a) => a.correct));
+    });
+  }, [questionId]);
+
+  return (
+    <Container maxWidth="md" className="add-answer-container">
+      <div className="add-answer-header">
+        <Button
+          className="back-btn"
+          onClick={() => navigate(-1)}
+        >
+          <ArrowBackIcon fontSize="small" />
+          Back to Quizz
+        </Button>
+        <Typography variant="h5" className="title">
+          Add new answer
+        </Typography>{" "}
+      </div>
+      <Box className="form">
+        <InputLabel className="label">Answer</InputLabel>
+        <TextField
+          className="add-answer-text-field"
+          label="Type content of answer"
+          value={answer.content}
+          onChange={(e) => setAnswer({ ...answer, content: e.target.value })}
+          required
+          fullWidth
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={answer.correct}
+              disabled={hasCorrect}
+              onChange={(e) =>
+                setAnswer({ ...answer, correct: e.target.checked })
+              }
+            />
+          }
+          label="Correct"
+        />
+        <div className="btn">
+          <Button variant="contained" onClick={handleSubmit} fullWidth>
+            Add Answer
+          </Button>
+        </div>
+      </Box>
+    </Container>
+  );
+}
