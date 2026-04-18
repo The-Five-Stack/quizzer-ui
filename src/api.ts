@@ -172,12 +172,12 @@ export const addAnswer = async (
 
 export const deleteQuestion = async (quizId: number, questionId: number) => {
   return fetchWithAuth(`/api/quizzes/${quizId}/questions/${questionId}`, {
-    method: 'DELETE',
+    method: "DELETE",
   });
 };
 
 export const deleteAnswer = async (questionId: number, answerId: number) => {
   return fetchWithAuth(`/api/questions/${questionId}/answers/${answerId}`, {
-    method: 'DELETE',
+    method: "DELETE",
   });
 };

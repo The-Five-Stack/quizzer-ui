@@ -14,13 +14,13 @@ import AddIcon from "@mui/icons-material/Add";
 import type { Question } from "../types/quiz";
 import AnswerItemList from "./AnswerItemList";
 import "./QuestionCard.css";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface QuestionCardProps {
   question: Question;
   index: number;
   onDelete: (id: number) => void;
-  onDeleteAnswer?: (questionId: number, answerId: number) => void;
+  onDeleteAnswer: (questionId: number, answerId: number) => void;
 }
 
 /**
@@ -95,8 +95,7 @@ const QuestionCard = ({ question, index, onDelete, onDeleteAnswer }: QuestionCar
             <AnswerItemList
               key={answer.id}
               answer={answer}
-              onDelete={onDeleteAnswer ? (id) => onDeleteAnswer(question.id, id) : undefined}
-            />
+              onDelete={(id) => onDeleteAnswer(question.id, id)} />
           ))}
         </List>
       </Box>
