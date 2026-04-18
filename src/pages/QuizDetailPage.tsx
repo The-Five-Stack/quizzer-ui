@@ -24,10 +24,15 @@ function QuizDetailPage() {
         try {
             await deleteQuestion(quiz.id, questionId);
 
-            setQuiz({
-                ...quiz,
-                questions: quiz.questions.filter((q) => q.id !== questionId),
+            setQuiz((prev) => {
+                if (!prev) return prev;
+
+                return {
+                    ...prev,
+                    questions: prev.questions.filter((q) => q.id !== questionId),
+                };
             });
+
         } catch {
             alert('Failed to delete question');
         }
@@ -42,16 +47,22 @@ function QuizDetailPage() {
         try {
             await deleteAnswer(questionId, answerId);
 
-            setQuiz({
-                ...quiz,
-                questions: quiz.questions.map((q) =>
-                    q.id === questionId
-                        ? {
-                            ...q,
-                            answers: q.answers.filter((a) => a.id !== answerId),
-                        }
-                        : q
-                ),
+            setQuiz((prev) => {
+                if (!prev) return prev;
+
+                return {
+                    ...prev,
+                    questions: prev.questions.map((q) =>
+                        q.id === questionId
+                            ? {
+                                ...q,
+                                answers: q.answers.filter(
+                                    (a) => a.id !== answerId
+                                ),
+                            }
+                            : q
+                    ),
+                };
             });
         } catch {
             alert('Failed to delete answer');
@@ -75,6 +86,14 @@ function QuizDetailPage() {
         );
     }
 
+    if (!quiz) {
+        return (
+            <Container maxWidth="sm">
+                <Typography>Loading...</Typography>
+            </Container>
+        );
+    }
+
     return (
         <Container maxWidth="md" className="quiz-detail-page">
             <Button startIcon={<ArrowBackIcon />} className="quiz-detail-back-btn" onClick={() => navigate('/')}>
@@ -84,17 +103,17 @@ function QuizDetailPage() {
             <Box className="quiz-detail-header">
                 <Box>
                     <Typography variant="h3" gutterBottom className="quiz-detail-title">
-                        {quiz?.name}
+                        {quiz.name}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary">
-                        {quiz?.description}
+                        {quiz.description}
                     </Typography>
 
                     <Stack direction="row" spacing={1} className="quiz-detail-meta">
-                        <Chip label={quiz?.courseCode} variant="outlined" />
+                        <Chip label={quiz.courseCode} variant="outlined" />
                         <Chip
-                            label={quiz?.published ? 'Published' : 'Draft'}
-                            color={quiz?.published ? 'success' : 'default'}
+                            label={quiz.published ? 'Published' : 'Draft'}
+                            color={quiz.published ? 'success' : 'default'}
                         />
                     </Stack>
                 </Box>
@@ -120,12 +139,12 @@ function QuizDetailPage() {
                 </Button>
             </Box>
 
-            {!quiz || quiz.questions.length === 0 ? (
+            {quiz.questions.length === 0 ? (
                 <Typography variant="body1" color="text.secondary" className="quiz-detail-empty">
                     No questions found. Please add some.
                 </Typography>
             ) : (
-                quiz?.questions.map((question, index) => (
+                quiz.questions.map((question, index) => (
                     <QuestionCard
                         key={question.id}
                         question={question}
