@@ -5,9 +5,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { Quiz } from '../types/quiz';
 import QuestionCard from '../components/QuestionCard';
-import { fetchWithAuth } from '../api';
 import { normalizeQuiz } from '../mappers/quizNormalizer';
 import './QuizDetailPage.css';
+import { deleteQuestion, deleteAnswer, fetchWithAuth } from '../api';
 
 function QuizDetailPage() {
     const [quiz, setQuiz] = useState<Quiz | null>(null);
@@ -15,15 +15,47 @@ function QuizDetailPage() {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const handleDeleteQuestion = (questionId: number) => {
-        if (!quiz) {
-            return;
-        }
+    const handleDeleteQuestion = async (questionId: number) => {
+        if (!quiz) return;
 
-        setQuiz({
-            ...quiz,
-            questions: quiz.questions.filter((question) => question.id !== questionId),
-        });
+        const ok = window.confirm('Delete this question?');
+        if (!ok) return;
+
+        try {
+            await deleteQuestion(quiz.id, questionId);
+
+            setQuiz({
+                ...quiz,
+                questions: quiz.questions.filter((q) => q.id !== questionId),
+            });
+        } catch {
+            alert('Failed to delete question');
+        }
+    };
+
+    const handleDeleteAnswer = async (questionId: number, answerId: number) => {
+        if (!quiz) return;
+
+        const ok = window.confirm('Delete this answer?');
+        if (!ok) return;
+
+        try {
+            await deleteAnswer(questionId, answerId);
+
+            setQuiz({
+                ...quiz,
+                questions: quiz.questions.map((q) =>
+                    q.id === questionId
+                        ? {
+                            ...q,
+                            answers: q.answers.filter((a) => a.id !== answerId),
+                        }
+                        : q
+                ),
+            });
+        } catch {
+            alert('Failed to delete answer');
+        }
     };
 
     useEffect(() => {
@@ -88,7 +120,7 @@ function QuizDetailPage() {
                 </Button>
             </Box>
 
-            {quiz?.questions.length === 0 ? (
+            {!quiz || quiz.questions.length === 0 ? (
                 <Typography variant="body1" color="text.secondary" className="quiz-detail-empty">
                     No questions found. Please add some.
                 </Typography>
@@ -99,6 +131,7 @@ function QuizDetailPage() {
                         question={question}
                         index={index}
                         onDelete={handleDeleteQuestion}
+                        onDeleteAnswer={handleDeleteAnswer}
                     />
                 ))
             )}

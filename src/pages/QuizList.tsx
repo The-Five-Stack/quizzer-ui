@@ -1,7 +1,6 @@
 import { Button } from "@mui/material";
 import "./QuizList.css";
 import "../components/QuizCard.css";
-import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 import QuizCard from "../components/QuizCard";
@@ -11,7 +10,7 @@ import { fetchQuizzesWithAuth, deleteQuiz, updateQuiz } from "../api";
 
 /**
  * QuizList component displays all available quizzes from the backend.
- * Users can view quizzes, navigate to details, create new quizzes, and manage categories.
+ * Users can view quizzes, navigate to details, create new quizzes.
  */
 export default function QuizList() {
   const navigate = useNavigate();
@@ -80,14 +79,6 @@ export default function QuizList() {
           <p>Create and manage quizzes for your students</p>
         </div>
         <div>
-          {/* Manage categories button - currently navigates to quiz details */}
-          <Button
-            className="manage-btn"
-            onClick={() => navigate("/quiz-details")}
-          >
-            <FolderOpenIcon />
-            <div>Manage Categories</div>
-          </Button>
           {/* Add new quiz button */}
           <Button
             className="addquiz-btn"

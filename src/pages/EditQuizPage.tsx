@@ -80,6 +80,8 @@ function EditQuizPage() {
         }),
       });
 
+      alert('Quiz updated successfully!');
+
       navigate('/');
     } catch (error) {
       console.error(error);
