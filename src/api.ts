@@ -169,3 +169,21 @@ export const addAnswer = async (
 // export const fetchAnswers = async (questionId: number): Promise<Answer[]> => {
 //   return fetchWithAuth(`/api/questions/${questionId}/answers`);
 // };
+
+export const deleteQuestion = async (
+  quizId: number,
+  questionId: number,
+): Promise<void> => {
+  await fetchWithAuth(`/api/quizzes/${quizId}/questions/${questionId}`, {
+    method: "DELETE",
+  });
+};
+
+export const deleteAnswer = async (
+  questionId: number,
+  answerId: number,
+): Promise<void> => {
+  await fetchWithAuth(`/api/questions/${questionId}/answers/${answerId}`, {
+    method: "DELETE",
+  });
+};

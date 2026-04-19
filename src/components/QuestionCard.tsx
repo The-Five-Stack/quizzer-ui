@@ -14,19 +14,20 @@ import AddIcon from "@mui/icons-material/Add";
 import type { Question } from "../types/quiz";
 import AnswerItemList from "./AnswerItemList";
 import "./QuestionCard.css";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface QuestionCardProps {
   question: Question;
   index: number;
   onDelete: (id: number) => void;
+  onDeleteAnswer: (questionId: number, answerId: number) => void;
 }
 
 /**
  * Renders a quiz question with its answers.
  * Displays question content, difficulty level, answer options, and delete functionality.
  */
-const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
+const QuestionCard = ({ question, index, onDelete, onDeleteAnswer }: QuestionCardProps) => {
   const answers = question.answers;
   const navigate = useNavigate()
   /**
@@ -94,7 +95,7 @@ const QuestionCard = ({ question, index, onDelete }: QuestionCardProps) => {
             <AnswerItemList
               key={answer.id}
               answer={answer}
-            />
+              onDelete={(id) => onDeleteAnswer(question.id, id)} />
           ))}
         </List>
       </Box>

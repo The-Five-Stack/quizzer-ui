@@ -54,6 +54,8 @@ function CreateQuizForm() {
                 courseCode: normalizedCourseCode,
                 published,
             });
+            
+            alert('Quiz created successfully!');
 
             navigate('/');
         } catch (error) {

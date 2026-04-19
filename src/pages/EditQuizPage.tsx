@@ -80,7 +80,9 @@ function EditQuizPage() {
         }),
       });
 
-      navigate('/');
+      alert('Quiz updated successfully!');
+
+      navigate(`/quizzes/${id}`);
     } catch (error) {
       console.error(error);
       setErrorMessage(error instanceof Error ? error.message : 'Failed to update quiz');
@@ -93,7 +95,7 @@ function EditQuizPage() {
 
   return (
     <Container maxWidth="sm" className="edit-quiz-page">
-      <Button onClick={() => navigate('/')} disabled={isSubmitting}>
+      <Button onClick={() => navigate(`/quizzes/${id}`)} disabled={isSubmitting}>
         Back
       </Button>
 
