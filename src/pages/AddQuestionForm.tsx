@@ -18,12 +18,16 @@ export default function AddQuestionForm() {
   });
 
   const handleSubmit = async () => {
-    if(question.questionContent.trim() === "" || question.difficulty === "") {
-      alert("Question content and difficulty are required")
-      return
+    if (question.questionContent.trim() === "" || question.difficulty === "") {
+      alert("Question content and difficulty are required");
+      return;
     }
     await addQuestion(Number(id), question);
     alert("Question is added");
+    setQuestion({
+      questionContent: "",
+      difficulty: "",
+    });
   };
   return (
     <Container maxWidth="md" className="add-question-container">
