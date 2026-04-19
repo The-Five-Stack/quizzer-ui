@@ -15,9 +15,8 @@ import InputLabel from "@mui/material/InputLabel";
 import { addAnswer } from "../api";
 import { useNavigate } from "react-router-dom";
 
-
 export default function AddAnswerForm() {
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const { questionId } = useParams();
   const [answer, setAnswer] = useState({
     content: "",
@@ -25,23 +24,22 @@ const navigate = useNavigate();
   });
 
   const handleSubmit = async () => {
-    if(answer.content.trim() === "") {
-      alert("Answer content is required")
-      return
+    if (answer.content.trim() === "") {
+      alert("Answer content is required");
+      return;
     }
     await addAnswer(Number(questionId), answer);
     alert("Answer is added");
+    setAnswer({
+      content: "",
+      correct: false,
+    });
   };
-
-
 
   return (
     <Container maxWidth="md" className="add-answer-container">
       <div className="add-answer-header">
-        <Button
-          className="back-btn"
-          onClick={() => navigate(-1)}
-        >
+        <Button className="back-btn" onClick={() => navigate(-1)}>
           <ArrowBackIcon fontSize="small" />
           Back to Quizz
         </Button>
