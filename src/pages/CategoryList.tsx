@@ -31,14 +31,6 @@ export default function CategoryList() {
         }
     ]
 
-    const getCategories = () => {
-        fetchCategoriesWithAuth()
-            .then(data => setCategories(data))
-            .catch((err) => {
-                console.error("Failed to fetch categories:", err);
-                alert("Failed to load categories.");
-            });
-    }
 
     const handleDelete = (id: number) => {
         if (window.confirm("Are you sure you want to delete this category?")) {
@@ -54,7 +46,12 @@ export default function CategoryList() {
     }
 
     useEffect(() => {
-        getCategories();
+        fetchCategoriesWithAuth()
+            .then(data => setCategories(data))
+            .catch((err) => {
+                console.error("Failed to fetch categories:", err);
+                alert("Failed to load categories.");
+            });
     }, []);
 
     return (
