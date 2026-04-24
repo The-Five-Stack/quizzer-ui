@@ -187,3 +187,13 @@ export const deleteAnswer = async (
     method: "DELETE",
   });
 };
+
+export const fetchCategoriesWithAuth = async () => {
+  return fetchWithAuth("/api/categories");
+};
+
+export const deleteCategory = async (categoryId: number): Promise<void> => {
+  await fetchWithAuth(`/api/categories/${categoryId}`, {
+    method: "DELETE",
+  });
+};

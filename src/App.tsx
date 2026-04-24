@@ -6,7 +6,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import QuizList from './pages/QuizList'
 import CssBaseline from "@mui/material/CssBaseline";
 import AddQuestionForm from "./pages/AddQuestionForm"
-import AddAnswerForm from "./pages/AddAnswerForm"
+import AddAnswerForm from "./pages/AddAnswerForm";
+import CategoryList from "./pages/CategoryList";
 /**
  * Root App component that sets up the SPA routing structure.
  * Routes:
@@ -24,9 +25,9 @@ function App() {
           <Route path="/quizzes/:id" element={<QuizDetailPage />} />
           <Route path="/quizzes/:id/edit" element={<EditQuizPage />} />
           <Route path="/create-quiz" element={<CreateQuizForm />} />
-          <Route path="/quizzes/:id/questions" element={<AddQuestionForm/>} />
-          <Route path="/questions/:questionId/answers" element={<AddAnswerForm/>} />
-
+          <Route path="/quizzes/:id/questions" element={<AddQuestionForm />} />
+          <Route path="/questions/:questionId/answers" element={<AddAnswerForm />} />
+          <Route path="/categories" element={<CategoryList />} />
         </Routes>
       </BrowserRouter>
       <CssBaseline />
