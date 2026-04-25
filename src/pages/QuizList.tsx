@@ -104,7 +104,7 @@ export default function QuizList() {
             <QuizCard
               key={i}
               {...q}
-              categoryName={q.category ? q.category.name : ''}
+              categoryName={q.category?.name}
               onManage={() => navigate(`/quizzes/${q.id}`)}
               onToggleStatus={() => handleToggleStatus(q.id)}
               onDelete={() => handleDelete(q.id)}
