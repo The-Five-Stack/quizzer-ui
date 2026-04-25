@@ -13,12 +13,19 @@ type RawQuestion = {
   answers: RawAnswer[] | null;
 };
 
+type RawCategory = {
+  id: number;
+  name: string;
+  description: string;
+};
+
 type RawQuiz = {
   id: number;
   name: string;
   description: string;
   courseCode: string;
   published: boolean;
+  category: RawCategory | null;
   questions: RawQuestion[] | null;
 };
 
@@ -31,6 +38,7 @@ export function normalizeQuiz(payload: unknown): Quiz {
     description: data.description ,
     courseCode: data.courseCode,
     published: data.published,
+    category: data.category,
     questions: Array.isArray(data.questions)
       ? data.questions.map((question) => ({
           id: question.id,

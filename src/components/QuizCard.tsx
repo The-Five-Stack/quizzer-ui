@@ -9,7 +9,7 @@ interface QuizCardProps {
   name: string;
   description: string;
   courseCode: string;
-  //category: string;
+  categoryName?: string;
   published: boolean ;
   onManage: () => void;
   onToggleStatus: () => void;
@@ -43,9 +43,9 @@ export default function QuizCard(props: QuizCardProps) {
         <p>
           <b>Code:</b> {props.courseCode}
         </p>
-        {/* <p>
-          <b>Category:</b> {props.category}
-        </p> */}
+        <p>
+          <b>Category:</b> {props.categoryName}
+        </p>
 
         {/* Action buttons */}
         <div className="qc-foot">

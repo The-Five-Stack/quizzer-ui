@@ -33,9 +33,16 @@ export default function QuizList() {
     try {
       const quiz = quizzes.find((q) => q.id === quizId);
       if (!quiz) return;
+      if (!quiz.category) {
+        alert("Quiz is missing category. Please edit quiz and select a category.");
+        return;
+      }
       await updateQuiz(quizId, {
-        ...quiz,
+        name: quiz.name,
+        description: quiz.description,
+        courseCode: quiz.courseCode,
         published: !quiz.published,
+        categoryId: quiz.category.id,
       });
 
       const data = await fetchQuizzesWithAuth();
@@ -97,6 +104,7 @@ export default function QuizList() {
             <QuizCard
               key={i}
               {...q}
+              categoryName={q.category ? q.category.name : ''}
               onManage={() => navigate(`/quizzes/${q.id}`)}
               onToggleStatus={() => handleToggleStatus(q.id)}
               onDelete={() => handleDelete(q.id)}
