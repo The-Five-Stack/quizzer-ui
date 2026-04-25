@@ -36,4 +36,5 @@ export interface QuizInfo {
   courseCode: string;
   category: Category | null;
   published: boolean;
+  createdAt: string;
 }
