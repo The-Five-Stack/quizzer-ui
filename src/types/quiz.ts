@@ -29,6 +29,7 @@ export interface QuizInfo {
   courseCode: string;
   // category: string;
   published: boolean;
+  createdAt: string;
 }
 
 export interface Category {
