@@ -9,13 +9,16 @@
 
 .category-header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   margin-bottom: 20px;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .category-header h2 {
   margin: 0;
+  text-align: left;
 }
 
 .category-grid-wrap {
