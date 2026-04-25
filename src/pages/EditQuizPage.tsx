@@ -7,11 +7,16 @@ import {
   Typography,
   Checkbox,
   FormControlLabel,
-  Alert
+  Alert,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchWithAuth } from '../api';
+import { fetchWithAuth, fetchCategoriesWithAuth } from '../api';
 import './EditQuizPage.css';
+import type { Category } from '../types/quiz';
 
 const COURSE_CODE_PATTERN = /^[A-Z]{3}\d{3}[A-Z]{2}\d[A-Z]{2}$/;
 
@@ -24,6 +29,10 @@ function EditQuizPage() {
   const [courseCode, setCourseCode] = useState('');
   const [published, setPublished] = useState(false);
 
+  const [categoryId, setCategoryId] = useState<number | ''>('');
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  const [categoryLoadError, setCategoryLoadError] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -36,12 +45,23 @@ function EditQuizPage() {
       return;
     }
 
+    fetchCategoriesWithAuth()
+      .then(cats => {
+        setCategories(cats);
+        setCategoryLoadError(null);
+      })
+      .catch(err => {
+        console.error("Failed to fetch categories:", err)
+        setCategoryLoadError('Failed to load categories. Please refresh the page or try again later.');
+      });
+
     fetchWithAuth(`/api/quizzes/${id}`)
       .then((data) => {
         setName(data.name || '');
         setDescription(data.description || '');
         setCourseCode(data.courseCode || '');
         setPublished(data.published || false);
+        setCategoryId(data.category ? data.category.id : '');
         setErrorMessage(null);
       })
       .catch((error) => {
@@ -56,8 +76,8 @@ function EditQuizPage() {
     const normalizedDescription = description.trim();
     const normalizedCourseCode = courseCode.trim().toUpperCase();
 
-    if (!normalizedName || !normalizedCourseCode) {
-      setErrorMessage('Name and Course Code are required');
+    if (!normalizedName || !normalizedCourseCode || categoryId === '') {
+      setErrorMessage('Name and Course Code and Category are required');
       return;
     }
 
@@ -76,7 +96,8 @@ function EditQuizPage() {
           name: normalizedName,
           description: normalizedDescription,
           courseCode: normalizedCourseCode,
-          published
+          published,
+          categoryId: categoryId as number,
         }),
       });
 
@@ -102,6 +123,12 @@ function EditQuizPage() {
       <Typography variant="h5">
         Edit Quiz
       </Typography>
+
+      {categoryLoadError && (
+        <Alert severity="warning" sx={{ mb: 2 }}>
+          {categoryLoadError}
+        </Alert>
+      )}
 
       {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
 
@@ -139,10 +166,28 @@ function EditQuizPage() {
           label="Published"
         />
 
+        <FormControl fullWidth sx={{ mt: 2 }} required error={!!categoryLoadError}>
+          <InputLabel id="category-select-label">Category</InputLabel>
+          <Select
+            labelId="category-select-label"
+            id="category-select"
+            value={categoryId}
+            label="Category *"
+            onChange={(e) => setCategoryId(e.target.value as number)}
+            disabled={!!categoryLoadError || categories.length === 0}
+          >
+            {categories.map((cat) => (
+              <MenuItem key={cat.id} value={cat.id}>
+                {cat.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
         <Button
           variant="contained"
           onClick={handleSubmit}
-          disabled={isSubmitting}
+          disabled={isSubmitting || !!categoryLoadError || categories.length === 0}
           fullWidth
         >
           Update Quiz
