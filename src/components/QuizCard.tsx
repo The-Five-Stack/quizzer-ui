@@ -40,6 +40,10 @@ export default function QuizCard(props: QuizCardProps) {
           </span>
         </div>
 
+        {/* Created date display */}
+        <p>
+          <b>Created:</b> {new Date(props.createdAt).toLocaleDateString("en-GB")}
+        </p>
 
         {/* Course code display */}
         <p>
@@ -52,11 +56,6 @@ export default function QuizCard(props: QuizCardProps) {
             <b>Category:</b> {props.categoryName}
           </p>
         )}
-
-        {/* Created date display */}
-        <p>
-          <b>Created:</b> {new Date(props.createdAt).toLocaleDateString("en-GB")}
-        </p>
 
         {/* Action buttons */}
         <div className="qc-foot">
