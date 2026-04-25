@@ -59,15 +59,15 @@ export default function CategoryList() {
     return (
         <Box className="category-page">
             <Box className="category-header">
-                <div className="title">
+                <div className=".category-header-title">
                     <h2 >Category Management</h2>
                 </div>
                 <Button
                     className="addcategory-btn"
                     onClick={() => console.log('Open Add Category Modal')}
+                    startIcon={<AddIcon />}
                 >
-                    <AddIcon />
-                    <div>Add Category</div>
+                    Add Category
                 </Button>
             </Box>
             <Box className="category-grid-wrap">

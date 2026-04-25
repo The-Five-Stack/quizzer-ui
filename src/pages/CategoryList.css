@@ -28,3 +28,9 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
   border-radius: 6px;
 }
+
+.category-header-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start ;
+}
