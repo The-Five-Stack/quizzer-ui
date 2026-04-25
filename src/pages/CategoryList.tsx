@@ -7,6 +7,8 @@ import { deleteCategory, fetchCategoriesWithAuth } from "../api";
 import { DataGrid } from "@mui/x-data-grid";
 import Box from '@mui/material/Box';
 import "./CategoryList.css";
+import { Button } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 export default function CategoryList() {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -57,18 +59,25 @@ export default function CategoryList() {
     return (
         <Box className="category-page">
             <Box className="category-header">
-                <h2 >
-                    Category Management
-                </h2>
+                <div className=".category-header-title">
+                    <h2 >Category Management</h2>
+                </div>
+                <Button
+                    className="addcategory-btn"
+                    onClick={() => console.log('Open Add Category Modal')}
+                    startIcon={<AddIcon />}
+                >
+                    Add Category
+                </Button>
             </Box>
             <Box className="category-grid-wrap">
                 <DataGrid
                     rows={categories}
                     columns={columns}
-                    getRowId={row => row.id} 
+                    getRowId={row => row.id}
                     autoPageSize
                     rowSelection={false}
-                    disableColumnMenu 
+                    disableColumnMenu
                 />
             </Box>
         </Box>
