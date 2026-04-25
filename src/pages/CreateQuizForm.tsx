@@ -51,7 +51,7 @@ function CreateQuizForm() {
 
         // Validate required fields
         if (!normalizedName || !normalizedCourseCode || categoryId === '') {
-            setErrorMessage('Name and Course Code and Category are required');
+            setErrorMessage('Name, Course Code and Category are required');
             return;
         }
 

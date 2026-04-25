@@ -38,7 +38,9 @@ export default function QuizList() {
         return;
       }
       await updateQuiz(quizId, {
-        ...quiz,
+        name: quiz.name,
+        description: quiz.description,
+        courseCode: quiz.courseCode,
         published: !quiz.published,
         categoryId: quiz.category.id,
       });

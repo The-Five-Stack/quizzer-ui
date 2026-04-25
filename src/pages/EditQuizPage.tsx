@@ -77,7 +77,7 @@ function EditQuizPage() {
     const normalizedCourseCode = courseCode.trim().toUpperCase();
 
     if (!normalizedName || !normalizedCourseCode || categoryId === '') {
-      setErrorMessage('Name and Course Code and Category are required');
+      setErrorMessage('Name, Course Code and Category are required');
       return;
     }
 
@@ -187,7 +187,7 @@ function EditQuizPage() {
         <Button
           variant="contained"
           onClick={handleSubmit}
-          disabled={isSubmitting || !!categoryLoadError || categories.length === 0}
+          disabled={isSubmitting || categoryId === ''}
           fullWidth
         >
           Update Quiz

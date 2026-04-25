@@ -17,7 +17,7 @@ type RawCategory = {
   id: number;
   name: string;
   description: string;
-}
+};
 
 type RawQuiz = {
   id: number;
