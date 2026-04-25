@@ -45,6 +45,11 @@ export default function QuizCard(props: QuizCardProps) {
           <b>Created:</b> {new Date(props.createdAt).toLocaleDateString("en-GB")}
         </p>
 
+        {/* Created date display */}
+        <p>
+          <b>Created:</b> {new Date(props.createdAt).toLocaleDateString("en-GB")}
+        </p>
+
         {/* Course code display */}
         <p>
           <b>Code:</b> {props.courseCode}
@@ -62,11 +67,11 @@ export default function QuizCard(props: QuizCardProps) {
           <div>
             {/* Toggle publish status button */}
             <button className="qc-icon" onClick={props.onToggleStatus}>
-              {props.published === true ? <VisibilityOffIcon fontSize="small" /> : <VisibilityIcon fontSize="small" />}
+              {props.published === true ? <VisibilityOffIcon fontSize="small"  /> : <VisibilityIcon fontSize="small"  />}
             </button>
             {/* Delete button */}
             <button className="qc-icon del" onClick={props.onDelete}>
-              <DeleteIcon fontSize="small" />
+              <DeleteIcon fontSize="small"  />
             </button>
           </div>
         </div>
