@@ -1,4 +1,4 @@
-import type { Category } from "./types/quiz";
+import type { Category, QuizInfo } from "./types/quiz";
 
 type CreateQuizPayload = {
   name: string;
@@ -62,6 +62,34 @@ export const fetchWithAuth = async (
     ...options,
     headers: { ...defaultHeaders, ...options.headers },
   });
+};
+
+/**
+ * Published quizzes for students.
+ * Backend route: GET /api/quizzes/publishedquizz
+ */
+export const fetchPublishedQuizzes = async (
+  options: RequestInit = {},
+): Promise<QuizInfo[]> => {
+  const data = await requestJson("/api/quizzes/publishedquizz", options);
+
+  if (Array.isArray(data)) {
+    return data as QuizInfo[];
+  }
+
+  if (data && typeof data === "object") {
+    const singleQuiz = data as QuizInfo;
+    if ("id" in singleQuiz && "name" in singleQuiz) {
+      return [singleQuiz];
+    }
+
+    const quizzes = (data as { quizzes?: unknown }).quizzes;
+    if (Array.isArray(quizzes)) {
+      return quizzes as QuizInfo[];
+    }
+  }
+
+  return [];
 };
 
 export const fetchQuizzesWithAuth = async (options: RequestInit = {}) => {

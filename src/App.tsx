@@ -9,6 +9,9 @@ import AddQuestionForm from "./pages/AddQuestionForm"
 import AddAnswerForm from "./pages/AddAnswerForm";
 import CategoryList from "./pages/CategoryList";
 import CreateCategoryForm from "./pages/CreateCategoryForm";
+import PublishedQuizList from "./pages/PublishedQuizList";
+import StudentQuizDetailPage from "./pages/StudentQuizDetailPage";
+import QuizResultsPage from "./pages/QuizResultsPage";
 /**
  * Root App component that sets up the SPA routing structure.
  * Routes:
@@ -16,6 +19,7 @@ import CreateCategoryForm from "./pages/CreateCategoryForm";
  * - /create-quiz : Create new quiz form
  * - /quizzes/:id : Quiz detail page
  * - /quizzes/:id/questions : Create new question form
+ * - /publishedquizz : Student published quiz list (GET /api/quizzes/publishedquizz)
  */
 function App() {
   return (
@@ -23,6 +27,15 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<QuizList/>}/>
+          <Route path="/publishedquizz" element={<PublishedQuizList />} />
+          <Route
+            path="/publishedquizz/:id/results"
+            element={<QuizResultsPage />}
+          />
+          <Route
+            path="/publishedquizz/:id"
+            element={<StudentQuizDetailPage />}
+          />
           <Route path="/quizzes/:id" element={<QuizDetailPage />} />
           <Route path="/quizzes/:id/edit" element={<EditQuizPage />} />
           <Route path="/create-quiz" element={<CreateQuizForm />} />
