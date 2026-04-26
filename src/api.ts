@@ -1,3 +1,5 @@
+import type { Category } from "./types/quiz";
+
 type CreateQuizPayload = {
   name: string;
   description: string;
@@ -191,6 +193,20 @@ export const deleteAnswer = async (
 
 export const fetchCategoriesWithAuth = async () => {
   return fetchWithAuth("/api/categories");
+};
+
+type CreateCategoryPayload = {
+  name: string;
+  description: string;
+};
+
+export const createCategory = async (
+  payload: CreateCategoryPayload,
+): Promise<Category> => {
+  return fetchWithAuth("/api/categories", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
 };
 
 export const deleteCategory = async (categoryId: number): Promise<void> => {

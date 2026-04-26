@@ -6,11 +6,13 @@ import IconButton from "@mui/material/IconButton";
 import { deleteCategory, fetchCategoriesWithAuth } from "../api";
 import { DataGrid } from "@mui/x-data-grid";
 import Box from '@mui/material/Box';
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 import "./CategoryList.css";
-import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
 export default function CategoryList() {
+    const navigate = useNavigate();
     const [categories, setCategories] = useState<Category[]>([]);
     const columns: GridColDef[] = [
         { field: "name", headerName: "Name", flex: 1, minWidth: 120 },
@@ -59,15 +61,16 @@ export default function CategoryList() {
     return (
         <Box className="category-page">
             <Box className="category-header">
-                <div className=".category-header-title">
-                    <h2 >Category Management</h2>
+                <div className="category-header-title">
+                    <h2>Category Management</h2>
                 </div>
                 <Button
-                    className="addcategory-btn"
-                    onClick={() => console.log('Open Add Category Modal')}
+                    variant="contained"
+                    size="small"
                     startIcon={<AddIcon />}
+                    onClick={() => navigate("/categories/new")}
                 >
-                    Add Category
+                    Add category
                 </Button>
             </Box>
             <Box className="category-grid-wrap">

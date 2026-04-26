@@ -8,6 +8,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import AddQuestionForm from "./pages/AddQuestionForm"
 import AddAnswerForm from "./pages/AddAnswerForm";
 import CategoryList from "./pages/CategoryList";
+import CreateCategoryForm from "./pages/CreateCategoryForm";
 /**
  * Root App component that sets up the SPA routing structure.
  * Routes:
@@ -28,6 +29,7 @@ function App() {
           <Route path="/quizzes/:id/questions" element={<AddQuestionForm />} />
           <Route path="/questions/:questionId/answers" element={<AddAnswerForm />} />
           <Route path="/categories" element={<CategoryList />} />
+          <Route path="/categories/new" element={<CreateCategoryForm />} />
         </Routes>
       </BrowserRouter>
       <CssBaseline />
