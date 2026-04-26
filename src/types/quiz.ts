@@ -26,6 +26,8 @@ export interface Quiz {
   courseCode: string;
   published: boolean;
   category: Category | null;
+  createdAt?: string;
+  publishedAt?: string;
   questions: Question[];
 }
 

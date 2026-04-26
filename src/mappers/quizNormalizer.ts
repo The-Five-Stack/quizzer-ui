@@ -25,6 +25,8 @@ type RawQuiz = {
   description: string;
   courseCode: string;
   published: boolean;
+  createdAt?: string;
+  publishedAt?: string;
   category: RawCategory | null;
   questions: RawQuestion[] | null;
 };
@@ -38,6 +40,8 @@ export function normalizeQuiz(payload: unknown): Quiz {
     description: data.description ,
     courseCode: data.courseCode,
     published: data.published,
+    createdAt: data.createdAt,
+    publishedAt: data.publishedAt,
     category: data.category,
     questions: Array.isArray(data.questions)
       ? data.questions.map((question) => ({
