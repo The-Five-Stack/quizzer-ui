@@ -71,7 +71,7 @@ export const fetchWithAuth = async (
 export const fetchPublishedQuizzes = async (
   options: RequestInit = {},
 ): Promise<QuizInfo[]> => {
-  const data = await requestJson("/api/quizzes/publishedquizz", options);
+  const data = await fetchWithAuth("/api/quizzes/publishedquizz", options);
 
   if (Array.isArray(data)) {
     return data as QuizInfo[];
