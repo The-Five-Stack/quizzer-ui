@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import "./CategoryList.css";
+import AddIcon from "@mui/icons-material/Add";
 
 export default function CategoryList() {
     const navigate = useNavigate();
@@ -60,14 +61,14 @@ export default function CategoryList() {
     return (
         <Box className="category-page">
             <Box className="category-header">
-                <h2 >
-                    Category Management
-                </h2>
+                <div className="category-header-title">
+                    <h2>Category Management</h2>
+                </div>
                 <Button
                     variant="contained"
                     size="small"
+                    startIcon={<AddIcon />}
                     onClick={() => navigate("/categories/new")}
-                    sx={{ mt: 1 }}
                 >
                     Add category
                 </Button>
@@ -76,10 +77,10 @@ export default function CategoryList() {
                 <DataGrid
                     rows={categories}
                     columns={columns}
-                    getRowId={row => row.id} 
+                    getRowId={row => row.id}
                     autoPageSize
                     rowSelection={false}
-                    disableColumnMenu 
+                    disableColumnMenu
                 />
             </Box>
         </Box>

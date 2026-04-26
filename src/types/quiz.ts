@@ -13,12 +13,19 @@ export interface Question {
   answers: Answer[];
 }
 
+export interface Category {
+  id: number;
+  name: string;
+  description: string;
+}
+
 export interface Quiz {
   id: number;
   name: string;
   description: string;
   courseCode: string;
   published: boolean;
+  category: Category | null;
   questions: Question[];
 }
 
@@ -27,12 +34,7 @@ export interface QuizInfo {
   name: string;
   description: string;
   courseCode: string;
-  // category: string;
+  category: Category | null;
   published: boolean;
-}
-
-export interface Category {
-  id: number;
-  name: string;
-  description: string;
+  createdAt: string;
 }

@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { Box, Button, Container, TextField, Typography, Checkbox, FormControlLabel, Alert } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Box, Button, Container, TextField, Typography, Checkbox, FormControlLabel, Alert, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { createQuizWithAuth } from '../api';
+import { createQuizWithAuth, fetchCategoriesWithAuth } from '../api';
 import './CreateQuizForm.css';
+import type { Category } from '../types/quiz';
 
 /**
  * Regex pattern for course code validation.
@@ -19,9 +20,25 @@ function CreateQuizForm() {
     const [description, setDescription] = useState('');
     const [courseCode, setCourseCode] = useState('');
     const [published, setPublished] = useState(false);
+    const [categoryId, setCategoryId] = useState<number | ''>('');
+    const [categories, setCategories] = useState<Category[]>([]);
+
+    const [categoryLoadError, setCategoryLoadError] = useState<string | null>(null);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     const navigate = useNavigate();
+    
+    useEffect(() => {
+        fetchCategoriesWithAuth()
+            .then(data => {
+                setCategories(data);
+                setCategoryLoadError(null);
+            })
+            .catch(err => {
+                console.error('Failed to fetch categories:', err);
+                setCategoryLoadError('Failed to load categories. Please refresh the page or try again later.');
+            });
+    }, []);
 
     /**
      * Handle form submission with validation.
@@ -33,8 +50,8 @@ function CreateQuizForm() {
         const normalizedCourseCode = courseCode.trim().toUpperCase();
 
         // Validate required fields
-        if (!normalizedName || !normalizedCourseCode) {
-            setErrorMessage('Name and Course Code are required');
+        if (!normalizedName || !normalizedCourseCode || categoryId === '') {
+            setErrorMessage('Name, Course Code and Category are required');
             return;
         }
 
@@ -53,8 +70,9 @@ function CreateQuizForm() {
                 description: normalizedDescription,
                 courseCode: normalizedCourseCode,
                 published,
+                categoryId: categoryId as number,
             });
-            
+
             alert('Quiz created successfully!');
 
             navigate('/');
@@ -73,7 +91,12 @@ function CreateQuizForm() {
             <Typography variant="h5" className="create-quiz-title">
                 Create Quiz
             </Typography>
-
+            
+            {categoryLoadError && (
+                <Alert severity="warning" sx={{ mb: 2 }} className="create-quiz-error">
+                    {categoryLoadError}
+                </Alert>
+            )}
             {errorMessage && <Alert severity="error" className="create-quiz-error">{errorMessage}</Alert>}
 
             <Box className="create-quiz-form">
@@ -112,7 +135,29 @@ function CreateQuizForm() {
                     label="Published"
                 />
 
-                <Button variant="contained" onClick={handleSubmit} fullWidth>
+                <FormControl fullWidth sx={{ mt: 2 }} required>
+                    <InputLabel id="category-select-label">Category</InputLabel>
+                    <Select
+                        labelId="category-select-label"
+                        id="category-select"
+                        value={categoryId}
+                        label="Category *"
+                        onChange={(e) => setCategoryId(e.target.value as number)}
+                    >
+                        {categories.map((cat) => (
+                            <MenuItem key={cat.id} value={cat.id}>
+                                {cat.name}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+
+                <Button 
+                    variant="contained" 
+                    onClick={handleSubmit} 
+                    fullWidth
+                    disabled={!!categoryLoadError || categories.length === 0}
+                >
                     Create Quiz
                 </Button>
             </Box>

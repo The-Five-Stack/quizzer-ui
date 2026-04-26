@@ -5,6 +5,7 @@ type CreateQuizPayload = {
   description: string;
   courseCode: string;
   published: boolean;
+  categoryId: number;
 };
 
 // type Answer = {
