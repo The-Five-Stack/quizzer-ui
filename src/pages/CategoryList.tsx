@@ -6,9 +6,12 @@ import IconButton from "@mui/material/IconButton";
 import { deleteCategory, fetchCategoriesWithAuth } from "../api";
 import { DataGrid } from "@mui/x-data-grid";
 import Box from '@mui/material/Box';
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 import "./CategoryList.css";
 
 export default function CategoryList() {
+    const navigate = useNavigate();
     const [categories, setCategories] = useState<Category[]>([]);
     const columns: GridColDef[] = [
         { field: "name", headerName: "Name", flex: 1, minWidth: 120 },
@@ -60,6 +63,14 @@ export default function CategoryList() {
                 <h2 >
                     Category Management
                 </h2>
+                <Button
+                    variant="contained"
+                    size="small"
+                    onClick={() => navigate("/categories/new")}
+                    sx={{ mt: 1 }}
+                >
+                    Add category
+                </Button>
             </Box>
             <Box className="category-grid-wrap">
                 <DataGrid
