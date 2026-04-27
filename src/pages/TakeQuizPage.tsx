@@ -15,7 +15,6 @@ import type { Quiz } from "../types/quiz";
 import { normalizeQuiz } from "../mappers/quizNormalizer";
 import { fetchWithAuth } from "../api";
 import StudentQuestionCard from "../components/StudentQuestionCard";
-import "./QuizDetailPage.css";
 
 function formatDisplayDate(iso: string | undefined): string {
   if (!iso) return "—";
