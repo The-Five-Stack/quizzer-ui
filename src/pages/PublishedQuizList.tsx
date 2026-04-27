@@ -12,6 +12,7 @@ import {
 import { Link as RouterLink } from "react-router-dom";
 import type { QuizInfo } from "../types/quiz";
 import { fetchPublishedQuizzes } from "../api";
+import "./PublishedQuizList.css";
 
 /**
  * Student-facing list of published quizzes from GET /api/quizzes/publishedquizz.
@@ -45,22 +46,26 @@ export default function PublishedQuizList() {
   }, []);
 
   return (
-    <Container maxWidth="lg" sx={{ py: 3 }}>
+    <Container maxWidth="lg" className="published-quiz-page">
       <Typography variant="h4" component="h1" gutterBottom>
         Published quizzes
       </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        className="published-quiz-intro"
+      >
         Browse available quizzes and view your results.
       </Typography>
 
       {loading && (
-        <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
+        <Box className="published-quiz-loading">
           <CircularProgress />
         </Box>
       )}
 
       {error && (
-        <Alert severity="error" sx={{ mb: 2 }}>
+        <Alert severity="error" className="published-quiz-alert-margin">
           {error}
         </Alert>
       )}
@@ -70,22 +75,16 @@ export default function PublishedQuizList() {
       )}
 
       {!loading && quizzes.length > 0 && (
-        <Box
-          sx={{
-            display: "grid",
-            gap: 2,
-            gridTemplateColumns: {
-              xs: "1fr",
-              sm: "repeat(2, minmax(0, 1fr))",
-              md: "repeat(3, minmax(0, 1fr))",
-            },
-          }}
-        >
+        <Box className="published-quiz-grid">
           {quizzes
             .slice()
             .sort((a, b) => a.id - b.id)
             .map((q) => (
-              <Card key={q.id} variant="outlined" sx={{ height: "100%" }}>
+              <Card
+                key={q.id}
+                variant="outlined"
+                className="published-quiz-card"
+              >
                 <CardContent>
                   <Typography variant="subtitle1" component="div" gutterBottom>
                     <Link
@@ -93,23 +92,26 @@ export default function PublishedQuizList() {
                       to={`/publishedquizz/${q.id}`}
                       underline="hover"
                       color="primary"
-                      sx={{ fontWeight: 600 }}
+                      className="published-quiz-title-link"
                     >
-                    {q.name}
+                      {q.name}
                     </Link>
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
-                    sx={{ mb: 1.5, minHeight: 40 }}
+                    className="published-quiz-description"
                   >
                     {q.description || "—"}
                   </Typography>
-                  <Typography variant="body2" sx={{ mb: 0.5 }}>
+                  <Typography variant="body2" className="published-quiz-meta">
                     <strong>Category:</strong>{" "}
                     {q.category?.name ?? "—"}
                   </Typography>
-                  <Typography variant="body2" sx={{ mb: 1.5 }}>
+                  <Typography
+                    variant="body2"
+                    className="published-quiz-meta-date"
+                  >
                     <strong>Date:</strong>{" "}
                     {new Date(q.createdAt).toLocaleDateString("en-GB")}
                   </Typography>
@@ -118,7 +120,7 @@ export default function PublishedQuizList() {
                       component={RouterLink}
                       to={`/publishedquizz/${q.id}/results`}
                       color="primary"
-                      sx={{ textDecoration: "none", "&:hover": { textDecoration: "underline" } }}
+                      className="published-quiz-results-link"
                     >
                       View results
                     </Link>
