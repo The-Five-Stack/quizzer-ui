@@ -11,6 +11,7 @@ import CategoryList from "./pages/CategoryList";
 import CategoryListStudent from "./pages/CategoryListStudent";
 import CreateCategoryForm from "./pages/CreateCategoryForm";
 import TakeQuizPage from "./pages/TakeQuizPage";
+import QuizzesByCategory from './pages/QuizzesByCategory';
 /**
  * Root App component that sets up the SPA routing structure.
  * Routes:
@@ -35,6 +36,8 @@ function App() {
           <Route path="/student/categories" element={<CategoryListStudent />} />
           <Route path="/student/quizzes/:id/take" element={<TakeQuizPage />} />
           <Route path="/categories/new" element={<CreateCategoryForm />} />
+          <Route path="/student/categories/:categoryId/published-quizzes" element={<QuizzesByCategory />} />
+
         </Routes>
       </BrowserRouter>
       <CssBaseline />

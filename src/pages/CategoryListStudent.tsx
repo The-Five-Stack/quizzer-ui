@@ -4,7 +4,6 @@ import type { GridColDef } from "@mui/x-data-grid";
 import { fetchCategoriesWithAuth } from "../api";
 import { DataGrid } from "@mui/x-data-grid";
 import Box from '@mui/material/Box';
-import "./CategoryListStudent.css";
 import { Link } from "react-router-dom";
 
 export default function CategoryListStudent() {
@@ -25,6 +24,7 @@ export default function CategoryListStudent() {
                         fontWeight: "500", 
                         cursor: "pointer"
                     }}
+                    state={{ categoryName: params.value }}
                 >
                     {params.value}
                 </Link>

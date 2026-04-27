@@ -15,7 +15,6 @@ import {
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchWithAuth, fetchCategoriesWithAuth } from '../api';
-import './EditQuizPage.css';
 import type { Category } from '../types/quiz';
 
 const COURSE_CODE_PATTERN = /^[A-Z]{3}\d{3}[A-Z]{2}\d[A-Z]{2}$/;

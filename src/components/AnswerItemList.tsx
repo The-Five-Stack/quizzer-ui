@@ -8,7 +8,6 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import type { Answer } from "../types/quiz";
 import CancelIcon from "@mui/icons-material/Cancel";
 import DeleteIcon from "@mui/icons-material/Delete";
-import "./AnswerItemList.css";
 
 interface AnswerItemProps {
   answer: Answer;

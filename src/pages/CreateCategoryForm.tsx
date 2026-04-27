@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { createCategory } from "../api";
-import "./CreateQuizForm.css";
 
 export default function CreateCategoryForm() {
   const [name, setName] = useState("");

@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
-import "./QuizList.css";
-import "../components/QuizCard.css";
+import "../index.css";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 import QuizCard from "../components/QuizCard";
@@ -80,8 +79,8 @@ export default function QuizList() {
 
   return (
     <>
-      <div className="header">
-        <div className="title">
+      <div className="quiz-list-header">
+        <div className="quiz-list-title">
           <h2>Quiz Management</h2>
           <p>Create and manage quizzes for your students</p>
         </div>
