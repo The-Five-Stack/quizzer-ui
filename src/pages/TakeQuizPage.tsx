@@ -45,11 +45,6 @@ export default function TakeQuizPage() {
 
     let cancelled = false;
 
-    setLoading(true);
-    setQuiz(null);
-    setError(null);
-    setSelections({});
-
     fetchWithAuth(`/api/quizzes/${id}`)
       .then((data) => {
         if (cancelled) return;
