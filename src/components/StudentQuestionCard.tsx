@@ -67,7 +67,7 @@ export default function StudentQuestionCard({
         setFeedbackSeverity("success");
       } else {
         setIsCorrect(false);
-        setFeedbackMessage("That is not correct, try again")
+        setFeedbackMessage("That is not correct, try again");
         setFeedbackSeverity("error");
       }
       setFeedbackOpen(true);
