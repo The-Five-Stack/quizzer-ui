@@ -13,7 +13,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import type { Question } from "../types/quiz";
 import AnswerItemList from "./AnswerItemList";
-import "./QuestionCard.css";
 import { useNavigate } from "react-router-dom";
 
 interface QuestionCardProps {

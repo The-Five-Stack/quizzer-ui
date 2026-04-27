@@ -6,8 +6,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import type { Quiz } from '../types/quiz';
 import QuestionCard from '../components/QuestionCard';
 import { normalizeQuiz } from '../mappers/quizNormalizer';
-import './QuizDetailPage.css';
 import { deleteQuestion, deleteAnswer, fetchWithAuth } from '../api';
+
 
 function QuizDetailPage() {
     const [quiz, setQuiz] = useState<Quiz | null>(null);

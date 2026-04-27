@@ -1,4 +1,4 @@
-import "./QuizCard.css";
+import "../index.css";
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
