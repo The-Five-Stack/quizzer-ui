@@ -1,4 +1,6 @@
 import "../index.css";
+import { Button } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import type { QuizInfo } from "../types/quiz";
 import { useEffect, useState } from "react";
@@ -25,11 +27,37 @@ export default function QuizzesByCategory() {
       .catch((error) => {
         console.error("Failed to fetch quizzes:", error);
       });
-    
   }, [categoryId]);
+
+  if (quizzesByCate.length === 0) {
+    return (
+      <>
+        <Button
+          className="back-btn"
+          onClick={() => navigate(`/student/categories`)}
+        >
+          <ArrowBackIcon fontSize="small" />
+          Back to Categories
+        </Button>
+        <div className="quiz-list-header">
+          <div className="quiz-list-title">
+            <h2>{categoryName ?? "Category"}</h2>
+            <p>No quizzes in this category</p>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
+      <Button
+        className="back-btn"
+        onClick={() => navigate(`/student/categories`)}
+      >
+        <ArrowBackIcon fontSize="small" />
+        Back to Categories
+      </Button>
       <div className="quiz-list-header">
         <div className="quiz-list-title">
           <h2>{categoryName ?? "Category"}</h2>
