@@ -25,6 +25,7 @@ export default function CategoryListStudent() {
                         fontWeight: "500", 
                         cursor: "pointer"
                     }}
+                    state={{ categoryName: params.value }}
                 >
                     {params.value}
                 </Link>
