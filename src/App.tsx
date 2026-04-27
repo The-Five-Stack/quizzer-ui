@@ -10,6 +10,7 @@ import AddAnswerForm from "./pages/AddAnswerForm";
 import CategoryList from "./pages/CategoryList";
 import CategoryListStudent from "./pages/CategoryListStudent";
 import CreateCategoryForm from "./pages/CreateCategoryForm";
+import TakeQuizPage from "./pages/TakeQuizPage";
 import QuizzesByCategory from './pages/QuizzesByCategory';
 /**
  * Root App component that sets up the SPA routing structure.
@@ -33,8 +34,7 @@ function App() {
           <Route path="/categories" element={<CategoryList />} />
           
           <Route path="/student/categories" element={<CategoryListStudent />} />
-          {/* Sadik, pls insert the correct element into the line below to naviagate Category list page student to Quizz by category page */}
-          {/* <Route path="/student/categories/:id/published-quizzes" element={<.... />} /> */}
+          <Route path="/student/quizzes/:id/take" element={<TakeQuizPage />} />
           <Route path="/categories/new" element={<CreateCategoryForm />} />
           <Route path="/student/categories/:categoryId/published-quizzes" element={<QuizzesByCategory />} />
 
