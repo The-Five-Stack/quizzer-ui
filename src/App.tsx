@@ -10,7 +10,6 @@ import AddAnswerForm from "./pages/AddAnswerForm";
 import CategoryList from "./pages/CategoryList";
 import CreateCategoryForm from "./pages/CreateCategoryForm";
 import PublishedQuizList from "./pages/PublishedQuizList";
-import StudentQuizDetailPage from "./pages/StudentQuizDetailPage";
 import QuizResultsPage from "./pages/QuizResultsPage";
 /**
  * Root App component that sets up the SPA routing structure.
@@ -31,10 +30,6 @@ function App() {
           <Route
             path="/publishedquizz/:id/results"
             element={<QuizResultsPage />}
-          />
-          <Route
-            path="/publishedquizz/:id"
-            element={<StudentQuizDetailPage />}
           />
           <Route path="/quizzes/:id" element={<QuizDetailPage />} />
           <Route path="/quizzes/:id/edit" element={<EditQuizPage />} />

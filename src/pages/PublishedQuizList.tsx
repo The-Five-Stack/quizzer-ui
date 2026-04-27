@@ -50,7 +50,7 @@ export default function PublishedQuizList() {
         Published quizzes
       </Typography>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-        Browse available quizzes. Open a quiz for details or view your results.
+        Browse available quizzes and view your results.
       </Typography>
 
       {loading && (
@@ -95,7 +95,7 @@ export default function PublishedQuizList() {
                       color="primary"
                       sx={{ fontWeight: 600 }}
                     >
-                      {q.name}
+                    {q.name}
                     </Link>
                   </Typography>
                   <Typography
@@ -117,6 +117,8 @@ export default function PublishedQuizList() {
                     <Link
                       component={RouterLink}
                       to={`/publishedquizz/${q.id}/results`}
+                      color="primary"
+                      sx={{ textDecoration: "none", "&:hover": { textDecoration: "underline" } }}
                     >
                       View results
                     </Link>
