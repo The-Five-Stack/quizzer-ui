@@ -28,7 +28,7 @@ function formatDisplayDate(iso: string | undefined): string {
   });
 }
 
-export default function StudentQuizTakePage() {
+export default function TakeQuizPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [quiz, setQuiz] = useState<Quiz | null>(null);
@@ -49,11 +49,11 @@ export default function StudentQuizTakePage() {
     fetchWithAuth(`/api/quizzes/${id}`)
       .then((data) => {
         if (cancelled) return;
-        const normalized = normalizeQuiz(data);
-        setQuiz(normalized);
+        const loadedQuiz = normalizeQuiz(data);
+        setQuiz(loadedQuiz);
 
         const initialSelections: Record<number, number | null> = {};
-        for (const question of normalized.questions) {
+        for (const question of loadedQuiz.questions) {
           initialSelections[question.id] = null;
         }
         setSelections(initialSelections);
@@ -131,7 +131,7 @@ export default function StudentQuizTakePage() {
     );
   }
 
-  const publishedDate = formatDisplayDate(quiz.publishedAt ?? quiz.createdAt);
+  const createdDateDisplay = formatDisplayDate(quiz.createdAt);
 
   return (
     <Container maxWidth="md" className="quiz-detail-page">
@@ -158,10 +158,11 @@ export default function StudentQuizTakePage() {
               display: "flex",
               flexDirection: "row",
               flexWrap: "wrap",
+              alignItems: "center",
               gap: 1,
             }}
           >
-            <Chip label={quiz.courseCode} variant="outlined" />
+            <Chip label={quiz.courseCode} variant="outlined" size="small" />
             <Chip label="Published" color="success" size="small" />
             {quiz.category?.name ? (
               <Chip label={quiz.category.name} variant="outlined" size="small" />
@@ -169,7 +170,7 @@ export default function StudentQuizTakePage() {
           </Box>
 
           <Typography variant="body2" sx={{ mt: 2 }}>
-            <strong>Published date:</strong> {publishedDate}
+            <strong>Created:</strong> {createdDateDisplay}
           </Typography>
         </Box>
       </Box>
