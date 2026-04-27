@@ -1,5 +1,4 @@
-import "./QuizList.css";
-import "../components/QuizCard.css";
+import "../index.css";
 import { useNavigate } from "react-router-dom";
 import type { QuizInfo } from "../types/quiz";
 import { useEffect, useState } from "react";
@@ -31,8 +30,8 @@ export default function QuizzesByCategory() {
 
   return (
     <>
-      <div className="header">
-        <div className="title">
+      <div className="quiz-list-header">
+        <div className="quiz-list-title">
           <h2>{categoryName ?? "Category"}</h2>
           <p>List of quizzes in category</p>
         </div>
