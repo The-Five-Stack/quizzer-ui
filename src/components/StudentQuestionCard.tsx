@@ -67,12 +67,15 @@ export default function StudentQuestionCard({
         setFeedbackSeverity("success");
       } else {
         setIsCorrect(false);
-        setFeedbackMessage("That is not correct, try again")
+        setFeedbackMessage("That is not correct, try again");
         setFeedbackSeverity("error");
       }
       setFeedbackOpen(true);
     } catch (error) {
       console.error("Submission failed. Try again", error);
+      setFeedbackMessage("Submission failed. Please try again.");
+      setFeedbackSeverity("error");
+      setFeedbackOpen(true);
     } finally {
       setSubmitting(false);
     }
