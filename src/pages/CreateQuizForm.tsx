@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Box, Button, Container, TextField, Typography, Checkbox, FormControlLabel, Alert, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { createQuizWithAuth, fetchCategoriesWithAuth } from '../api';
-import './CreateQuizForm.css';
 import type { Category } from '../types/quiz';
 
 /**

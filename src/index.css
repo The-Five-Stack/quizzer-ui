@@ -295,5 +295,296 @@ p {
   background: #ffe5e5;
 }
 
+/*Quiz Detail Page*/
 
+.quiz-detail-page {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.quiz-detail-back-btn {
+  margin-bottom: 16px;
+}
+
+.quiz-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.quiz-detail-title {
+  font-weight: 700;
+}
+
+.quiz-detail-meta {
+  margin-top: 16px;
+}
+
+.quiz-detail-divider {
+  margin: 32px 0;
+}
+
+.quiz-detail-questions-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.quiz-detail-questions-title {
+  font-weight: 500;
+}
+
+.quiz-detail-empty {
+  font-style: italic;
+}
+
+.quiz-detail-error-wrap {
+  margin-top: 48px;
+}
+
+/*Edit Quiz*/
+.edit-quiz-page {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.edit-quiz-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/*Create quiz*/
+.create-quiz-page {
+  margin-top: 32px;
+}
+
+.create-quiz-back-btn {
+  margin-bottom: 24px;
+}
+
+.create-quiz-title {
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.create-quiz-error {
+  margin-bottom: 16px;
+}
+
+.create-quiz-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/*Category page*/
+.category-page {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.category-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.category-header h2 {
+  margin: 0;
+  text-align: left;
+}
+
+.category-grid-wrap {
+  height: 500px;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+}
+
+.category-header-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start ;
+}
+
+/*Add question form*/
+.add-question-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.add-question-container {
+  display: flex;
+  margin: 20px;
+  height: 500px;
+  flex-direction: column;
+}
+
+.label {
+  justify-self: start;
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+}
+
+.form {
+  height: 500px;
+}
+
+.btn {
+  margin-top: 20px;
+}
+
+/* Add answer form*/
+.add-answer-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.add-answer-container {
+  display: flex;
+  margin: 20px;
+  height: 500px;
+  flex-direction: column;
+}
+
+.answer-label {
+  justify-self: start;
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+}
+
+.answer-form {
+  height: 500px;
+}
+
+.answer-btn {
+  margin-top: 20px;
+}
+
+/*Question card*/
+.question-card {
+  position: relative;
+  margin-bottom: 24px;
+  padding: 24px;
+  border-radius: 8px;
+}
+
+.question-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.question-card__title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.question-card__index {
+  font-weight: 700;
+}
+
+.question-card__difficulty {
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.question-card__delete {
+  background-color: #fee2e2;
+}
+
+.question-card__delete:hover {
+  background-color: #fecaca;
+}
+
+.question-card__content {
+  margin: 24px 0;
+  font-weight: 400;
+  text-align: center;
+}
+
+.question-card__divider {
+  margin-bottom: 16px;
+}
+
+.question-card__answers-title {
+  font-weight: 700;
+}
+
+.question-card__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.question-card__add-answer {
+  text-transform: none;
+}
+
+/* Answer item list item styling */
+.answer-item {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.answer-item--correct {
+  background-color: rgba(46, 125, 50, 0.08);
+}
+
+.answer-item--wrong {
+  background-color: rgba(211, 47, 47, 0.08);
+}
+
+.answer-item__icon {
+  min-width: 40px;
+}
+
+.answer-item__icon--correct {
+  color: rgb(76, 175, 80);
+}
+
+.answer-item__icon--wrong {
+  color: rgb(244, 67, 54);
+}
+
+.answer-item__content {
+  flex: 1;
+}
+
+.answer-item__content--correct {
+  color: rgb(76, 175, 80);
+}
+
+.answer-item__content--wrong {
+  color: rgb(244, 67, 54);
+}
+
+.answer-item__delete-btn {
+  background-color: #fee2e2;
+}
+
+.answer-item__delete-btn:hover {
+  background-color: #fecaca;
+}
 
