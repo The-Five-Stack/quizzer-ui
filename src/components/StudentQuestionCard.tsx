@@ -73,6 +73,9 @@ export default function StudentQuestionCard({
       setFeedbackOpen(true);
     } catch (error) {
       console.error("Submission failed. Try again", error);
+      setFeedbackMessage("Submission failed. Please try again.");
+      setFeedbackSeverity("error");
+      setFeedbackOpen(true);
     } finally {
       setSubmitting(false);
     }
