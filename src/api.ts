@@ -214,3 +214,7 @@ export const deleteCategory = async (categoryId: number): Promise<void> => {
     method: "DELETE",
   });
 };
+
+export const fetchQuizzesByCateWithAuth = async (categoryId: number) =>{
+  return fetchWithAuth(`/api/categories/${categoryId}/published-quizzes`)
+}
