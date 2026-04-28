@@ -411,6 +411,58 @@ p {
   margin-top: 48px;
 }
 
+/* Quiz results page */
+.quiz-results-page {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.quiz-results-title {
+  font-weight: 500;
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.quiz-results-subtitle {
+  margin-bottom: 16px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.quiz-results-loading {
+  display: flex;
+  justify-content: center;
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.quiz-results-table-wrap {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+.quiz-results-table {
+  min-width: 900px;
+}
+
+.quiz-results-table-head .MuiTableCell-root {
+  font-size: 14px;
+  font-weight: 600;
+  background: #f8f9fb;
+  color: #2f2f2f;
+}
+
+.quiz-results-table .MuiTableCell-root {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 14px;
+}
+
+.quiz-results-table .MuiTableBody-root .MuiTableCell-root {
+  color: #222;
+}
+
 /*Edit Quiz*/
 .edit-quiz-page {
   padding-top: 2rem;
