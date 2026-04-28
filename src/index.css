@@ -162,6 +162,7 @@ code {
 /* Card container */
 .sqc {
   width: 320px;
+  height: 100%;
   background: #ffffff;
   border: 1px solid #e6e6e6;
   border-radius: 12px;
@@ -180,6 +181,7 @@ code {
   flex-direction: column;
   padding: 16px;
   gap: 12px;
+  flex: 1;
 }
 
 /* Header section */
@@ -202,6 +204,7 @@ code {
   color: #666;
   line-height: 1.4;
   margin: 0;
+  min-height: 40px;
 }
 
 /* Meta info */
@@ -231,6 +234,7 @@ code {
   cursor: pointer;
   font-weight: 500;
   transition: background 0.2s ease;
+  
 }
 
 .sqc-btn:hover {
