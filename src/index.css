@@ -162,6 +162,7 @@ code {
 /* Card container */
 .sqc {
   width: 320px;
+  height: 100%;
   background: #ffffff;
   border: 1px solid #e6e6e6;
   border-radius: 12px;
@@ -180,6 +181,7 @@ code {
   flex-direction: column;
   padding: 16px;
   gap: 12px;
+  flex: 1;
 }
 
 /* Header section */
@@ -202,6 +204,7 @@ code {
   color: #666;
   line-height: 1.4;
   margin: 0;
+  min-height: 40px;
 }
 
 /* Meta info */
@@ -218,6 +221,7 @@ code {
   margin-top: auto;
   display: flex;
   justify-content: flex-end;
+  gap: 8px;
 }
 
 /* Button */
@@ -230,6 +234,7 @@ code {
   cursor: pointer;
   font-weight: 500;
   transition: background 0.2s ease;
+  
 }
 
 .sqc-btn:hover {
@@ -341,6 +346,11 @@ p {
   align-self: flex-end;
 }
 
+.qc-foot-left {
+  display: flex;
+  gap: 8px;
+}
+
 .qc-btn {
   background: blue;
   color: white;
@@ -409,6 +419,58 @@ p {
 
 .quiz-detail-error-wrap {
   margin-top: 48px;
+}
+
+/* Quiz results page */
+.quiz-results-page {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.quiz-results-title {
+  font-weight: 500;
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.quiz-results-subtitle {
+  margin-bottom: 16px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.quiz-results-loading {
+  display: flex;
+  justify-content: center;
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.quiz-results-table-wrap {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+.quiz-results-table {
+  min-width: 900px;
+}
+
+.quiz-results-table-head .MuiTableCell-root {
+  font-size: 14px;
+  font-weight: 600;
+  background: #f8f9fb;
+  color: #2f2f2f;
+}
+
+.quiz-results-table .MuiTableCell-root {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 14px;
+}
+
+.quiz-results-table .MuiTableBody-root .MuiTableCell-root {
+  color: #222;
 }
 
 /*Edit Quiz*/

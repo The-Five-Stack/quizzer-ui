@@ -105,6 +105,11 @@ export default function QuizList() {
               {...q}
               categoryName={q.category?.name}
               onManage={() => navigate(`/quizzes/${q.id}`)}
+              onViewResults={() =>
+                navigate(`/quizzes/${q.id}/results`, {
+                  state: { quizName: q.name },
+                })
+              }
               onToggleStatus={() => handleToggleStatus(q.id)}
               onDelete={() => handleDelete(q.id)}
             />

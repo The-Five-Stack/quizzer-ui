@@ -16,6 +16,7 @@ import QuizzesByCategory from './pages/QuizzesByCategory';
 import TeacherNavbar from "./components/TeacherNavbar";
 import StudentNavbar from "./components/StudentNavbar";
 import { useLocation } from "react-router-dom";
+import QuizResultsPage from "./pages/QuizResultsPage";
 /**
  * Root App component that sets up the SPA routing structure.
  * Routes:
@@ -49,14 +50,14 @@ function App() {
           <Route path="/quizzes/:id/questions" element={<AddQuestionForm />} />
           <Route path="/questions/:questionId/answers" element={<AddAnswerForm />} />
           <Route path="/categories" element={<CategoryList />} />
+
+          <Route path="/quizzes/:quizId/results" element={<QuizResultsPage />} />
           
           <Route path="/publishedquizz" element={<PublishedQuizList />} />
           <Route path="/student/categories" element={<CategoryListStudent />} />
           <Route path="/student/quizzes/:id/take" element={<TakeQuizPage />} />
           <Route path="/categories/new" element={<CreateCategoryForm />} />
-          <Route path="/student/categories/:categoryId/published-quizzes" element={<QuizzesByCategory />} />
-
-        </Routes>
+          <Route path="/student/categories/:categoryId/published-quizzes" element={<QuizzesByCategory />} />        </Routes>
       </BrowserRouter>
       <CssBaseline />
     </Container>

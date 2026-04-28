@@ -1,4 +1,4 @@
-import type { Category, QuizInfo } from "./types/quiz";
+import type { Category, QuizInfo, QuizResult } from "./types/quiz";
 
 type CreateQuizPayload = {
   name: string;
@@ -253,3 +253,78 @@ export const submitAnswer = async (answerOptionId: number) => {
     body: JSON.stringify({ answerOptionId }),
   });
 };
+
+const toNumber = (value: unknown): number => {
+  if (typeof value === "number") return value;
+  if (typeof value === "string") {
+    const parsed = Number(value);
+    return Number.isNaN(parsed) ? 0 : parsed;
+  }
+  return 0;
+};
+
+const toString = (value: unknown, fallback = ""): string => {
+  return typeof value === "string" ? value : fallback;
+};
+
+export async function getQuizResults(quizId: number): Promise<QuizResult> {
+  const rawUnknown = await fetchWithAuth(`/api/quizzes/${quizId}/results`);
+  const raw = (rawUnknown ?? {}) as Record<string, unknown>;
+  const data = (raw.data ?? raw.result ?? raw.payload ?? raw) as Record<
+    string,
+    unknown
+  >;
+
+  const questionRows = Array.isArray(rawUnknown)
+    ? rawUnknown
+    : Array.isArray(data.questions)
+      ? data.questions
+      : Array.isArray(data.results)
+        ? data.results
+        : Array.isArray(data.questionResults)
+          ? data.questionResults
+          : Array.isArray(data.rows)
+            ? data.rows
+            : [];
+
+  const questions = questionRows.map((item, index) => {
+    const row = item as Record<string, unknown>;
+    const correctCount = toNumber(row.correctAnswers ?? row.correctCount);
+    const wrongCount = toNumber(row.wrongAnswers ?? row.wrongCount);
+    const totalAnswers = toNumber(row.totalAnswers) || correctCount + wrongCount;
+    const correctAnswerPercentage = toNumber(
+      row.correctAnswerPercentage ?? row.correctPercentage,
+    );
+
+    return {
+      questionId: toNumber(row.questionId ?? row.id ?? index + 1),
+      questionText: toString(
+        row.questionText ?? row.questionContent ?? row.question ?? row.content,
+        "Untitled question",
+      ),
+      difficulty: toString(row.difficulty ?? row.questionDifficulty, "N/A"),
+      totalAnswers,
+      correctAnswerPercentage,
+      correctCount,
+      wrongCount,
+    };
+  });
+
+  const quizObject =
+    data.quiz && typeof data.quiz === "object"
+      ? (data.quiz as Record<string, unknown>)
+      : null;
+
+  return {
+    quizId: toNumber(data.quizId ?? data.id ?? quizId),
+    quizName: toString(
+      data.quizName ?? data.name ?? quizObject?.name ?? quizObject?.title,
+      "Quiz",
+    ),
+    totalAnswers:
+      toNumber(data.totalAnswers ?? data.totalAttemptAnswers ?? data.totalAttempts) ||
+      questions.reduce((sum, q) => sum + q.totalAnswers, 0),
+    totalQuestions: toNumber(data.totalQuestions ?? data.questionCount) || questions.length,
+    questions,
+  };
+}
