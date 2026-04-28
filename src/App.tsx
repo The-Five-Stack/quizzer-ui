@@ -13,6 +13,9 @@ import CreateCategoryForm from "./pages/CreateCategoryForm";
 import PublishedQuizList from "./pages/PublishedQuizList";
 import TakeQuizPage from "./pages/TakeQuizPage";
 import QuizzesByCategory from './pages/QuizzesByCategory';
+import TeacherNavbar from "./components/TeacherNavbar";
+import StudentNavbar from "./components/StudentNavbar";
+import { useLocation } from "react-router-dom";
 /**
  * Root App component that sets up the SPA routing structure.
  * Routes:
@@ -22,12 +25,24 @@ import QuizzesByCategory from './pages/QuizzesByCategory';
  * - /quizzes/:id/questions : Create new question form
  * - /publishedquizz : Student published quiz list (GET /api/quizzes/publishedquizz)
  */
+function NavbarSwitcher() {
+  const location = useLocation();
+  const path = location.pathname;
+  
+  if (path.startsWith('/student') || path.startsWith('/publishedquizz')
+  ) {
+    return <StudentNavbar />;
+  }
+  return <TeacherNavbar />;
+}
+
 function App() {
   return (
     <Container>
       <BrowserRouter>
+        <NavbarSwitcher />
         <Routes>
-          <Route path="/" element={<QuizList/>}/>
+          <Route path="/" element={<QuizList />} />
           <Route path="/quizzes/:id" element={<QuizDetailPage />} />
           <Route path="/quizzes/:id/edit" element={<EditQuizPage />} />
           <Route path="/create-quiz" element={<CreateQuizForm />} />
