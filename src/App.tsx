@@ -28,7 +28,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<QuizList/>}/>
-          <Route path="/publishedquizz" element={<PublishedQuizList />} />
           <Route path="/quizzes/:id" element={<QuizDetailPage />} />
           <Route path="/quizzes/:id/edit" element={<EditQuizPage />} />
           <Route path="/create-quiz" element={<CreateQuizForm />} />
@@ -36,6 +35,7 @@ function App() {
           <Route path="/questions/:questionId/answers" element={<AddAnswerForm />} />
           <Route path="/categories" element={<CategoryList />} />
           
+          <Route path="/publishedquizz" element={<PublishedQuizList />} />
           <Route path="/student/categories" element={<CategoryListStudent />} />
           <Route path="/student/quizzes/:id/take" element={<TakeQuizPage />} />
           <Route path="/categories/new" element={<CreateCategoryForm />} />

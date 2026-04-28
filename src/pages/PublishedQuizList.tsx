@@ -56,6 +56,7 @@ export default function PublishedQuizList() {
       >
         Browse available quizzes and view your results.
       </Typography>
+      <br />
 
       {loading && (
         <Box className="published-quiz-loading">
@@ -103,17 +104,23 @@ export default function PublishedQuizList() {
                   >
                     {q.description || "—"}
                   </Typography>
-                  <Typography variant="body2" className="published-quiz-meta">
-                    <strong>Category:</strong>{" "}
-                    {q.category?.name ?? "—"}
-                  </Typography>
+                  <br />
                   <Typography
                     variant="body2"
                     className="published-quiz-meta-date"
                   >
-                    <strong>Date:</strong>{" "}
+                    <strong>Created at:</strong>{" "}
                     {new Date(q.createdAt).toLocaleDateString("en-GB")}
                   </Typography>
+                  <Typography variant="body2" className="published-quiz-meta">
+                    <strong>Course Code:</strong>{" "}
+                    {q.courseCode ?? "—"}
+                  </Typography>
+                  <Typography variant="body2" className="published-quiz-meta">
+                    <strong>Category:</strong>{" "}
+                    {q.category?.name ?? "—"}
+                  </Typography>
+                  <br />
                   <Typography variant="body2">
                     <Link
                       component={RouterLink}
