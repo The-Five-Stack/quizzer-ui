@@ -120,6 +120,7 @@ export default function PublishedQuizList() {
                       <Link
                         component={RouterLink}
                         to={`/publishedquizz/${q.id}/results`}
+                        state={{ quizName: q.name }}
                         color="primary"
                         className="published-quiz-results-link"
                       >

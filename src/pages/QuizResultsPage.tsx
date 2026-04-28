@@ -34,9 +34,8 @@ export default function QuizResultsPage() {
   const [error, setError] = useState<string | null>(null);
   const invalidQuizId = !quizId || Number.isNaN(Number(quizId));
   const displayQuizName =
-    data?.quizName && data.quizName !== "Quiz"
-      ? data.quizName
-      : quizNameFromNavigation ?? "Quiz";
+    quizNameFromNavigation ??
+    (data?.quizName && data.quizName !== "Quiz" ? data.quizName : "Quiz");
 
   useEffect(() => {
     if (invalidQuizId) return;
@@ -87,11 +86,11 @@ export default function QuizResultsPage() {
 
       <div className="quiz-list-header">
         <div className="quiz-list-title">
-        <h2>Results of "{displayQuizName}"</h2>
-        <p>{data.totalAnswers} answers to {data.totalQuestions} questions</p>
+          <h2>Results of "{displayQuizName}"</h2>
+          <p>{data.totalAnswers} answers to {data.totalQuestions} questions</p>
         </div>
       </div>
-  
+
       <TableContainer
         component={Paper}
         variant="outlined"

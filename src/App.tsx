@@ -53,6 +53,7 @@ function App() {
 
           <Route path="/quizzes/:quizId/results" element={<QuizResultsPage />} />
           
+          <Route path="/student" element={<PublishedQuizList />} />
           <Route path="/publishedquizz" element={<PublishedQuizList />} />
           <Route path="/student/categories" element={<CategoryListStudent />} />
           <Route path="/student/quizzes/:id/take" element={<TakeQuizPage />} />
