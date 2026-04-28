@@ -74,7 +74,7 @@ export default function QuizzesByCategory() {
               {...q}
               onAttempt={() => navigate(`/student/quizzes/${q.id}/take`)}
               onViewResults={() =>
-                navigate(`/quizzes/${q.id}/results`, {
+                navigate(`/publishedquizz/${q.id}/results`, {
                   state: { quizName: q.name },
                 })
               }
