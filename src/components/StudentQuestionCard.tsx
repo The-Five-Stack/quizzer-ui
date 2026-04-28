@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { submitAnswer } from "../api";
 import {
   Box,
   Chip,
@@ -9,6 +11,9 @@ import {
   Radio,
   RadioGroup,
   Typography,
+  Button,
+  Snackbar,
+  Alert
 } from "@mui/material";
 import type { Question } from "../types/quiz";
 import "./StudentQuestionCard.css";
@@ -42,6 +47,39 @@ export default function StudentQuestionCard({
   onSelectAnswer,
 }: StudentQuestionCardProps) {
   const value = selectedAnswerId != null ? String(selectedAnswerId) : "";
+
+  const [submitting, setSubmitting] = useState(false);
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [feedbackSeverity, setFeedbackSeverity] = useState<"success" | "error">("success");
+
+  const handleSubmit = async () => {
+    if (!selectedAnswerId) return;
+    setSubmitting(true);
+
+    try {
+      const response = await submitAnswer(selectedAnswerId);
+
+      if (response.correct) {
+        setIsCorrect(true);
+        setFeedbackMessage("That is correct, good job!");
+        setFeedbackSeverity("success");
+      } else {
+        setIsCorrect(false);
+        setFeedbackMessage("That is not correct, try again");
+        setFeedbackSeverity("error");
+      }
+      setFeedbackOpen(true);
+    } catch (error) {
+      console.error("Submission failed. Try again", error);
+      setFeedbackMessage("Submission failed. Please try again.");
+      setFeedbackSeverity("error");
+      setFeedbackOpen(true);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <Paper elevation={2} className="student-question-card">
@@ -90,11 +128,22 @@ export default function StudentQuestionCard({
               control={<Radio size="small" className="student-question-card__radio" />}
               label={answer.content}
               className="student-question-card__answer-row"
+              disabled={isCorrect === true}
             />
           ))}
         </RadioGroup>
       </FormControl>
-
+      {question.answers.length > 0 && (
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ mt: 2 }}
+          onClick={handleSubmit}
+          disabled={submitting || !selectedAnswerId || isCorrect === true}
+        >
+          SUBMIT YOUR ANSWER
+        </Button>
+      )}
       {question.answers.length === 0 && (
         <Box className="student-question-card__empty-answers">
           <Typography variant="body2" color="text.secondary">
@@ -102,6 +151,15 @@ export default function StudentQuestionCard({
           </Typography>
         </Box>
       )}
+      <Snackbar
+        open={feedbackOpen}
+        autoHideDuration={4000}
+        onClose={() => setFeedbackOpen(false)}
+      >
+        <Alert onClose={() => setFeedbackOpen(false)} severity={feedbackSeverity}>
+          {feedbackMessage}
+        </Alert>
+      </Snackbar>
     </Paper>
   );
 }
