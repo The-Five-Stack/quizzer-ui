@@ -61,11 +61,7 @@ export default function QuizResultsPage() {
     <Container maxWidth="sm" sx={{ py: 3 }}>
       <Button
         startIcon={<ArrowBackIcon />}
-        onClick={() =>
-          id
-            ? navigate(`/publishedquizz/${id}`)
-            : navigate("/publishedquizz")
-        }
+        onClick={() => navigate("/publishedquizz")}
         sx={{ mb: 2 }}
       >
         Back
