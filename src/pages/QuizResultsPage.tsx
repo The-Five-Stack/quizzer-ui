@@ -12,7 +12,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { getQuizResults } from "../api";
@@ -35,9 +34,8 @@ export default function QuizResultsPage() {
   const [error, setError] = useState<string | null>(null);
   const invalidQuizId = !quizId || Number.isNaN(Number(quizId));
   const displayQuizName =
-    data?.quizName && data.quizName !== "Quiz"
-      ? data.quizName
-      : quizNameFromNavigation ?? "Quiz";
+    quizNameFromNavigation ??
+    (data?.quizName && data.quizName !== "Quiz" ? data.quizName : "Quiz");
 
   useEffect(() => {
     if (invalidQuizId) return;
@@ -86,21 +84,12 @@ export default function QuizResultsPage() {
         Back
       </Button>
 
-      <Typography
-        variant="h4"
-        component="h1"
-        gutterBottom
-        className="quiz-results-title"
-      >
-        Results of "{displayQuizName}"
-      </Typography>
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        className="quiz-results-subtitle"
-      >
-        {data.totalAnswers} answers to {data.totalQuestions} questions
-      </Typography>
+      <div className="quiz-list-header">
+        <div className="quiz-list-title">
+          <h2>Results of "{displayQuizName}"</h2>
+          <p>{data.totalAnswers} answers to {data.totalQuestions} questions</p>
+        </div>
+      </div>
 
       <TableContainer
         component={Paper}

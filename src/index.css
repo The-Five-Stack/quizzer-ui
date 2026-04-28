@@ -423,7 +423,7 @@ p {
 
 /* Quiz results page */
 .quiz-results-page {
-  padding-top: 24px;
+  padding-top: 0px;
   padding-bottom: 24px;
 }
 
@@ -717,3 +717,29 @@ p {
   background-color: #fecaca;
 }
 
+.nav-link {
+  color: inherit !important;
+  text-decoration: none;
+}
+
+.nav-link.active {
+  font-weight: 700;
+  text-decoration: underline;
+  color: #ffb74d !important;
+}
+
+.nav-menu-item.active .nav-menu-text {
+  font-weight: 700;
+  text-decoration: underline;
+  color: #ed6c02;
+  font-style: italic;
+}
+
+.quizzes-by-category-back-btn {
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+.quizzes-by-category-header {
+  margin-top: 0;
+}

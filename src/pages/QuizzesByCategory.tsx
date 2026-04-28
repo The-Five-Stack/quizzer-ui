@@ -33,13 +33,13 @@ export default function QuizzesByCategory() {
     return (
       <>
         <Button
-          className="back-btn"
+          className="back-btn quizzes-by-category-back-btn"
           onClick={() => navigate(`/student/categories`)}
         >
           <ArrowBackIcon fontSize="small" />
           Back to Categories
         </Button>
-        <div className="quiz-list-header">
+        <div className="quizzes-by-category-header">
           <div className="quiz-list-title">
             <h2>{categoryName ?? "Category"}</h2>
             <p>No quizzes in this category</p>
@@ -52,13 +52,13 @@ export default function QuizzesByCategory() {
   return (
     <>
       <Button
-        className="back-btn"
+        className="quizzes-by-category-back-btn"
         onClick={() => navigate(`/student/categories`)}
       >
         <ArrowBackIcon fontSize="small" />
         Back to Categories
       </Button>
-      <div className="quiz-list-header">
+      <div className="quizzes-by-category-header">
         <div className="quiz-list-title">
           <h2>{categoryName ?? "Category"}</h2>
           <p>List of quizzes in category</p>

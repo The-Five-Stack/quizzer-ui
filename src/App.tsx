@@ -13,6 +13,9 @@ import CreateCategoryForm from "./pages/CreateCategoryForm";
 import PublishedQuizList from "./pages/PublishedQuizList";
 import TakeQuizPage from "./pages/TakeQuizPage";
 import QuizzesByCategory from './pages/QuizzesByCategory';
+import TeacherNavbar from "./components/TeacherNavbar";
+import StudentNavbar from "./components/StudentNavbar";
+import { useLocation } from "react-router-dom";
 import QuizResultsPage from "./pages/QuizResultsPage";
 /**
  * Root App component that sets up the SPA routing structure.
@@ -23,12 +26,24 @@ import QuizResultsPage from "./pages/QuizResultsPage";
  * - /quizzes/:id/questions : Create new question form
  * - /publishedquizz : Student published quiz list (GET /api/quizzes/publishedquizz)
  */
+function NavbarSwitcher() {
+  const location = useLocation();
+  const path = location.pathname;
+  
+  if (path.startsWith('/student') || path.startsWith('/publishedquizz')
+  ) {
+    return <StudentNavbar />;
+  }
+  return <TeacherNavbar />;
+}
+
 function App() {
   return (
     <Container>
       <BrowserRouter>
+        <NavbarSwitcher />
         <Routes>
-          <Route path="/" element={<QuizList/>}/>
+          <Route path="/" element={<QuizList />} />
           <Route path="/quizzes/:id" element={<QuizDetailPage />} />
           <Route path="/quizzes/:id/edit" element={<EditQuizPage />} />
           <Route path="/create-quiz" element={<CreateQuizForm />} />
@@ -38,11 +53,14 @@ function App() {
 
           <Route path="/quizzes/:quizId/results" element={<QuizResultsPage />} />
           
+          <Route path="/student" element={<PublishedQuizList />} />
           <Route path="/publishedquizz" element={<PublishedQuizList />} />
           <Route path="/student/categories" element={<CategoryListStudent />} />
           <Route path="/student/quizzes/:id/take" element={<TakeQuizPage />} />
           <Route path="/categories/new" element={<CreateCategoryForm />} />
-          <Route path="/student/categories/:categoryId/published-quizzes" element={<QuizzesByCategory />} />        </Routes>
+          <Route path="/student/categories/:categoryId/published-quizzes" element={<QuizzesByCategory />} />        
+          <Route path="/publishedquizz/:quizId/results" element={<QuizResultsPage />} />
+          </Routes>
       </BrowserRouter>
       <CssBaseline />
     </Container>
