@@ -51,10 +51,17 @@ export default function TeacherNavbar() {
                     })}
                 </Box>
                 <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-                    <IconButton onClick={handleOpenNavMenu} color="inherit">
+                    <IconButton 
+                        onClick={handleOpenNavMenu} 
+                        color="inherit"
+                        aria-label="open navigation menu"
+                        aria-controls="navbar-menu"
+                        aria-expanded={Boolean(anchorElNav)}
+                    >
                         <MenuIcon />
                     </IconButton>
                     <Menu
+                        id="navbar-menu"
                         anchorEl={anchorElNav}
                         open={Boolean(anchorElNav)}
                         onClose={handleCloseNavMenu}

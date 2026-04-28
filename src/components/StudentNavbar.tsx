@@ -6,10 +6,9 @@ import { useState } from 'react';
 
 export default function StudentNavbar() {
     const { pathname } = useLocation();
-    const isStudent = pathname.startsWith('/student') || pathname.startsWith('/publishedquizz');
 
-    const navItems = isStudent
-        ? [
+    const navItems =
+        [
             {
                 title: 'Quizzes',
                 path: '/publishedquizz',
@@ -20,18 +19,6 @@ export default function StudentNavbar() {
                 title: 'Categories',
                 path: '/student/categories',
                 isActive: (p: string) => p.startsWith("/student/categories"),
-            }
-        ]
-        : [
-            {
-                title: 'Quizzes',
-                path: '/quizzes',
-                isActive: (p: string) => p.startsWith("/quizzes"),
-            },
-            {
-                title: 'Categories',
-                path: '/categories',
-                isActive: (p: string) => p.startsWith("/categories"),
             }
         ];
 
@@ -53,10 +40,10 @@ export default function StudentNavbar() {
                     {navItems.map((item) => {
                         const active = item.isActive(pathname);
                         return (
-                            <Button 
-                                key={item.title} 
-                                color="inherit" 
-                                component={RouterLink} 
+                            <Button
+                                key={item.title}
+                                color="inherit"
+                                component={RouterLink}
                                 to={item.path}
                                 className={`nav-link ${active ? "active" : ""}`}
                             >{item.title}
@@ -65,10 +52,17 @@ export default function StudentNavbar() {
                     })}
                 </Box>
                 <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-                    <IconButton onClick={handleOpenNavMenu} color="inherit">
+                    <IconButton
+                        onClick={handleOpenNavMenu}
+                        color="inherit"
+                        aria-label="open navigation menu"
+                        aria-controls="navbar-menu"
+                        aria-expanded={Boolean(anchorElNav)}
+                    >
                         <MenuIcon />
                     </IconButton>
                     <Menu
+                        id="navbar-menu"
                         anchorEl={anchorElNav}
                         open={Boolean(anchorElNav)}
                         onClose={handleCloseNavMenu}
