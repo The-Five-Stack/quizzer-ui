@@ -1,6 +1,5 @@
 import { Container, Button, Typography, Box, TextField } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import "./AddQuestionForm.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
 import MenuItem from "@mui/material/MenuItem";

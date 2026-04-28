@@ -8,7 +8,6 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
-import "./AddAnswerForm.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
@@ -47,8 +46,8 @@ export default function AddAnswerForm() {
           Add new answer
         </Typography>{" "}
       </div>
-      <Box className="form">
-        <InputLabel className="label">Answer</InputLabel>
+      <Box className="answer-form">
+        <InputLabel className="answer-label">Answer</InputLabel>
         <TextField
           className="add-answer-text-field"
           label="Type content of answer"
@@ -68,7 +67,7 @@ export default function AddAnswerForm() {
           }
           label="Correct"
         />
-        <div className="btn">
+        <div className="answer-btn">
           <Button variant="contained" onClick={handleSubmit} fullWidth>
             Add Answer
           </Button>

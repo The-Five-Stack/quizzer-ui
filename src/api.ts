@@ -242,3 +242,14 @@ export const deleteCategory = async (categoryId: number): Promise<void> => {
     method: "DELETE",
   });
 };
+
+export const fetchQuizzesByCateWithAuth = async (categoryId: number) => {
+  return fetchWithAuth(`/api/categories/${categoryId}/published-quizzes`)
+};
+
+export const submitAnswer = async (answerOptionId: number) => {
+  return fetchWithAuth(`/api/student-answers`, {
+    method: "POST",
+    body: JSON.stringify({ answerOptionId }),
+  });
+};
