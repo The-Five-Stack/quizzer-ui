@@ -137,7 +137,7 @@ export default function TakeQuizPage() {
       <Button
         startIcon={<ArrowBackIcon />}
         className="quiz-detail-back-btn"
-        onClick={() => navigate("/student/categories")}
+        onClick={() => navigate(-1)}
       >
         Back
       </Button>

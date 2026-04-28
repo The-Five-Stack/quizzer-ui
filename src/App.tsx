@@ -10,6 +10,7 @@ import AddAnswerForm from "./pages/AddAnswerForm";
 import CategoryList from "./pages/CategoryList";
 import CategoryListStudent from "./pages/CategoryListStudent";
 import CreateCategoryForm from "./pages/CreateCategoryForm";
+import PublishedQuizList from "./pages/PublishedQuizList";
 import TakeQuizPage from "./pages/TakeQuizPage";
 import QuizzesByCategory from './pages/QuizzesByCategory';
 /**
@@ -19,6 +20,7 @@ import QuizzesByCategory from './pages/QuizzesByCategory';
  * - /create-quiz : Create new quiz form
  * - /quizzes/:id : Quiz detail page
  * - /quizzes/:id/questions : Create new question form
+ * - /publishedquizz : Student published quiz list (GET /api/quizzes/publishedquizz)
  */
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
           <Route path="/questions/:questionId/answers" element={<AddAnswerForm />} />
           <Route path="/categories" element={<CategoryList />} />
           
+          <Route path="/publishedquizz" element={<PublishedQuizList />} />
           <Route path="/student/categories" element={<CategoryListStudent />} />
           <Route path="/student/quizzes/:id/take" element={<TakeQuizPage />} />
           <Route path="/categories/new" element={<CreateCategoryForm />} />
