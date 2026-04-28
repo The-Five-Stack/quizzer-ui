@@ -6,6 +6,7 @@ interface StudentQuizCardProps {
   courseCode: string;
   createdAt: string;
   onAttempt: () => void;
+  onViewResults: () => void;
 }
 
 export default function StudentQuizCard(props: StudentQuizCardProps) {
@@ -30,6 +31,9 @@ export default function StudentQuizCard(props: StudentQuizCardProps) {
         <div className="sqc-foot">
           <button className="qc-btn" onClick={props.onAttempt}>
             Attempt
+          </button>
+          <button className="qc-btn" onClick={props.onViewResults}>
+            View results
           </button>
         </div>
       </div>

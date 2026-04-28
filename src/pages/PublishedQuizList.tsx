@@ -124,7 +124,8 @@ export default function PublishedQuizList() {
                   <Typography variant="body2">
                     <Link
                       component={RouterLink}
-                      to={`/publishedquizz/${q.id}/results`}
+                      to={`/quizzes/${q.id}/results`}
+                      state={{ quizName: q.name }}
                       color="primary"
                       className="published-quiz-results-link"
                     >

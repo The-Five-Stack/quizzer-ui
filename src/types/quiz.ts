@@ -39,3 +39,20 @@ export interface QuizInfo {
   published: boolean;
   createdAt: string;
 }
+export interface QuestionResult {
+  questionId: number;
+  questionText: string;
+  difficulty: string;
+  totalAnswers: number;
+  correctAnswerPercentage: number;
+  correctCount: number;
+  wrongCount: number;
+}
+
+export interface QuizResult {
+  quizId: number;
+  quizName: string;
+  totalAnswers: number;
+  totalQuestions: number;
+  questions: QuestionResult[];
+}
