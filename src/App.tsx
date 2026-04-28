@@ -11,7 +11,6 @@ import CategoryList from "./pages/CategoryList";
 import CategoryListStudent from "./pages/CategoryListStudent";
 import CreateCategoryForm from "./pages/CreateCategoryForm";
 import PublishedQuizList from "./pages/PublishedQuizList";
-import QuizResultsPage from "./pages/QuizResultsPage";
 import TakeQuizPage from "./pages/TakeQuizPage";
 import QuizzesByCategory from './pages/QuizzesByCategory';
 /**
@@ -30,10 +29,6 @@ function App() {
         <Routes>
           <Route path="/" element={<QuizList/>}/>
           <Route path="/publishedquizz" element={<PublishedQuizList />} />
-          <Route
-            path="/publishedquizz/:id/results"
-            element={<QuizResultsPage />}
-          />
           <Route path="/quizzes/:id" element={<QuizDetailPage />} />
           <Route path="/quizzes/:id/edit" element={<EditQuizPage />} />
           <Route path="/create-quiz" element={<CreateQuizForm />} />
