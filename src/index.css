@@ -672,3 +672,12 @@ p {
   color: #ed6c02;
   font-style: italic;
 }
+
+.quizzes-by-category-back-btn {
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+.quizzes-by-category-header {
+  margin-top: 0;
+}
