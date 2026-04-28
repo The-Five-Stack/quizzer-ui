@@ -218,6 +218,7 @@ code {
   margin-top: auto;
   display: flex;
   justify-content: flex-end;
+  gap: 8px;
 }
 
 /* Button */
@@ -339,6 +340,11 @@ p {
   display: flex;
   justify-content: space-between;
   align-self: flex-end;
+}
+
+.qc-foot-left {
+  display: flex;
+  gap: 8px;
 }
 
 .qc-btn {
