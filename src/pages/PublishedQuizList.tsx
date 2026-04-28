@@ -12,7 +12,6 @@ import {
 import { Link as RouterLink } from "react-router-dom";
 import type { QuizInfo } from "../types/quiz";
 import { fetchPublishedQuizzes } from "../api";
-import "./PublishedQuizList.css";
 
 /**
  * Student-facing list of published quizzes from GET /api/quizzes/publishedquizz.
@@ -89,7 +88,7 @@ export default function PublishedQuizList() {
                   <Typography variant="subtitle1" component="div" gutterBottom>
                     <Link
                       component={RouterLink}
-                      to={`/publishedquizz/${q.id}`}
+                      to={`/student/quizzes/${q.id}/take`}
                       underline="hover"
                       color="primary"
                       className="published-quiz-title-link"
