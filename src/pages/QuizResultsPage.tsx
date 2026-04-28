@@ -86,22 +86,13 @@ export default function QuizResultsPage() {
         Back
       </Button>
 
-      <Typography
-        variant="h4"
-        component="h1"
-        gutterBottom
-        className="quiz-results-title"
-      >
-        Results of "{displayQuizName}"
-      </Typography>
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        className="quiz-results-subtitle"
-      >
-        {data.totalAnswers} answers to {data.totalQuestions} questions
-      </Typography>
-
+      <div className="quiz-list-header">
+        <div className="quiz-list-title">
+        <h2>Results of "{displayQuizName}"</h2>
+        <p>{data.totalAnswers} answers to {data.totalQuestions} questions</p>
+        </div>
+      </div>
+  
       <TableContainer
         component={Paper}
         variant="outlined"
