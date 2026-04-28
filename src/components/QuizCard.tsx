@@ -13,7 +13,7 @@ interface QuizCardProps {
   published: boolean;
   createdAt: string;
   onManage: () => void;
-  onViewResults?: () => void;
+  onViewResults: () => void;
   onToggleStatus: () => void;
   onDelete: () => void;
 }
@@ -60,15 +60,13 @@ export default function QuizCard(props: QuizCardProps) {
 
         {/* Action buttons */}
         <div className="qc-foot">
-          <div>
+          <div className="qc-foot-left">
             <button className="qc-btn" onClick={props.onManage}>
               Manage
             </button>
-            {props.onViewResults && (
-              <button className="qc-btn" onClick={props.onViewResults}>
-                View results
-              </button>
-            )}
+            <button className="qc-btn" onClick={props.onViewResults}>
+              View results
+            </button>
           </div>
 
           <div>
