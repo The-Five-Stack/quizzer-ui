@@ -57,7 +57,9 @@ function App() {
           <Route path="/student/categories" element={<CategoryListStudent />} />
           <Route path="/student/quizzes/:id/take" element={<TakeQuizPage />} />
           <Route path="/categories/new" element={<CreateCategoryForm />} />
-          <Route path="/student/categories/:categoryId/published-quizzes" element={<QuizzesByCategory />} />        </Routes>
+          <Route path="/student/categories/:categoryId/published-quizzes" element={<QuizzesByCategory />} />        
+          <Route path="/publishedquizz/:quizId/results" element={<QuizResultsPage />} />
+          </Routes>
       </BrowserRouter>
       <CssBaseline />
     </Container>
