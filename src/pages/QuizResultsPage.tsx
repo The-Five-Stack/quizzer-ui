@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   Alert,
   Box,
+  Button,
   CircularProgress,
   Container,
   Paper,
@@ -13,9 +14,10 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { getQuizResults } from "../api";
 import type { QuizResult } from "../types/quiz";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 function formatDifficulty(difficulty: string): string {
   if (!difficulty || difficulty === "N/A") return "N/A";
@@ -25,6 +27,7 @@ function formatDifficulty(difficulty: string): string {
 
 export default function QuizResultsPage() {
   const { quizId } = useParams();
+  const navigate = useNavigate();
   const location = useLocation();
   const quizNameFromNavigation = location.state?.quizName as string | undefined;
   const [data, setData] = useState<QuizResult | null>(null);
@@ -75,6 +78,14 @@ export default function QuizResultsPage() {
 
   return (
     <Container maxWidth="lg" className="quiz-results-page">
+      <Button
+        startIcon={<ArrowBackIcon />}
+        className="quiz-detail-back-btn"
+        onClick={() => navigate(-1)}
+      >
+        Back
+      </Button>
+
       <Typography
         variant="h4"
         component="h1"
