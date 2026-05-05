@@ -12,6 +12,7 @@ import {
   Alert,
 } from "@mui/material";
 import { submitReview } from "../api";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function AddReviewForm() {
   const { quizId } = useParams();
@@ -58,6 +59,14 @@ export default function AddReviewForm() {
 
   return (
     <Container maxWidth="md" sx={{ py: 3 }}>
+      <Button
+        startIcon={<ArrowBackIcon />}
+        onClick={() => navigate(`/student`)}
+        sx={{ mb: 2 }}
+      >
+        Back
+      </Button>
+
       <Typography variant="h4" component="h1" gutterBottom>
         Add a review for quiz {quizId}
       </Typography>

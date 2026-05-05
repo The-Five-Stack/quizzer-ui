@@ -116,17 +116,32 @@ export default function PublishedQuizList() {
                       {q.category?.name ?? "—"}
                     </Typography>
                     <br />
-                    <Typography variant="body2">
-                      <Link
-                        component={RouterLink}
-                        to={`/publishedquizz/${q.id}/results`}
-                        state={{ quizName: q.name }}
-                        color="primary"
-                        className="published-quiz-results-link"
-                      >
-                        View results
-                      </Link>
-                    </Typography>
+
+                    <Box sx={{ display: "flex", gap: 2, mt: 1 }}>
+                      <Typography variant="body2">
+                        <Link
+                          component={RouterLink}
+                          to={`/publishedquizz/${q.id}/results`}
+                          state={{ quizName: q.name }}
+                          color="primary"
+                          className="published-quiz-results-link"
+                        >
+                          View results
+                        </Link>
+                      </Typography>
+
+                      <Typography variant="body2">
+                        <Link
+                          component={RouterLink}
+                          to={`/publishedquizz/${q.id}/reviews/new`}
+                          color="primary"
+                          className="published-quiz-results-link"
+                        >
+                          Add review
+                        </Link>
+                      </Typography>
+                    </Box>
+                    
                   </CardContent>
                 </Card>
               ))}
