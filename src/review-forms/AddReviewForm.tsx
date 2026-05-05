@@ -26,6 +26,7 @@ export default function AddReviewForm() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
+    /* Validation check */
     if (!nickname.trim()) {
       setError("Nickname is required");
       return;
@@ -42,6 +43,7 @@ export default function AddReviewForm() {
     setLoading(true);
     setError(null);
 
+    /* Fetching */
     try {
       await submitReview(Number(quizId), {
         nickname: nickname.trim(),
@@ -61,6 +63,7 @@ export default function AddReviewForm() {
 
   useEffect(() => {
     fetchPublishedQuizzes()
+      /* To get quiz name for the header */
       .then((quizzes) => {
         const found = quizzes.find((q) => q.id === Number(quizId));
         if (found) setQuizName(found.name);
@@ -70,6 +73,7 @@ export default function AddReviewForm() {
 
   return (
     <Container maxWidth="md" sx={{ py: 3 }}>
+      {/* Back Icon */}
       <Button
         startIcon={<ArrowBackIcon />}
         onClick={() => navigate(`/student`)}
@@ -78,6 +82,7 @@ export default function AddReviewForm() {
         Back
       </Button>
 
+      {/* Header */}
       <Typography variant="h4" component="h1" gutterBottom>
         Add a review for "{quizName}"
       </Typography>
