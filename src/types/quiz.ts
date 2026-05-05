@@ -56,3 +56,17 @@ export interface QuizResult {
   totalQuestions: number;
   questions: QuestionResult[];
 }
+
+export interface Review {
+  id: number;
+  nickname: string;
+  rating: number;
+  review: string;
+  createdAt: string;
+}
+
+export interface ReviewSummary {
+  totalReviews: number;
+  averageRating: number;
+  reviews: Review[];
+}
