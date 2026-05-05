@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Box,
@@ -11,7 +11,7 @@ import {
   Typography,
   Alert,
 } from "@mui/material";
-import { submitReview } from "../api";
+import { fetchPublishedQuizzes, submitReview } from "../api";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function AddReviewForm() {
@@ -57,6 +57,17 @@ export default function AddReviewForm() {
     }
   };
 
+  const [quizName, setQuizName] = useState<string>("");
+
+  useEffect(() => {
+    fetchPublishedQuizzes()
+      .then((quizzes) => {
+        const found = quizzes.find((q) => q.id === Number(quizId));
+        if (found) setQuizName(found.name);
+      })
+      .catch(() => setQuizName("Quiz"));
+  }, [quizId]);
+
   return (
     <Container maxWidth="md" sx={{ py: 3 }}>
       <Button
@@ -68,7 +79,7 @@ export default function AddReviewForm() {
       </Button>
 
       <Typography variant="h4" component="h1" gutterBottom>
-        Add a review for quiz {quizId}
+        Add a review for "{quizName}"
       </Typography>
 
       {success && (
