@@ -329,17 +329,20 @@ export async function getQuizResults(quizId: number): Promise<QuizResult> {
   };
 }
 
+// submitReview
+// endpoint: POST /api/quizzes/{quizId}/reviews
 export const submitReview = async (
   quizId: number,
   payload: { nickname: string; rating: number; review: string }
 ) => {
-  return requestJson(`/api/quizzes/${quizId}/reviews`, {
+  return fetchWithAuth(`/api/quizzes/${quizId}/reviews`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
 };
 
+// fetchReviews
+// endpoint: GET /api/quizzes/{quizId}/reviews
 export const fetchReviews = async (quizId: number): Promise<ReviewSummary> => {
-  return requestJson(`/api/quizzes/${quizId}/reviews`);
+  return fetchWithAuth(`/api/quizzes/${quizId}/reviews`);
 };
