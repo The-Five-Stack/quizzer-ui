@@ -2,12 +2,9 @@ import { useEffect, useState } from "react";
 import {
   Alert,
   Box,
-  Card,
-  CardContent,
   CircularProgress,
   //Container,
   Link,
-  Typography,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import type { QuizInfo } from "../types/quiz";
@@ -52,101 +49,90 @@ export default function PublishedQuizList() {
           <p>Browse available quizzes and view your results.</p>
         </div>
       </div>
+
+      {loading && (
+        <Box className="published-quiz-loading">
+          <CircularProgress />
+        </Box>
+      )}
+
+      {error && (
+        <Alert severity="error" className="published-quiz-alert-margin">
+          {error}
+        </Alert>
+      )}
+
+      {!loading && !error && quizzes.length === 0 && (
+        <Alert severity="info">No published quizzes yet.</Alert>
+      )}
+
+      {/* Quiz cards grid - same as QuizList */}
       <div className="qc-wrap">
-        {loading && (
-          <Box className="published-quiz-loading">
-            <CircularProgress />
-          </Box>
-        )}
-
-        {error && (
-          <Alert severity="error" className="published-quiz-alert-margin">
-            {error}
-          </Alert>
-        )}
-
-        {!loading && !error && quizzes.length === 0 && (
-          <Alert severity="info">No published quizzes yet.</Alert>
-        )}
-
-        {!loading && quizzes.length > 0 && (
-          <Box className="published-quiz-grid">
-            {quizzes
-              .slice()
-              .sort((a, b) => a.id - b.id)
-              .map((q) => (
-                <Card
-                  key={q.id}
-                  variant="outlined"
-                  className="published-quiz-card"
-                >
-                  <CardContent>
-                    <Typography variant="subtitle1" component="div" gutterBottom>
+        {!loading && quizzes
+          .slice()
+          .sort((a, b) => a.id - b.id)
+          .map((q) => (
+            <div key={q.id} className="qc">
+              <div className="qc-body">
+                <div className="qc-head">
+                  <div className="qc-quiz">
+                    <div className="qc-title">
                       <Link
                         component={RouterLink}
                         to={`/student/quizzes/${q.id}/take`}
                         underline="hover"
                         color="primary"
-                        className="published-quiz-title-link"
                       >
                         {q.name}
                       </Link>
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      className="published-quiz-description"
-                    >
-                      {q.description || "—"}
-                    </Typography>
-                    <br />
-                    <Typography
-                      variant="body2"
-                      className="published-quiz-meta-date"
-                    >
-                      <strong>Created at:</strong>{" "}
-                      {new Date(q.createdAt).toLocaleDateString("en-GB")}
-                    </Typography>
-                    <Typography variant="body2" className="published-quiz-meta">
-                      <strong>Course Code:</strong>{" "}
-                      {q.courseCode ?? "—"}
-                    </Typography>
-                    <Typography variant="body2" className="published-quiz-meta">
-                      <strong>Category:</strong>{" "}
-                      {q.category?.name ?? "—"}
-                    </Typography>
-                    <br />
+                    </div>
+                    <p className="qc-desc">{q.description || "—"}</p>
+                  </div>
+                  <span className="qc-badge pub">Published</span>
+                </div>
 
-                    <Box sx={{ display: "flex", gap: 2, mt: 1 }}>
-                      <Typography variant="body2">
-                        <Link
-                          component={RouterLink}
-                          to={`/publishedquizz/${q.id}/results`}
-                          state={{ quizName: q.name }}
-                          color="primary"
-                          className="published-quiz-results-link"
-                        >
-                          View results
-                        </Link>
-                      </Typography>
+                <p>
+                  <b>Created:</b>{" "}
+                  {new Date(q.createdAt).toLocaleDateString("en-GB")}
+                </p>
+                <p>
+                  <b>Code:</b> {q.courseCode ?? "—"}
+                </p>
+                {q.category?.name && (
+                  <p>
+                    <b>Category:</b> {q.category.name}
+                  </p>
+                )}
 
-                      <Typography variant="body2">
-                        <Link
-                          component={RouterLink}
-                          to={`/publishedquizz/${q.id}/reviews/new`}
-                          color="primary"
-                          className="published-quiz-results-link"
-                        >
-                          Add review
-                        </Link>
-                      </Typography>
-                    </Box>
-                    
-                  </CardContent>
-                </Card>
-              ))}
-          </Box>
-        )}
+                <div className="qc-foot">
+                  <div className="qc-foot-left">
+                    <Link
+                      component={RouterLink}
+                      to={`/publishedquizz/${q.id}/results`}
+                      state={{ quizName: q.name }}
+                      underline="none"
+                    >
+                      <button className="qc-btn">View results</button>
+                    </Link>
+                    <Link
+                      component={RouterLink}
+                      to={`/publishedquizz/${q.id}/reviews`}
+                      underline="none"
+                    >
+                      <button className="qc-btn">See reviews</button>
+                    </Link>
+                    <Link
+                      component={RouterLink}
+                      to={`/publishedquizz/${q.id}/reviews/new`}
+                      underline="none"
+                    >
+                      <button className="qc-btn">Add review</button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
       </div>
     </>
   );

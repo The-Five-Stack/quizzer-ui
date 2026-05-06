@@ -1,12 +1,18 @@
 import "../index.css"
+import { Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 interface StudentQuizCardProps {
+  id: number
   name: string;
   description: string;
   courseCode: string;
   createdAt: string;
+  category?: { name: string } | null;
   onAttempt: () => void;
   onViewResults: () => void;
+  onSeeReviews: () => void;
+  onAddReview: () => void;
 }
 
 export default function StudentQuizCard(props: StudentQuizCardProps) {
