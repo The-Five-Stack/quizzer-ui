@@ -4,6 +4,7 @@ interface StudentQuizCardProps {
   name: string;
   description: string;
   courseCode: string;
+  category?: { name: string } | null;
   createdAt: string;
   onAttempt: () => void;
   onViewResults: () => void;
@@ -27,6 +28,9 @@ export default function StudentQuizCard(props: StudentQuizCardProps) {
           </p>
           <p>
             <b>Code:</b> {props.courseCode}
+          </p>
+          <p>
+            <b>Category:</b> {props.category.name}
           </p>
         </div>
 

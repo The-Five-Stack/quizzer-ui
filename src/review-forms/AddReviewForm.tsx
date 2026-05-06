@@ -99,10 +99,10 @@ export default function AddReviewForm() {
         </Alert>
       )}
 
-      {/* Nickname */}
+      {/* Name */}
       <Box sx={{ mb: 3 }}>
         <TextField
-          label="Nickname *"
+          label="Name *"
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
           fullWidth
