@@ -140,19 +140,8 @@ export default function PublishedQuizList() {
                           Add review
                         </Link>
                       </Typography>
-
-                      <Typography variant="body2">
-                        <Link
-                          component={RouterLink}
-                          to={`/publishedquizz/${q.id}/reviews`}
-                          color="primary"
-                          className="published-quiz-results-link"
-                        >
-                          See reviews
-                        </Link>
-                      </Typography>
                     </Box>
-
+                    
                   </CardContent>
                 </Card>
               ))}
