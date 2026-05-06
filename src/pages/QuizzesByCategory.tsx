@@ -78,6 +78,8 @@ export default function QuizzesByCategory() {
                   state: { quizName: q.name },
                 })
               }
+              onSeeReviews={() => navigate(`/publishedquizz/${q.id}/reviews`)}
+              onAddReview={() => navigate(`/add-review/${q.id}`)}
             />
           ))}
       </div>

@@ -1,14 +1,10 @@
-import "../index.css"
-import { Link } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import "../index.css";
 
 interface StudentQuizCardProps {
-  id: number
   name: string;
   description: string;
   courseCode: string;
   createdAt: string;
-  category?: { name: string } | null;
   onAttempt: () => void;
   onViewResults: () => void;
   onSeeReviews: () => void;
@@ -35,11 +31,17 @@ export default function StudentQuizCard(props: StudentQuizCardProps) {
         </div>
 
         <div className="sqc-foot">
-          <button className="qc-btn" onClick={props.onAttempt}>
+          <button className="sqc-btn" onClick={props.onAttempt}>
             Attempt
           </button>
-          <button className="qc-btn" onClick={props.onViewResults}>
+          <button className="sqc-btn" onClick={props.onViewResults}>
             View results
+          </button>
+          <button className="sqc-btn" onClick={props.onSeeReviews}>
+            See reviews
+          </button>
+          <button className="sqc-btn" onClick={props.onAddReview}>
+            Add review
           </button>
         </div>
       </div>

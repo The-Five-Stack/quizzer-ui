@@ -101,7 +101,7 @@ export default function ReviewListPage() {
           {data.reviews.map((r) => (
             <Card key={r.id} variant="outlined" sx={{ mb: 2 }}>
               <CardContent>
-                <Typography variant="subtitle1" fontWeight={600}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
                   {r.nickname}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">

@@ -161,7 +161,7 @@ code {
 /*Student Quiz Card Component*/
 /* Card container */
 .sqc {
-  width: 320px;
+  width: 350px;
   height: 100%;
   background: #ffffff;
   border: 1px solid #e6e6e6;
@@ -179,7 +179,7 @@ code {
 .sqc-body {
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 10px;
   gap: 12px;
   flex: 1;
 }
@@ -220,7 +220,7 @@ code {
 .sqc-foot {
   margin-top: auto;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 8px;
 }
 
@@ -229,10 +229,12 @@ code {
   background: #1976d2;
   color: white;
   border: none;
-  padding: 8px 14px;
-  border-radius: 8px;
+  padding: 5px 8px;
+  border-radius: 5px;
   cursor: pointer;
   font-weight: 500;
+  font-size: 12px;
+  white-space: nowrap;
   transition: background 0.2s ease;
   
 }

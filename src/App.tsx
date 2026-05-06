@@ -18,6 +18,7 @@ import StudentNavbar from "./components/StudentNavbar";
 import { useLocation } from "react-router-dom";
 import QuizResultsPage from "./pages/QuizResultsPage";
 import AddReviewForm from "./review-forms/AddReviewForm";
+import ReviewListPage from "./review-forms/ReviewListPage";
 /**
  * Root App component that sets up the SPA routing structure.
  * Routes:
@@ -64,6 +65,7 @@ function App() {
 
           
           <Route path="/publishedquizz/:quizId/reviews/new" element={<AddReviewForm />} />
+          <Route path="/publishedquizz/:quizId/reviews" element={<ReviewListPage />} />
         </Routes>
       </BrowserRouter>
       <CssBaseline />
