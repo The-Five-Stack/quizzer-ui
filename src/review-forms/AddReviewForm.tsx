@@ -18,6 +18,7 @@ export default function AddReviewForm() {
   const { quizId } = useParams();
   const navigate = useNavigate();
 
+  const [quizName, setQuizName] = useState<string>("");
   const [nickname, setNickname] = useState("");
   const [rating, setRating] = useState<number | null>(null);
   const [review, setReview] = useState("");
@@ -59,8 +60,6 @@ export default function AddReviewForm() {
     }
   };
 
-  const [quizName, setQuizName] = useState<string>("");
-
   useEffect(() => {
     fetchPublishedQuizzes()
       /* To get quiz name for the header */
@@ -76,7 +75,7 @@ export default function AddReviewForm() {
       {/* Back Icon */}
       <Button
         startIcon={<ArrowBackIcon />}
-        onClick={() => navigate(`/student`)}
+        onClick={() => navigate(`/publishedquizz/${quizId}/reviews`)}
         sx={{ mb: 2 }}
       >
         Back
@@ -103,7 +102,7 @@ export default function AddReviewForm() {
       <Box sx={{ mb: 3 }}>
         <TextField
           label="Name *"
-          value={nickname}
+          value={nickname} // its nickname to match backend but label it as name
           onChange={(e) => setNickname(e.target.value)}
           fullWidth
           variant="outlined"

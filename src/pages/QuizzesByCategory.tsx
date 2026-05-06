@@ -79,7 +79,7 @@ export default function QuizzesByCategory() {
                 })
               }
               onSeeReviews={() => navigate(`/publishedquizz/${q.id}/reviews`)}
-              onAddReview={() => navigate(`/add-review/${q.id}`)}
+              onAddReview={() => navigate(`/publishedquizz/${q.id}/reviews/new`)}
             />
           ))}
       </div>
