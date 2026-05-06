@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
     Alert,
     Box,
@@ -23,6 +23,8 @@ export default function ReviewListPage() {
     const [data, setData] = useState<ReviewSummary | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const location = useLocation();
+    const quizName = location.state?.quizName ?? "";
 
     useEffect(() => {
         if (!quizId) return;
@@ -59,7 +61,7 @@ export default function ReviewListPage() {
             </Button>
 
             <Typography variant="h4" component="h1" gutterBottom>
-                Reviews
+                Reviews of "{quizName}"
             </Typography>
 
             {/* Loading */}

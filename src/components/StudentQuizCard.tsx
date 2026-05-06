@@ -30,7 +30,7 @@ export default function StudentQuizCard(props: StudentQuizCardProps) {
             <b>Code:</b> {props.courseCode}
           </p>
           <p>
-            <b>Category:</b> {props.category.name}
+            <b>Category:</b> {props.category?.name}
           </p>
         </div>
 
