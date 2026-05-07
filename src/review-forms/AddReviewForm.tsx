@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import {
   Box,
   Button,
@@ -25,6 +25,11 @@ export default function AddReviewForm() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+
+  const returnTo =
+    location.state?.returnTo ||
+    `/publishedquizz/${quizId}/reviews`;
 
   const handleSubmit = async () => {
     /* Validation check */
@@ -52,9 +57,11 @@ export default function AddReviewForm() {
         review: review.trim(),
       });
       setSuccess(true);
-      setTimeout(() => navigate(`/publishedquizz/${quizId}/reviews`, {
-        state: { quizName: quizName }
-      }), 1500);
+      setTimeout(() =>
+        navigate(returnTo, {
+          state: { quizName }
+        }),
+        1500);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to submit review");
     } finally {
@@ -77,9 +84,11 @@ export default function AddReviewForm() {
       {/* Back Icon */}
       <Button
         startIcon={<ArrowBackIcon />}
-        onClick={() => navigate(`/publishedquizz/${quizId}/reviews`, {
-          state: { quizName: quizName }
-        })}
+        onClick={() =>
+          navigate(returnTo, {
+            state: { quizName }
+          })
+        }
         sx={{ mb: 2 }}
       >
         Back

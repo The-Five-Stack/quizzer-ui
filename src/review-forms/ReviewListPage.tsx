@@ -54,7 +54,7 @@ export default function ReviewListPage() {
             {/* Back button */}
             <Button
                 startIcon={<ArrowBackIcon />}
-                onClick={() => navigate("/publishedquizz")}
+                onClick={() => navigate(location.state?.returnTo || "/publishedquizz")}
                 sx={{ mb: 2 }}
             >
                 Back
@@ -86,6 +86,10 @@ export default function ReviewListPage() {
                     <Link
                         component={RouterLink}
                         to={`/publishedquizz/${quizId}/reviews/new`}
+                        state={{
+                            returnTo: location.state?.returnTo || location.pathname,
+                            quizName
+                        }}
                         underline="hover"
                         color="primary"
                         sx={{ mb: 3, display: "block" }}
