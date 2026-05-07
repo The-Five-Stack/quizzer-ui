@@ -53,7 +53,7 @@ export default function QuizzesByCategory() {
     <>
       <Button
         className="quizzes-by-category-back-btn"
-        onClick={() => navigate(`/student/categories`)}
+        onClick={() => navigate(location.state?.returnTo || "/student/categories")}
       >
         <ArrowBackIcon fontSize="small" />
         Back to Categories
@@ -82,15 +82,16 @@ export default function QuizzesByCategory() {
                 navigate(`/publishedquizz/${q.id}/reviews`, {
                   state: {
                     quizName: q.name,
-                    returnTo: `/student/categories/${categoryId}/published-quizzes`
+                    returnTo: location.pathname
                   }
                 })
-              } onAddReview={() => navigate(`/publishedquizz/${q.id}/reviews/new`, {
+              }
+              onAddReview={() => navigate(`/publishedquizz/${q.id}/reviews/new`, {
                 state: {
                   quizName: q.name,
-                  returnTo: `/student/categories/${categoryId}/published-quizzes`
+                  returnTo: location.pathname
                 }
-              })} 
+              })}
             />
           ))}
       </div>
