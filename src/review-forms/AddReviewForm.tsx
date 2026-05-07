@@ -52,7 +52,9 @@ export default function AddReviewForm() {
         review: review.trim(),
       });
       setSuccess(true);
-      setTimeout(() => navigate(`/publishedquizz/${quizId}/reviews`), 1500);
+      setTimeout(() => navigate(`/publishedquizz/${quizId}/reviews`, {
+        state: { quizName: quizName }
+      }), 1500);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to submit review");
     } finally {
@@ -75,7 +77,9 @@ export default function AddReviewForm() {
       {/* Back Icon */}
       <Button
         startIcon={<ArrowBackIcon />}
-        onClick={() => navigate(`/publishedquizz/${quizId}/reviews`)}
+        onClick={() => navigate(`/publishedquizz/${quizId}/reviews`, {
+          state: { quizName: quizName }
+        })}
         sx={{ mb: 2 }}
       >
         Back
