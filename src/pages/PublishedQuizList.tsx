@@ -1,22 +1,15 @@
 import { useEffect, useState } from "react";
-import {
-  Alert,
-  Box,
-  Card,
-  CardContent,
-  CircularProgress,
-  //Container,
-  Link,
-  Typography,
-} from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import { Alert, Box, CircularProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import type { QuizInfo } from "../types/quiz";
 import { fetchPublishedQuizzes } from "../api";
+import StudentQuizCard from "../components/StudentQuizCard";
 
 /**
  * Student-facing list of published quizzes from GET /api/quizzes/publishedquizz.
  */
 export default function PublishedQuizList() {
+  const navigate = useNavigate();
   const [quizzes, setQuizzes] = useState<QuizInfo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -25,23 +18,16 @@ export default function PublishedQuizList() {
     let cancelled = false;
     fetchPublishedQuizzes()
       .then((data) => {
-        if (!cancelled) {
-          setQuizzes(data);
-        }
+        if (!cancelled) setQuizzes(data);
       })
       .catch((err: unknown) => {
-        if (!cancelled) {
-          setError(
-            err instanceof Error ? err.message : "Failed to load quizzes.",
-          );
-        }
+        if (!cancelled)
+          setError(err instanceof Error ? err.message : "Failed to load quizzes.");
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
       });
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, []);
 
   return (
@@ -52,86 +38,36 @@ export default function PublishedQuizList() {
           <p>Browse available quizzes and view your results.</p>
         </div>
       </div>
+
+      {loading && (
+        <Box className="published-quiz-loading">
+          <CircularProgress />
+        </Box>
+      )}
+
+      {error && (
+        <Alert severity="error" className="published-quiz-alert-margin">
+          {error}
+        </Alert>
+      )}
+
+      {!loading && !error && quizzes.length === 0 && (
+        <Alert severity="info">No published quizzes yet.</Alert>
+      )}
+
       <div className="qc-wrap">
-        {loading && (
-          <Box className="published-quiz-loading">
-            <CircularProgress />
-          </Box>
-        )}
-
-        {error && (
-          <Alert severity="error" className="published-quiz-alert-margin">
-            {error}
-          </Alert>
-        )}
-
-        {!loading && !error && quizzes.length === 0 && (
-          <Alert severity="info">No published quizzes yet.</Alert>
-        )}
-
-        {!loading && quizzes.length > 0 && (
-          <Box className="published-quiz-grid">
-            {quizzes
-              .slice()
-              .sort((a, b) => a.id - b.id)
-              .map((q) => (
-                <Card
-                  key={q.id}
-                  variant="outlined"
-                  className="published-quiz-card"
-                >
-                  <CardContent>
-                    <Typography variant="subtitle1" component="div" gutterBottom>
-                      <Link
-                        component={RouterLink}
-                        to={`/student/quizzes/${q.id}/take`}
-                        underline="hover"
-                        color="primary"
-                        className="published-quiz-title-link"
-                      >
-                        {q.name}
-                      </Link>
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      className="published-quiz-description"
-                    >
-                      {q.description || "—"}
-                    </Typography>
-                    <br />
-                    <Typography
-                      variant="body2"
-                      className="published-quiz-meta-date"
-                    >
-                      <strong>Created at:</strong>{" "}
-                      {new Date(q.createdAt).toLocaleDateString("en-GB")}
-                    </Typography>
-                    <Typography variant="body2" className="published-quiz-meta">
-                      <strong>Course Code:</strong>{" "}
-                      {q.courseCode ?? "—"}
-                    </Typography>
-                    <Typography variant="body2" className="published-quiz-meta">
-                      <strong>Category:</strong>{" "}
-                      {q.category?.name ?? "—"}
-                    </Typography>
-                    <br />
-                    <Typography variant="body2">
-                      <Link
-                        component={RouterLink}
-                        to={`/publishedquizz/${q.id}/results`}
-                        state={{ quizName: q.name }}
-                        color="primary"
-                        className="published-quiz-results-link"
-                      >
-                        View results
-                      </Link>
-                    </Typography>
-                  </CardContent>
-                </Card>
-              ))}
-          </Box>
-        )}
+        {!loading && quizzes
+          .slice()
+          .sort((a, b) => a.id - b.id)
+          .map((q) => (
+            <StudentQuizCard
+              key={q.id}
+              {...q}
+              onAttempt={() => navigate(`/student/quizzes/${q.id}/take`)}
+              onViewResults={() => navigate(`/publishedquizz/${q.id}/results`, { state: { quizName: q.name } })}
+              onSeeReviews={() => navigate(`/publishedquizz/${q.id}/reviews`, { state: { quizName: q.name } })}
+              onAddReview={() => navigate(`/publishedquizz/${q.id}/reviews/new`)} />
+          ))}
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import type { Category, QuizInfo, QuizResult } from "./types/quiz";
+import type { Category, QuizInfo, QuizResult, ReviewSummary } from "./types/quiz";
 
 type CreateQuizPayload = {
   name: string;
@@ -328,3 +328,21 @@ export async function getQuizResults(quizId: number): Promise<QuizResult> {
     questions,
   };
 }
+
+/* submitReview
+** endpoint: POST /api/quizzes/{quizId}/reviews */
+export const submitReview = async (
+  quizId: number,
+  payload: { nickname: string; rating: number; review: string }
+) => {
+  return fetchWithAuth(`/api/quizzes/${quizId}/reviews`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+};
+
+/* fetchReviews
+** endpoint: GET /api/quizzes/{quizId}/reviews */
+export const fetchReviews = async (quizId: number): Promise<ReviewSummary> => {
+  return fetchWithAuth(`/api/quizzes/${quizId}/reviews`);
+};

@@ -17,6 +17,8 @@ import TeacherNavbar from "./components/TeacherNavbar";
 import StudentNavbar from "./components/StudentNavbar";
 import { useLocation } from "react-router-dom";
 import QuizResultsPage from "./pages/QuizResultsPage";
+import AddReviewForm from "./review-forms/AddReviewForm";
+import ReviewListPage from "./review-forms/ReviewListPage";
 /**
  * Root App component that sets up the SPA routing structure.
  * Routes:
@@ -29,7 +31,7 @@ import QuizResultsPage from "./pages/QuizResultsPage";
 function NavbarSwitcher() {
   const location = useLocation();
   const path = location.pathname;
-  
+
   if (path.startsWith('/student') || path.startsWith('/publishedquizz')
   ) {
     return <StudentNavbar />;
@@ -52,15 +54,19 @@ function App() {
           <Route path="/categories" element={<CategoryList />} />
 
           <Route path="/quizzes/:quizId/results" element={<QuizResultsPage />} />
-          
+
           <Route path="/student" element={<PublishedQuizList />} />
           <Route path="/publishedquizz" element={<PublishedQuizList />} />
           <Route path="/student/categories" element={<CategoryListStudent />} />
           <Route path="/student/quizzes/:id/take" element={<TakeQuizPage />} />
           <Route path="/categories/new" element={<CreateCategoryForm />} />
-          <Route path="/student/categories/:categoryId/published-quizzes" element={<QuizzesByCategory />} />        
+          <Route path="/student/categories/:categoryId/published-quizzes" element={<QuizzesByCategory />} />
           <Route path="/publishedquizz/:quizId/results" element={<QuizResultsPage />} />
-          </Routes>
+
+          
+          <Route path="/publishedquizz/:quizId/reviews/new" element={<AddReviewForm />} />
+          <Route path="/publishedquizz/:quizId/reviews" element={<ReviewListPage />} />
+        </Routes>
       </BrowserRouter>
       <CssBaseline />
     </Container>
