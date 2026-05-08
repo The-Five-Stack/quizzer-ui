@@ -58,9 +58,7 @@ export default function AddReviewForm() {
       });
       setSuccess(true);
       setTimeout(() =>
-        navigate(returnTo, {
-          state: { quizName }
-        }),
+        navigate(returnTo, { state: { quizName } }),
         1500);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to submit review");
@@ -84,12 +82,7 @@ export default function AddReviewForm() {
       {/* Back Icon */}
       <Button
         startIcon={<ArrowBackIcon />}
-        onClick={() =>
-          navigate(returnTo, {
-            state: { quizName }
-          })
-        }
-        sx={{ mb: 2 }}
+        onClick={() => navigate(returnTo)} sx={{ mb: 2 }}
       >
         Back
       </Button>
