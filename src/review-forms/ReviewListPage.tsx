@@ -89,7 +89,8 @@ export default function ReviewListPage() {
                         state={{
                             returnTo: location.pathname,        // review list page
                             originalReturn: location.state?.returnTo,  // original page (e.g. /publishedquizz)
-                            quizName
+                            quizName,
+                            categoryName: location.state?.categoryName
                         }}
                         underline="hover"
                         color="primary"

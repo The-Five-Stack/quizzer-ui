@@ -82,7 +82,8 @@ export default function QuizzesByCategory() {
                 navigate(`/publishedquizz/${q.id}/reviews`, {
                   state: {
                     quizName: q.name,
-                    returnTo: location.pathname
+                    returnTo: location.pathname,
+                    categoryName: location.state?.categoryName
                   }
                 })
               }
