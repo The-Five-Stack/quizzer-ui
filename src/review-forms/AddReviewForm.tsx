@@ -28,17 +28,28 @@ export default function AddReviewForm() {
   const [loading, setLoading] = useState(false);
 
   const safeQuizId = Number(quizId);
+const returnTo = location.state?.returnTo || `/publishedquizz/${safeQuizId}/reviews`;
+
   useEffect(() => {
+    // 1. INSTANT: Use location.state if available (no network)
+    if (location.state?.quizName) {
+      setQuizName(location.state.quizName);
+      return;
+    }
+
+    // 2. FALLBACK: Fetch only for deep links/refresh
+    if (isNaN(safeQuizId)) {
+      setQuizName("Quiz");
+      return;
+    }
+
     fetchPublishedQuizzes()
-      /* To get quiz name for the header */
       .then((quizzes) => {
-        const found = quizzes.find((q) => q.id === Number(quizId));
-        if (found) setQuizName(found.name);
+        const found = quizzes.find((q) => q.id === safeQuizId);
+        setQuizName(found?.name || "Quiz");
       })
       .catch(() => setQuizName("Quiz"));
-  }, [quizId]);
-  
-  const returnTo = location.state?.returnTo || `/publishedquizz/${quizId}/reviews`;
+  }, [safeQuizId, location.state?.quizName]);
 
   if (isNaN(safeQuizId)) {
     return (
@@ -73,7 +84,7 @@ export default function AddReviewForm() {
 
     /* Fetching */
     try {
-      await submitReview(Number(quizId), {
+      await submitReview(safeQuizId, {
         nickname: nickname.trim(),
         rating,
         review: review.trim(),
