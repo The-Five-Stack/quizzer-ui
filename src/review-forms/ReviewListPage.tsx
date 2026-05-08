@@ -87,7 +87,8 @@ export default function ReviewListPage() {
                         component={RouterLink}
                         to={`/publishedquizz/${quizId}/reviews/new`}
                         state={{
-                            returnTo: location.state?.returnTo || location.pathname,
+                            returnTo: location.pathname,        // review list page
+                            originalReturn: location.state?.returnTo,  // original page (e.g. /publishedquizz)
                             quizName
                         }}
                         underline="hover"
