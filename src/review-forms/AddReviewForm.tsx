@@ -58,7 +58,12 @@ export default function AddReviewForm() {
       });
       setSuccess(true);
       setTimeout(() =>
-        navigate(returnTo, { state: { quizName } }),
+        navigate(returnTo, {
+          state: {
+            quizName,
+            returnTo: location.state?.originalReturn  // preserve the original return path
+          }
+        }),
         1500);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to submit review");
