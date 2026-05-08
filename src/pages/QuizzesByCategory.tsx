@@ -83,7 +83,7 @@ export default function QuizzesByCategory() {
                   state: {
                     quizName: q.name,
                     returnTo: location.pathname,
-                    categoryName: location.state?.categoryName
+                    categoryName: location.state?.categoryName || "Category"
                   }
                 })
               }

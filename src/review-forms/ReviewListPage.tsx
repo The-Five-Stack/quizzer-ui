@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link as RouterLink } from "react-router-dom";
-import { fetchReviews } from "../api";
+import { fetchPublishedQuizzes, fetchReviews } from "../api";
 import type { ReviewSummary } from "../types/quiz";
 
 export default function ReviewListPage() {
@@ -24,7 +24,20 @@ export default function ReviewListPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const location = useLocation();
-    const quizName = location.state?.quizName ?? "";
+    const [quizName, setQuizName] = useState<string>(location.state?.quizName ?? "");
+
+    useEffect(() => {
+        if (quizName) return;
+        const id = Number(quizId);
+        if (!quizId || isNaN(id)) return;
+
+        fetchPublishedQuizzes()
+            .then((quizzes) => {
+                const found = quizzes.find((q) => q.id === id);
+                setQuizName(found?.name ?? "Quiz");
+            })
+            .catch(() => setQuizName("Quiz"));
+    }, [quizId, quizName]);
 
     useEffect(() => {
         if (!quizId) return;

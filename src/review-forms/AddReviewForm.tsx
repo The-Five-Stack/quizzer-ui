@@ -28,7 +28,8 @@ export default function AddReviewForm() {
   const [loading, setLoading] = useState(false);
 
   const safeQuizId = Number(quizId);
-const returnTo = location.state?.returnTo || `/publishedquizz/${safeQuizId}/reviews`;
+  const returnTo = location.state?.returnTo || `/publishedquizz/${safeQuizId}/reviews`;
+  const effectiveQuizName = location.state?.quizName ?? quizName;
 
   useEffect(() => {
     // 1. INSTANT: Use location.state if available (no network)
@@ -93,7 +94,7 @@ const returnTo = location.state?.returnTo || `/publishedquizz/${safeQuizId}/revi
       setTimeout(() =>
         navigate(returnTo, {
           state: {
-            quizName,
+            quizName: effectiveQuizName,
             returnTo: location.state?.originalReturn,  // preserve the original return path
             categoryName: location.state?.categoryName
           }
@@ -111,7 +112,16 @@ const returnTo = location.state?.returnTo || `/publishedquizz/${safeQuizId}/revi
       {/* Back Icon */}
       <Button
         startIcon={<ArrowBackIcon />}
-        onClick={() => navigate(returnTo)} sx={{ mb: 2 }}
+        onClick={() =>
+          navigate(returnTo, {
+            state: {
+              quizName: effectiveQuizName,
+              returnTo: location.state?.originalReturn,
+              categoryName: location.state?.categoryName,
+            },
+          })
+        }
+        sx={{ mb: 2 }}
       >
         Back
       </Button>
