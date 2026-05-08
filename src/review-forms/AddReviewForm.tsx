@@ -94,7 +94,8 @@ const returnTo = location.state?.returnTo || `/publishedquizz/${safeQuizId}/revi
         navigate(returnTo, {
           state: {
             quizName,
-            returnTo: location.state?.originalReturn  // preserve the original return path
+            returnTo: location.state?.originalReturn,  // preserve the original return path
+            categoryName: location.state?.categoryName
           }
         }),
         1500);
