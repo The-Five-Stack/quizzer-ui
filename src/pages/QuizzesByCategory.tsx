@@ -34,7 +34,8 @@ export default function QuizzesByCategory() {
       <>
         <Button
           className="back-btn quizzes-by-category-back-btn"
-          onClick={() => navigate(location.state?.returnTo || "/student/categories")}        >
+          onClick={() => navigate(location.state?.returnTo || "/student/categories")}
+        >
           <ArrowBackIcon fontSize="small" />
           Back to Categories
         </Button>
