@@ -17,6 +17,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 export default function AddReviewForm() {
   const { quizId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [quizName, setQuizName] = useState<string>("");
   const [nickname, setNickname] = useState("");
@@ -25,11 +26,32 @@ export default function AddReviewForm() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const location = useLocation();
 
-  const returnTo =
-    location.state?.returnTo ||
-    `/publishedquizz/${quizId}/reviews`;
+  const safeQuizId = Number(quizId);
+  useEffect(() => {
+    fetchPublishedQuizzes()
+      /* To get quiz name for the header */
+      .then((quizzes) => {
+        const found = quizzes.find((q) => q.id === Number(quizId));
+        if (found) setQuizName(found.name);
+      })
+      .catch(() => setQuizName("Quiz"));
+  }, [quizId]);
+  
+  const returnTo = location.state?.returnTo || `/publishedquizz/${quizId}/reviews`;
+
+  if (isNaN(safeQuizId)) {
+    return (
+      <Container maxWidth="md" sx={{ py: 3 }}>
+        <Alert severity="error">
+          Invalid quiz ID.
+          <Button onClick={() => navigate('/')} variant="contained" size="small" sx={{ ml: 1 }}>
+            Go Home
+          </Button>
+        </Alert>
+      </Container>
+    );
+  }
 
   const handleSubmit = async () => {
     /* Validation check */
@@ -71,16 +93,6 @@ export default function AddReviewForm() {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchPublishedQuizzes()
-      /* To get quiz name for the header */
-      .then((quizzes) => {
-        const found = quizzes.find((q) => q.id === Number(quizId));
-        if (found) setQuizName(found.name);
-      })
-      .catch(() => setQuizName("Quiz"));
-  }, [quizId]);
 
   return (
     <Container maxWidth="md" sx={{ py: 3 }}>
