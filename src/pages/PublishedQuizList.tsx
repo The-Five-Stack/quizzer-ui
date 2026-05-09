@@ -65,9 +65,23 @@ export default function PublishedQuizList() {
               {...q}
               onAttempt={() => navigate(`/student/quizzes/${q.id}/take`)}
               onViewResults={() => navigate(`/publishedquizz/${q.id}/results`, { state: { quizName: q.name } })}
-              onSeeReviews={() => navigate(`/publishedquizz/${q.id}/reviews`, { state: { quizName: q.name } })}
-              onAddReview={() => navigate(`/publishedquizz/${q.id}/reviews/new`)} />
-          ))}
+              onSeeReviews={() =>
+                navigate(`/publishedquizz/${q.id}/reviews`, {
+                  state: {
+                    quizName: q.name,
+                    returnTo: "/publishedquizz"
+                  }
+                })
+              }
+              onAddReview={() =>
+                navigate(`/publishedquizz/${q.id}/reviews/new`, {
+                  state: {
+                    quizName: q.name,
+                    returnTo: "/publishedquizz"
+                  }
+                })
+              } 
+            />))}
       </div>
     </>
   );
