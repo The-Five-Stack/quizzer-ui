@@ -349,7 +349,7 @@ export const fetchReviews = async (quizId: number): Promise<ReviewSummary> => {
 
 
 /* fetchReviews
-** endpoint: GET /api/quizzes/{quizId}/reviews */
+** endpoint: DELETE /api/quizzes/{quizId}/reviews */
 export const deleteReview = async (reviewId: number): Promise<ReviewSummary> => {
   return fetchWithAuth(`/api/reviews/${reviewId}`, {
     method: "DELETE",
