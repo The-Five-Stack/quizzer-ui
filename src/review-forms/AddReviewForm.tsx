@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import {
   Box,
   Button,
@@ -17,6 +17,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 export default function AddReviewForm() {
   const { quizId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [quizName, setQuizName] = useState<string>("");
   const [nickname, setNickname] = useState("");
@@ -25,6 +26,44 @@ export default function AddReviewForm() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const safeQuizId = Number(quizId);
+  const returnTo = location.state?.returnTo || `/publishedquizz/${safeQuizId}/reviews`;
+  const effectiveQuizName = location.state?.quizName ?? quizName;
+
+  useEffect(() => {
+    // 1. INSTANT: Use location.state if available (no network)
+    if (location.state?.quizName) {
+      setQuizName(location.state.quizName);
+      return;
+    }
+
+    // 2. FALLBACK: Fetch only for deep links/refresh
+    if (isNaN(safeQuizId)) {
+      setQuizName("Quiz");
+      return;
+    }
+
+    fetchPublishedQuizzes()
+      .then((quizzes) => {
+        const found = quizzes.find((q) => q.id === safeQuizId);
+        setQuizName(found?.name || "Quiz");
+      })
+      .catch(() => setQuizName("Quiz"));
+  }, [safeQuizId, location.state?.quizName]);
+
+  if (isNaN(safeQuizId)) {
+    return (
+      <Container maxWidth="md" sx={{ py: 3 }}>
+        <Alert severity="error">
+          Invalid quiz ID.
+          <Button onClick={() => navigate('/')} variant="contained" size="small" sx={{ ml: 1 }}>
+            Go Home
+          </Button>
+        </Alert>
+      </Container>
+    );
+  }
 
   const handleSubmit = async () => {
     /* Validation check */
@@ -46,13 +85,21 @@ export default function AddReviewForm() {
 
     /* Fetching */
     try {
-      await submitReview(Number(quizId), {
+      await submitReview(safeQuizId, {
         nickname: nickname.trim(),
         rating,
         review: review.trim(),
       });
       setSuccess(true);
-      setTimeout(() => navigate(`/publishedquizz/${quizId}/reviews`), 1500);
+      setTimeout(() =>
+        navigate(returnTo, {
+          state: {
+            quizName: effectiveQuizName,
+            returnTo: location.state?.originalReturn,  // preserve the original return path
+            categoryName: location.state?.categoryName
+          }
+        }),
+        1500);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to submit review");
     } finally {
@@ -60,22 +107,20 @@ export default function AddReviewForm() {
     }
   };
 
-  useEffect(() => {
-    fetchPublishedQuizzes()
-      /* To get quiz name for the header */
-      .then((quizzes) => {
-        const found = quizzes.find((q) => q.id === Number(quizId));
-        if (found) setQuizName(found.name);
-      })
-      .catch(() => setQuizName("Quiz"));
-  }, [quizId]);
-
   return (
     <Container maxWidth="md" sx={{ py: 3 }}>
       {/* Back Icon */}
       <Button
         startIcon={<ArrowBackIcon />}
-        onClick={() => navigate(`/publishedquizz/${quizId}/reviews`)}
+        onClick={() =>
+          navigate(returnTo, {
+            state: {
+              quizName: effectiveQuizName,
+              returnTo: location.state?.originalReturn,
+              categoryName: location.state?.categoryName,
+            },
+          })
+        }
         sx={{ mb: 2 }}
       >
         Back

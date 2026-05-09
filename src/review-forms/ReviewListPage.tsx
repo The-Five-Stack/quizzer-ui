@@ -15,7 +15,7 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link as RouterLink } from "react-router-dom";
-import { fetchReviews, deleteReview } from "../api";
+import { fetchPublishedQuizzes, fetchReviews, deleteReview } from "../api";
 import type { ReviewSummary } from "../types/quiz";
 
 export default function ReviewListPage() {
@@ -26,7 +26,20 @@ export default function ReviewListPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const location = useLocation();
-    const quizName = location.state?.quizName ?? "";
+    const [quizName, setQuizName] = useState<string>(location.state?.quizName ?? "");
+
+    useEffect(() => {
+        if (quizName) return;
+        const id = Number(quizId);
+        if (!quizId || isNaN(id)) return;
+
+        fetchPublishedQuizzes()
+            .then((quizzes) => {
+                const found = quizzes.find((q) => q.id === id);
+                setQuizName(found?.name ?? "Quiz");
+            })
+            .catch(() => setQuizName("Quiz"));
+    }, [quizId, quizName]);
 
     const loadReviews = async () => {
         if (!quizId) return;
@@ -73,7 +86,7 @@ export default function ReviewListPage() {
             {/* Back button */}
             <Button
                 startIcon={<ArrowBackIcon />}
-                onClick={() => navigate("/publishedquizz")}
+                onClick={() => navigate(location.state?.returnTo || "/publishedquizz")}
                 sx={{ mb: 2 }}
             >
                 Back
@@ -105,6 +118,12 @@ export default function ReviewListPage() {
                     <Link
                         component={RouterLink}
                         to={`/publishedquizz/${quizId}/reviews/new`}
+                        state={{
+                            returnTo: location.pathname,        // review list page
+                            originalReturn: location.state?.returnTo,  // original page (e.g. /publishedquizz)
+                            quizName,
+                            categoryName: location.state?.categoryName
+                        }}
                         underline="hover"
                         color="primary"
                         sx={{ mb: 3, display: "block" }}
