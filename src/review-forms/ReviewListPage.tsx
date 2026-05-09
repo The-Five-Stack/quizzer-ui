@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import { Link as RouterLink } from "react-router-dom";
 import { fetchPublishedQuizzes, fetchReviews, deleteReview } from "../api";
 import type { ReviewSummary } from "../types/quiz";
@@ -144,19 +145,32 @@ export default function ReviewListPage() {
                         .map((r) => (
                             <Card key={r.id} variant="outlined" sx={{ mb: 2, position: 'relative' }}>
                                 <CardContent>
-                                    <IconButton
-                                        color="error"
-                                        size="small"
-                                        onClick={() => handleDeleteReview(r.id)}
-                                        sx={{
-                                            position: 'absolute',
-                                            top: 12,
-                                            right: 12,
-                                        }}
-                                        title="Delete review"
-                                    >
-                                        <DeleteIcon fontSize="small" />
-                                    </IconButton>
+                                    <Box sx={{ position: 'absolute', top: 12, right: 12, display: 'flex', gap: 0.5 }}>
+                                        <IconButton
+                                            color="primary"
+                                            size="small"
+                                            onClick={() => navigate(`/publishedquizz/${quizId}/reviews/${r.id}/edit`, {
+                                                state: {
+                                                    returnTo: location.pathname,
+                                                    originalReturn: location.state?.returnTo,
+                                                    quizName,
+                                                    categoryName: location.state?.categoryName
+                                                }
+                                            })}
+                                            title="Edit review"
+                                        >
+                                            <EditIcon fontSize="small" />
+                                        </IconButton>
+
+                                        <IconButton
+                                            color="error"
+                                            size="small"
+                                            onClick={() => handleDeleteReview(r.id)}
+                                            title="Delete review"
+                                        >
+                                            <DeleteIcon fontSize="small" />
+                                        </IconButton>
+                                    </Box>
                                     <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
                                         {r.nickname}
                                     </Typography>

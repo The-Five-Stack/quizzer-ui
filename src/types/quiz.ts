@@ -70,3 +70,8 @@ export interface ReviewSummary {
   averageRating: number;
   reviews: Review[];
 }
+
+export interface ReviewUpdateRequest {
+  rating: number;
+  review: string;
+}
