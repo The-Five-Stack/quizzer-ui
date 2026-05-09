@@ -8,12 +8,14 @@ import {
     CardContent,
     CircularProgress,
     Container,
+    IconButton,
     Link,
     Typography,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Link as RouterLink } from "react-router-dom";
-import { fetchPublishedQuizzes, fetchReviews } from "../api";
+import { fetchPublishedQuizzes, fetchReviews, deleteReview } from "../api";
 import type { ReviewSummary } from "../types/quiz";
 
 export default function ReviewListPage() {
@@ -39,7 +41,7 @@ export default function ReviewListPage() {
             .catch(() => setQuizName("Quiz"));
     }, [quizId, quizName]);
 
-    useEffect(() => {
+    const loadReviews = async () => {
         if (!quizId) return;
         let cancelled = false;
 
@@ -60,7 +62,24 @@ export default function ReviewListPage() {
         return () => {
             cancelled = true;
         };
+    };
+
+    useEffect(() => {
+        loadReviews();
     }, [quizId]);
+
+    const handleDeleteReview = async (reviewId: number) => {
+
+        const ok = window.confirm("Are you sure you want to delete this review?");
+        if (!ok) return;
+
+        try {
+            await deleteReview(reviewId);
+            await loadReviews();
+        } catch {
+            alert("Failed to delete review");
+        }
+    };
 
     return (
         <Container maxWidth="md" sx={{ py: 3 }}>
@@ -123,8 +142,21 @@ export default function ReviewListPage() {
                         .slice()
                         .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                         .map((r) => (
-                            <Card key={r.id} variant="outlined" sx={{ mb: 2 }}>
+                            <Card key={r.id} variant="outlined" sx={{ mb: 2, position: 'relative' }}>
                                 <CardContent>
+                                    <IconButton
+                                        color="error"
+                                        size="small"
+                                        onClick={() => handleDeleteReview(r.id)}
+                                        sx={{
+                                            position: 'absolute',
+                                            top: 12,
+                                            right: 12,
+                                        }}
+                                        title="Delete review"
+                                    >
+                                        <DeleteIcon fontSize="small" />
+                                    </IconButton>
                                     <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
                                         {r.nickname}
                                     </Typography>

@@ -346,3 +346,12 @@ export const submitReview = async (
 export const fetchReviews = async (quizId: number): Promise<ReviewSummary> => {
   return fetchWithAuth(`/api/quizzes/${quizId}/reviews`);
 };
+
+
+/* fetchReviews
+** endpoint: DELETE /api/quizzes/{quizId}/reviews */
+export const deleteReview = async (reviewId: number): Promise<ReviewSummary> => {
+  return fetchWithAuth(`/api/reviews/${reviewId}`, {
+    method: "DELETE",
+  });
+};
