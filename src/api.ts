@@ -1,4 +1,4 @@
-import type { Category, QuizInfo, QuizResult, ReviewSummary } from "./types/quiz";
+import type { Category, QuizInfo, QuizResult, Review, ReviewSummary, ReviewUpdateRequest } from "./types/quiz";
 
 type CreateQuizPayload = {
   name: string;
@@ -348,10 +348,23 @@ export const fetchReviews = async (quizId: number): Promise<ReviewSummary> => {
 };
 
 
-/* fetchReviews
-** endpoint: DELETE /api/quizzes/{quizId}/reviews */
-export const deleteReview = async (reviewId: number): Promise<ReviewSummary> => {
+/* deleteReview
+** endpoint: DELETE /api/reviews/{reviewId} */
+export const deleteReview = async (reviewId: number) => {
   return fetchWithAuth(`/api/reviews/${reviewId}`, {
     method: "DELETE",
   });
 };
+
+
+/* editReview
+** endpoint: PUT /api/reviews/{reviewId} */
+export const editReview = async (reviewId: number, request: ReviewUpdateRequest): Promise<Review> => {
+  return fetchWithAuth(`/api/reviews/${reviewId}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      rating: request.rating,
+      review: request.review
+    }),
+  })
+}

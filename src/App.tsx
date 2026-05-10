@@ -19,6 +19,7 @@ import { useLocation } from "react-router-dom";
 import QuizResultsPage from "./pages/QuizResultsPage";
 import AddReviewForm from "./review-forms/AddReviewForm";
 import ReviewListPage from "./review-forms/ReviewListPage";
+import EditReviewForm from './review-forms/EditReviewForm';
 /**
  * Root App component that sets up the SPA routing structure.
  * Routes:
@@ -66,6 +67,7 @@ function App() {
           
           <Route path="/publishedquizz/:quizId/reviews/new" element={<AddReviewForm />} />
           <Route path="/publishedquizz/:quizId/reviews" element={<ReviewListPage />} />
+          <Route path="/publishedquizz/:quizId/reviews/:reviewId/edit" element={<EditReviewForm />} />
         </Routes>
       </BrowserRouter>
       <CssBaseline />
