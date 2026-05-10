@@ -161,7 +161,8 @@ code {
 /*Student Quiz Card Component*/
 /* Card container */
 .sqc {
-  width: 350px;
+  width: 100%;
+  min-width: 0;
   height: 100%;
   background: #ffffff;
   border: 1px solid #e6e6e6;
@@ -205,6 +206,12 @@ code {
   line-height: 1.4;
   margin: 0;
   min-height: 40px;
+  max-height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 /* Meta info */
@@ -259,12 +266,13 @@ code {
 
 /*Quiz Card*/
 .qc-wrap {
-  display: flex;
+  display: grid;
   gap: 16px;
   padding: 20px;
   background: #f5f6f8;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: flex-start;  
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .qc {
