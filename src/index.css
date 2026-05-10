@@ -269,15 +269,15 @@ code {
 
 .qc {
   width: 320px;
-  height: max-content;
-  height: auto;
+  min-height: 260px; /* same base height */
   border: 1px solid #ddd;
   border-radius: 10px;
   background: #fff;
-  display: flex;
-  align-items:center;
-  justify-content:center;
 
+  display: flex;
+  flex-direction: column;
+
+  transition: 0.2s ease;
 }
 
 .qc:hover {
@@ -285,51 +285,62 @@ code {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
-
 .qc-body {
-  padding: 5px;
-  width: 300px;;
-  max-height: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .qc-head {
   display: flex;
   justify-content: space-between;
-  align-items:self-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.qc-quiz {
+  flex: 1;
+  min-width: 0;
+    flex-grow: 1;
+
 }
 
 .qc-title {
   text-align: left;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-}
-.qc-quiz {
-  width: 200px;
-  height: 90px;
-}
+  margin-bottom: 8px;
 
-h4 {
-  height: 10px;
+  /* prevent long words breaking layout */
+  word-break: break-word;
 }
 
 .qc-desc {
   font-size: 13px;
   color: black;
-    text-align: left;
-    display: flex;
+  text-align: left;
+  line-height: 1.4;
 
+  word-break: break-word;
+}
+
+.qc-p {
+  margin-top: auto;
 }
 
 p {
   text-align: left;
   font-size: 13px;
-
+  margin: 2px 0;
 }
 
 .qc-badge {
   padding: 4px 8px;
   border-radius: 20px;
   font-size: 11px;
+  white-space: nowrap;
+  height: fit-content;
 }
 
 .pub {
@@ -342,15 +353,18 @@ p {
 }
 
 .qc-foot {
-  margin-top: 10px;
+  margin-top: 2px; 
+
   display: flex;
   justify-content: space-between;
-  align-self: flex-end;
+  align-items: center;
+  gap: 10px;
 }
 
 .qc-foot-left {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .qc-btn {
