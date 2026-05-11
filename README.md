@@ -71,3 +71,6 @@ export default defineConfig([
   },
 ])
 ```
+
+## License
+React is [MIT licensed](LICENSE.txt).
