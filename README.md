@@ -215,3 +215,7 @@ The frontend consumes REST APIs from the Quizzer backend application for:
   https://edu.flinga.fi/s/EVGX2MH
 
 ---
+
+
+## License
+React is [MIT licensed](LICENSE.txt).
