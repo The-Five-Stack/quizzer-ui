@@ -1,15 +1,9 @@
 export type Difficulty = 'EASY' | 'NORMAL' | 'HARD';
 
-export const DifficultyValues = {
-  EASY: 'EASY' as Difficulty,
-  NORMAL: 'NORMAL' as Difficulty,
-  HARD: 'HARD' as Difficulty
-};
-
 export interface Answer {
   id: number;
-  answerContent: string;
-  isCorrect: boolean;
+  content: string;
+  correct: boolean;
 }
 
 export interface Question {
@@ -19,11 +13,65 @@ export interface Question {
   answers: Answer[];
 }
 
+export interface Category {
+  id: number;
+  name: string;
+  description: string;
+}
+
 export interface Quiz {
   id: number;
   name: string;
   description: string;
   courseCode: string;
   published: boolean;
+  category: Category | null;
+  createdAt: string;
   questions: Question[];
+}
+
+export interface QuizInfo {
+  id: number;
+  name: string;
+  description: string;
+  courseCode: string;
+  category: Category | null;
+  published: boolean;
+  createdAt: string;
+}
+export interface QuestionResult {
+  questionId: number;
+  questionText: string;
+  difficulty: string;
+  totalAnswers: number;
+  correctAnswerPercentage: number;
+  correctCount: number;
+  wrongCount: number;
+}
+
+export interface QuizResult {
+  quizId: number;
+  quizName: string;
+  totalAnswers: number;
+  totalQuestions: number;
+  questions: QuestionResult[];
+}
+
+export interface Review {
+  id: number;
+  nickname: string;
+  rating: number;
+  review: string;
+  createdAt: string;
+}
+
+export interface ReviewSummary {
+  totalReviews: number;
+  averageRating: number;
+  reviews: Review[];
+}
+
+export interface ReviewUpdateRequest {
+  rating: number;
+  review: string;
 }

@@ -1,0 +1,61 @@
+.student-question-card {
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+}
+
+.student-question-card__header-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.student-question-card__index {
+  font-weight: 600;
+}
+
+.student-question-card__question {
+  margin-bottom: 16px;
+  font-size: 1.05rem;
+}
+
+.student-question-card__divider {
+  margin-bottom: 16px;
+}
+
+.student-question-card__answers {
+  padding-left: 0;
+}
+
+.student-question-card__answers-label {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.student-question-card__radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.student-question-card__answer-row {
+  align-items: flex-start;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.student-question-card__answer-row .MuiFormControlLabel-label {
+  line-height: 1.4;
+  text-align: left;
+}
+
+.student-question-card__radio {
+  padding-top: 0;
+  padding-bottom: 8px;
+}
+
+.student-question-card__empty-answers {
+  margin-top: 8px;
+}
