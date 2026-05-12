@@ -15,7 +15,25 @@ export default function CategoryList() {
     const [categories, setCategories] = useState<Category[]>([]);
     const columns: GridColDef[] = [
         { field: "name", headerName: "Name", flex: 1, minWidth: 120 },
-        { field: "description", headerName: "Description", flex: 2, minWidth: 300, },
+        { 
+            field: "description", 
+            headerName: "Description", 
+            flex: 3, 
+            minWidth: 300, 
+            renderCell: (p) => (
+                <Box
+                    sx={{
+                        whiteSpace: 'normal',
+                        lineHeight: 1.5,
+                        padding: '12px 8px',
+                        maxHeight: '50px',   
+                        overflow: 'auto',
+                    }}
+                >
+                    {p.value || '-'}
+                </Box>
+            )
+        },
         {
             field: "action",
             headerName: "Action",
