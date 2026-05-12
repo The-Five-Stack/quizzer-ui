@@ -102,10 +102,19 @@ function QuizDetailPage() {
 
             <Box className="quiz-detail-header">
                 <Box>
-                    <Typography variant="h3" gutterBottom className="quiz-detail-title">
+                    <Typography
+                        variant="h3"
+                        gutterBottom
+                        className="quiz-detail-title"
+                        sx={{ wordBreak: 'break-all', overflowWrap: 'anywhere' }}
+                    >
                         {quiz.name}
                     </Typography>
-                    <Typography variant="subtitle1" color="text.secondary">
+                    <Typography
+                        variant="subtitle1"
+                        color="text.secondary"
+                        sx={{ mb: 1, wordBreak: 'break-word', overflowWrap: 'anywhere' }}
+                    >
                         {quiz.description}
                     </Typography>
 
@@ -115,17 +124,17 @@ function QuizDetailPage() {
                             label={quiz.published ? 'Published' : 'Draft'}
                             color={quiz.published ? 'success' : 'default'}
                         />
+
+                        <Button
+                            variant="outlined"
+                            startIcon={<EditIcon />}
+                            onClick={() => id && navigate(`/quizzes/${id}/edit`)}
+                            disabled={!id}
+                        >
+                            Edit Quiz
+                        </Button>
                     </Stack>
                 </Box>
-
-                <Button
-                    variant="outlined"
-                    startIcon={<EditIcon />}
-                    onClick={() => id && navigate(`/quizzes/${id}/edit`)}
-                    disabled={!id}
-                >
-                    Edit Quiz
-                </Button>
             </Box>
 
             <Divider className="quiz-detail-divider" />
