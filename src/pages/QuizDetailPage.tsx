@@ -102,10 +102,19 @@ function QuizDetailPage() {
 
             <Box className="quiz-detail-header">
                 <Box>
-                    <Typography variant="h3" gutterBottom className="quiz-detail-title">
+                    <Typography 
+                        variant="h3" 
+                        gutterBottom 
+                        className="quiz-detail-title"
+                        sx={{ wordBreak: 'break-all', overflowWrap: 'anywhere' }}
+                        >
                         {quiz.name}
                     </Typography>
-                    <Typography variant="subtitle1" color="text.secondary">
+                    <Typography 
+                        variant="subtitle1" 
+                        color="text.secondary"
+                        sx={{ mb: 1, wordBreak: 'break-word', overflowWrap: 'anywhere' }}
+                        >
                         {quiz.description}
                     </Typography>
 

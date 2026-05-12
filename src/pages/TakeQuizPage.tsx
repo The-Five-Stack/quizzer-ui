@@ -144,10 +144,17 @@ export default function TakeQuizPage() {
 
       <Box className="quiz-detail-header">
         <Box sx={{ flex: 1, minWidth: 0 }}>
-          <Typography variant="h3" gutterBottom className="quiz-detail-title">
+          <Typography 
+            variant="h3" 
+            gutterBottom 
+            className="quiz-detail-title"
+            sx={{ wordBreak: 'break-all', overflowWrap: 'anywhere' }}>
             {quiz.name}
           </Typography>
-          <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 1 }}>
+          <Typography 
+            variant="subtitle1" 
+            color="text.secondary" 
+            sx={{ mb: 1, wordBreak: 'break-word', overflowWrap: 'anywhere' }}>
             {quiz.description || "No description provided."}
           </Typography>
 
