@@ -177,7 +177,7 @@ export default function ReviewListPage() {
                                     <Typography variant="body2" color="text.secondary">
                                         Rating: {r.rating}/5
                                     </Typography>
-                                    <Typography variant="body1" sx={{ mt: 1 }}>
+                                    <Typography variant="body1" sx={{ mt: 1, wordBreak: 'break-word' }}>
                                         {r.review}
                                     </Typography>
                                     <Typography

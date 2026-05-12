@@ -41,18 +41,19 @@
 }
 
 .student-question-card__answer-row {
-  align-items: center;
+  align-items: flex-start;
   margin-left: 0;
   margin-right: 0;
 }
 
 .student-question-card__answer-row .MuiFormControlLabel-label {
   line-height: 1.4;
+  text-align: left;
 }
 
 .student-question-card__radio {
   padding-top: 0;
-  padding-bottom: 0;
+  padding-bottom: 8px;
 }
 
 .student-question-card__empty-answers {
